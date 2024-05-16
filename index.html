@@ -49,6 +49,7 @@
       </p>
       <div id="page-content">
         <table class="wiki-content-table">
+          <!-- Version -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -107,6 +108,7 @@
             </tr>
           </tbody>
 
+          <!-- Grammar -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -230,6 +232,7 @@
             </tr>
           </tbody>
 
+          <!-- Variables -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -351,6 +354,7 @@
             </tr>
           </tbody>
 
+          <!-- Expressions and operators -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -507,6 +511,7 @@
             </tr>
           </tbody>
 
+          <!-- Data types -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -628,7 +633,10 @@
               <td></td>
               <td></td>
             </tr>
+          </tbody>
 
+          <!-- Logic -->
+          <tbody>
             <tr>
               <th colspan="4">
                 <a id="logic" href="https://hyperpolyglot.org/scripting#arithmetic-logic-note">logic</a>
@@ -690,6 +698,7 @@
             </tr>
           </tbody>
 
+          <!-- Arithmetic -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -1340,6 +1349,7 @@
             </tr>
           </tbody>
 
+          <!-- String methods -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -1668,6 +1678,7 @@
             </tr>
           </tbody>
 
+          <!-- Reg exes -->
           <tbody>
             <tr>
               <th colspan="4"><a id="regexes" href="https://hyperpolyglot.org/scripting#regexes-note">regular expressions</a></th>
@@ -1999,6 +2010,7 @@
             </tr>
           </tbody>
 
+          <!-- Arrays -->
           <tbody>
             <tr>
               <th colspan="4"><a id="arrays" href="https://hyperpolyglot.org/scripting#arrays-note">arrays</a></th>
@@ -2502,13 +2514,20 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#dict-literal-note">literal</a></td>
-              <td>d = {t: 1, f: 0};<br>
-                <span style="color: gray"><span>//</span> keys do not need to be quoted if they<br>
+              <td>
+                <span style="color: gray">// class Object</span><br>
+                d = {t: 1, f: 0};<br><br>
+                <span style="color: gray">// keys do not need to be quoted if they<br>
                 <span>//</span> are a legal JavaScript variable name<br>
                 <span>//</span> and not a reserved word</span>
               </td>
-              <td>d = {'t': 1, 'f': 0}</td>
-              <td>d = {'t' =&gt; 1, 'f' =&gt; 0}<br>
+              <td>
+                <span style="color: gray"># class dict</span><br>
+                d = {'t': 1, 'f': 0}
+              </td>
+              <td>
+                <span style="color: gray"># class Hash</span><br>
+                d = {'t' =&gt; 1, 'f' =&gt; 0}<br>
                 <br>
                 <span style="color: gray"># keys are symbols:</span><br>
                 symbol_to_int = {t: 1, f: 0}
@@ -2721,6 +2740,7 @@
             </tr>
           </tbody>
 
+          <!-- Sets -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -2898,7 +2918,7 @@
             </tr>
             <tr>
               <td>
-                difference><br>
+                difference<br>
                 <span style="color: gray"><em>short syntax, non-destructive, in-place</em></span>
               </td>
               <td>
@@ -2994,6 +3014,110 @@
             </tr>
           </tbody>
 
+          <!-- Frozen objects -->
+          <tbody>
+            <tr>
+              <th colspan="4">frozen objects</th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>node.js</th>
+              <th>python</th>
+              <th>ruby</th>x
+            </tr>
+            <tr>
+              <td>object as a value of constant</td>
+              <td>
+                <span style="color: gray">// objects can't be replaced</span><br>
+                <span style="color: gray">// properties are free to change</span><br>
+                const obj = { a: 1, b: 2 };<br>
+                const arr = [1, 2, 3];<br><br>
+                obj.a = 10;<br>
+                arr[0] = 5;<br><br>
+                arr = ['b', 'c', 'd']; <span style="color: gray">// TypeError</span>
+              </td>
+              <td>
+                <span style="color: gray"># no proper constant</span><br>
+                <span style="color: gray"># only by convention</span>
+              </td>
+              <td>
+                <span style="color: gray"># warning if capitalized identifier is reassigned</span><br>
+                <span style="color: gray"># properties are free to change</span><br>
+                DICT = { a: 1, b: 2 }<br>
+                ARR = [1, 2, 3]<br><br>
+                DICT[:a] = 10<br>
+                ARR[0] = 5<br><br>
+                ARR = ['b', 'c', 'd'] <span style="color: gray"># warning</span>
+              </td>
+            </tr>
+            <tr>
+              <td>frozen array</td>
+              <td>
+                <span style="color: gray">// create an array and freeze it as an object</span><br>
+                let a = [1, 2, 3];<br>
+                Object.freeze(a);<br><br>
+                a.pop() <span style="color: gray">// TypeError if changing methods are called</span><br>
+                a[0] = 5 <span style="color: gray">// nothing happens</span><br>
+              </td>
+              <td>
+                <span style="color: gray"># build-in class tuples</span><br>
+                t = (1, 2, 3) <span style="color: gray"># or tuple([1, 2, 3])</span><br><br>
+                <span style="color: gray"># only reading methods: count, index etc.</span><br>
+                t[0] = 5 <span style="color: gray"># TypeError</span>
+              </td>
+              <td>
+                <span style="color: gray"># create an array and freeze it</span><br>
+                a = [1, 2, 3].freeze<br><br>
+                <span style="color: gray"># only reading methods are allowed</span><br>
+                a.pop <span style="color: gray"># FrozenError</span><br>
+                a[0] = 5 <span style="color: gray"># FrozenError</span>
+              </td>
+            </tr>
+            <tr>
+              <td>check if array is frozen</td>
+              <td>Object.isFrozen(a)</td>
+              <td><span style="color: gray">none</span></td>
+              <td>a.frozen?</td>
+            </tr>
+            <tr>
+              <td>frozen dictionary</td>
+              <td>
+                <span style="color: gray">// create an object and freeze it</span><br>
+                let obj = { a: 1, b: 2 };<br>
+                Object.freeze(obj);<br><br>
+                obj.a = 5 <span style="color: gray">// nothing happens</span>
+              </td>
+              <td><span style="color: gray">none</span></td>
+              <td>
+                <span style="color: gray"># create a dictionary and freeze it</span><br>
+                d = {'a' => 1, 'b' => 0}.freeze<br><br>
+                d[a] = 5 <span style="color: gray"># FrozenError</span>
+              </td>
+            </tr>
+            <tr>
+              <td>check if dictionary is frozen</td>
+              <td>Object.isFrozen(d)</td>
+              <td><span style="color: gray">none</span></td>
+              <td>d.frozen?</td>
+            </tr>
+            <tr>
+              <td>partly frozen objects</td>
+              <td>
+                obj1 = { a: 1 };<br>
+                <span style="color: gray">// prevents adding new properties</span>
+                Object.preventExtensions(obj); <br>
+                Object.isExtensible(obj) <span style="color: gray">// false</span><br><br>
+                obj2 = { b: 1 }; <br>
+                <span style="color: gray">// prevents extensions and makes existing properties non-configurable</span><br>
+                Object.seal(obj2);<br>
+                Object.isSealed(object2); <span style="color: gray">// true</span>
+              </td>
+              <td><span style="color: gray">none</span></td>
+              <td><span style="color: gray">none</span></td>
+            </tr>
+          </tbody>
+
+          <!-- Functions -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -3362,173 +3486,7 @@
             </tr>
           </tbody>
 
-          <tbody>
-            <tr>
-              <th colspan="4"><a id="execution-control" href="#">execution control</a></th>
-            </tr>
-            <tr>
-              <th></th>
-              <th>node.js</th>
-              <th>python</th>
-              <th>ruby</th>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#if-note">if</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>
-                if (n === 0) {<br>
-                <span>&nbsp;&nbsp;</span>console.log('no hits');<br>
-                } else if (n === 1) {<br>
-                <span>&nbsp;&nbsp;</span>console.log('1 hit');<br>
-                } else {<br>
-                <span>&nbsp;&nbsp;</span>console.log(n + ' hits');<br>
-                }
-              </td>
-              <td>
-                if 0 == n:<br>
-                <span>&nbsp;&nbsp;</span>print('no hits')<br>
-                elif 1 == n:<br>
-                <span>&nbsp;&nbsp;</span>print('one hit')<br>
-                else:<br>
-                <span>&nbsp;&nbsp;</span>print(str(n) + ' hits')
-              </td>
-              <td>
-                if n == 0<br>
-                <span>&nbsp;&nbsp;</span>puts "no hits"<br>
-                elsif 1 == n<br>
-                <span>&nbsp;&nbsp;</span>puts "one hit"<br>
-                else<br>
-                <span>&nbsp;&nbsp;</span>puts "#{n} hits"<br>
-                end
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#switch-note">switch</a></td>
-              <td>
-                switch (n) {<br>
-                case 0:<br>
-                <span>&nbsp;&nbsp;</span>console.log('no hits\n;);<br>
-                <span>&nbsp;&nbsp;</span>break;<br>
-                case 1:<br>
-                <span>&nbsp;&nbsp;</span>console.log('one hit\n');<br>
-                <span>&nbsp;&nbsp;</span>break;<br>
-                default:<br>
-                <span>&nbsp;&nbsp;</span>console.log(n + ' hits\n');<br>
-                }
-              </td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td>
-                case n<br>
-                when 0<br>
-                <span>&nbsp;&nbsp;</span>puts "no hits"<br>
-                when 1<br>
-                <span>&nbsp;&nbsp;</span>puts "one hit"<br>
-                else<br>
-                <span>&nbsp;&nbsp;</span>puts "#{n} hits"<br>
-                end
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="#">while</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>
-                let i = 0;<br><br>
-                while (i &lt; 100) {<br>
-                <span>&nbsp;&nbsp;</span>i += 1;<br>
-                }
-              </td>
-              <td>
-                i = 0<br><br>
-                while i &lt; 100:<br>
-                <span>&nbsp;&nbsp;</span>i += 1
-              </td>
-              <td>
-                i = 0<br><br>
-                while i &lt; 100 do<br>
-                <span>&nbsp;&nbsp;</span>i += 1<br>
-                end
-              </td>
-            </tr>
-            <tr>
-              <td><a href="#">do...while</a><br></td>
-              <td>
-                let i = 0;<br><br>
-                do {<br>
-                &nbsp;&nbsp;i++;<br>
-                &nbsp;&nbsp;console.log(i);<br>
-                } while (i < 5);
-              </td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><a href="#">for</a></td>
-              <td>
-                <span style="color: gray"><em>// common loop</em></span><br>
-                for (let i = 0; i &lt; 10; ++i) {<br>
-                <span>&nbsp;&nbsp;</span>console.log(i);<br>
-                }<br><br>
-                <span style="color: gray"><em>// loop for array</em></span><br>
-                for (let i of arr) {<br>
-                &nbsp;&nbsp;console.log(i);<br>
-                }<br><br>
-                <span style="color: gray"><em>// loop of object keys</em></span><br>
-                for (let key in obj) {<br>
-                &nbsp;&nbsp;console.log(object[key]);<br>
-                }
-              </td>
-              <td>
-                for i in range(1, 11):<br>
-                <span>&nbsp;&nbsp;</span>print(i)
-              </td>
-              <td><span style="color: gray"><em>none</em></span></td>
-            </tr>
-            <tr>
-              <td>
-                <a href="#">break</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>
-                for (let i = 30; i &lt; 50; ++i) {<br>
-                <span>&nbsp;&nbsp;</span>if (i % 7 === 0) {<br>
-                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>console.log('first multiple: ' + i);<br>
-                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>break;<br>
-                <span>&nbsp;&nbsp;</span>}<br>
-                }
-              </td>
-              <td>break</td>
-              <td>break</td>
-            </tr>
-            <tr>
-              <td>
-                <a href="#">continue</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>
-                for (let i = 30; i &lt; 50; ++i) {<br>
-                <span>&nbsp;&nbsp;</span>if (i % 7 === 0) {<br>
-                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>continue;<br>
-                <span>&nbsp;&nbsp;</span>}<br>
-                <span>&nbsp;&nbsp;</span>console.log('not divisible: ' + i);<br>
-                }
-              </td>
-              <td>continue</td>
-              <td>next</td>
-            </tr>
-            <tr>
-              <td><a href="#">statement modifiers</a><br>
-              <span>&nbsp;</span></td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td>puts "positive" if i &gt; 0<br>
-              puts "nonzero" unless i == 0</td>
-            </tr>
-          </tbody>
-
+          <!-- Objects and classes -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -3746,6 +3704,175 @@
             </tr>
           </tbody>
 
+          <!-- Execution control -->
+          <tbody>
+            <tr>
+              <th colspan="4"><a id="execution-control" href="#">execution control</a></th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>node.js</th>
+              <th>python</th>
+              <th>ruby</th>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#if-note">if</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>
+                if (n === 0) {<br>
+                <span>&nbsp;&nbsp;</span>console.log('no hits');<br>
+                } else if (n === 1) {<br>
+                <span>&nbsp;&nbsp;</span>console.log('1 hit');<br>
+                } else {<br>
+                <span>&nbsp;&nbsp;</span>console.log(n + ' hits');<br>
+                }
+              </td>
+              <td>
+                if 0 == n:<br>
+                <span>&nbsp;&nbsp;</span>print('no hits')<br>
+                elif 1 == n:<br>
+                <span>&nbsp;&nbsp;</span>print('one hit')<br>
+                else:<br>
+                <span>&nbsp;&nbsp;</span>print(str(n) + ' hits')
+              </td>
+              <td>
+                if n == 0<br>
+                <span>&nbsp;&nbsp;</span>puts "no hits"<br>
+                elsif 1 == n<br>
+                <span>&nbsp;&nbsp;</span>puts "one hit"<br>
+                else<br>
+                <span>&nbsp;&nbsp;</span>puts "#{n} hits"<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#switch-note">switch</a></td>
+              <td>
+                switch (n) {<br>
+                case 0:<br>
+                <span>&nbsp;&nbsp;</span>console.log('no hits\n;);<br>
+                <span>&nbsp;&nbsp;</span>break;<br>
+                case 1:<br>
+                <span>&nbsp;&nbsp;</span>console.log('one hit\n');<br>
+                <span>&nbsp;&nbsp;</span>break;<br>
+                default:<br>
+                <span>&nbsp;&nbsp;</span>console.log(n + ' hits\n');<br>
+                }
+              </td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td>
+                case n<br>
+                when 0<br>
+                <span>&nbsp;&nbsp;</span>puts "no hits"<br>
+                when 1<br>
+                <span>&nbsp;&nbsp;</span>puts "one hit"<br>
+                else<br>
+                <span>&nbsp;&nbsp;</span>puts "#{n} hits"<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="#">while</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>
+                let i = 0;<br><br>
+                while (i &lt; 100) {<br>
+                <span>&nbsp;&nbsp;</span>i += 1;<br>
+                }
+              </td>
+              <td>
+                i = 0<br><br>
+                while i &lt; 100:<br>
+                <span>&nbsp;&nbsp;</span>i += 1
+              </td>
+              <td>
+                i = 0<br><br>
+                while i &lt; 100 do<br>
+                <span>&nbsp;&nbsp;</span>i += 1<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td><a href="#">do...while</a><br></td>
+              <td>
+                let i = 0;<br><br>
+                do {<br>
+                &nbsp;&nbsp;i++;<br>
+                &nbsp;&nbsp;console.log(i);<br>
+                } while (i < 5);
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><a href="#">for</a></td>
+              <td>
+                <span style="color: gray"><em>// common loop</em></span><br>
+                for (let i = 0; i &lt; 10; ++i) {<br>
+                <span>&nbsp;&nbsp;</span>console.log(i);<br>
+                }<br><br>
+                <span style="color: gray"><em>// loop for array</em></span><br>
+                for (let i of arr) {<br>
+                &nbsp;&nbsp;console.log(i);<br>
+                }<br><br>
+                <span style="color: gray"><em>// loop of object keys</em></span><br>
+                for (let key in obj) {<br>
+                &nbsp;&nbsp;console.log(object[key]);<br>
+                }
+              </td>
+              <td>
+                for i in range(1, 11):<br>
+                <span>&nbsp;&nbsp;</span>print(i)
+              </td>
+              <td><span style="color: gray"><em>none</em></span></td>
+            </tr>
+            <tr>
+              <td>
+                <a href="#">break</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>
+                for (let i = 30; i &lt; 50; ++i) {<br>
+                <span>&nbsp;&nbsp;</span>if (i % 7 === 0) {<br>
+                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>console.log('first multiple: ' + i);<br>
+                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>break;<br>
+                <span>&nbsp;&nbsp;</span>}<br>
+                }
+              </td>
+              <td>break</td>
+              <td>break</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="#">continue</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>
+                for (let i = 30; i &lt; 50; ++i) {<br>
+                <span>&nbsp;&nbsp;</span>if (i % 7 === 0) {<br>
+                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>continue;<br>
+                <span>&nbsp;&nbsp;</span>}<br>
+                <span>&nbsp;&nbsp;</span>console.log('not divisible: ' + i);<br>
+                }
+              </td>
+              <td>continue</td>
+              <td>next</td>
+            </tr>
+            <tr>
+              <td><a href="#">statement modifiers</a><br>
+              <span>&nbsp;</span></td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td>puts "positive" if i &gt; 0<br>
+              puts "nonzero" unless i == 0</td>
+            </tr>
+          </tbody>
+
+          <!-- Exceptions -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -3982,6 +4109,7 @@
             </tr>
           </tbody>
 
+          <!-- Dates and time -->
           <tbody>
             <tr>
               <th colspan="4">
