@@ -2126,6 +2126,49 @@
               </td>
             </tr>
             <tr>
+              <td>compare</td>
+              <td>
+                a1 = [1, 2, 3];<br>
+                a2 = [1, 2, 3];<br><br>
+                <span style="color: gray">// both comparison are false since it's different objects</span><br>
+                a1 == a2<br>
+                a1 === a2<br>
+              </td>
+              <td>
+                a1 = [1, 2, 3]<br>
+                a2 = [1, 2, 3]<br><br>
+                a1 == a2 <span style="color: gray"># True</span>
+              </td>
+              <td>
+                a1 = [1, 2, 3]<br>
+                a2 = [1, 2, 3]<br><br>
+                a1 == a2 <span style="color: gray"># true</span><br>
+                a1 &lt;=&gt; a2 <span style="color: gray"># 0, can return -1, 0, or 1</span><br>
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#array-concatenation-note">concatenate</a></td>
+              <td>a = [1, 2, 3].concat([4, 5, 6]);</td>
+              <td>a = [1, 2, 3]<br>
+                a2 = a + [4, 5, 6]<br>
+                a.extend([4, 5, 6])
+              </td>
+              <td>a = [1, 2, 3]<br>
+                a2 = a + [4, 5, 6]<br>
+                a.concat([4, 5, 6])
+              </td>
+            </tr>
+            <tr>
+              <td>difference</td>
+              <td><span style="color: gray">// none</span></td>
+              <td><span style="color: gray"># none</span></td>
+              <td>
+                a = [1, 2, 3]<br>
+                b = [1, 2]<br>
+                a - b <span style="color: gray"># [3]</span>
+              </td>
+            </tr>
+            <tr>
               <td><a href="https://hyperpolyglot.org/scripting#array-slice-note">slice</a><br>
                 <span style="color: gray"><em>by endpoints, by length</em></span><br>
                 <span>&nbsp;</span>
@@ -2211,18 +2254,6 @@
               <td>a = [6, 7, 8]<br>
                 a.unshift(5)<br>
                 a.shift
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#array-concatenation-note">concatenate</a></td>
-              <td>a = [1, 2, 3].concat([4, 5, 6]);</td>
-              <td>a = [1, 2, 3]<br>
-                a2 = a + [4, 5, 6]<br>
-                a.extend([4, 5, 6])
-              </td>
-              <td>a = [1, 2, 3]<br>
-                a2 = a + [4, 5, 6]<br>
-                a.concat([4, 5, 6])
               </td>
             </tr>
             <tr>
@@ -2627,6 +2658,28 @@
                 <br>
                 a = ['a', 1, 'b', 2, 'c', 3]<br>
                 d = Hash[*a]
+              </td>
+            </tr>
+            <tr>
+              <td>compare</td>
+              <td>
+                let a1 = { a: 1 };<br>
+                let a2 = { a: 1 };<br><br>
+                <span style="color: gray">// both comparison are false since it's different objects</span><br>
+                a1 == a2<br>
+                a1 === a2<br>
+              </td>
+              <td>
+                a1 = { 'a' : 1 }
+                a2 = { 'a' : 1 }<br>
+                a1 == a2 <span style="color: gray"># True</span>
+              </td>
+              <td>
+                a1 = { 'a' =&gt; 1 }<br>
+                a2 = { 'a' =&gt; 1 }<br><br>
+                a1 == a2 <span style="color: gray"># true</span><br>
+                a1 &lt; a2&nbsp;&nbsp;a1 &lt;= a2<br>
+                a1 &gt; a2&nbsp;&nbsp;a1 &gt;= a2
               </td>
             </tr>
             <tr>
@@ -3132,14 +3185,17 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#def-func-note">define</a></td>
-              <td>function add3(x1, x2, x3) {<br>
+              <td>
+                function add3(x1, x2, x3) {<br>
                 <span>&nbsp;&nbsp;</span>return x1 + x2 + x3;<br>
                 }
               </td>
-              <td>def add3(x1, x2, x3):<br>
+              <td>
+                def add3(x1, x2, x3):<br>
                 <span>&nbsp;&nbsp;</span>return x1 + x2 + x3
               </td>
-              <td>def add3(x1, x2, x3)<br>
+              <td>
+                def add3(x1, x2, x3)<br>
                 <span>&nbsp;&nbsp;</span>x1 + x2 + x3<br>
                 end<br>
                 <br>
