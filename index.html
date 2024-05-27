@@ -2850,7 +2850,7 @@
               </td>
             </tr>
             <tr>
-              <td>check if a variable is array</td>
+              <td>check if a variable is set</td>
               <td>
                 s instanceof Set
                 <span style="color: gray">// typeof(s) == 'object'</span>
@@ -3186,15 +3186,18 @@
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#def-func-note">define</a></td>
               <td>
+                <span style="color: gray">// class Function</span><br>
                 function add3(x1, x2, x3) {<br>
                 <span>&nbsp;&nbsp;</span>return x1 + x2 + x3;<br>
                 }
               </td>
               <td>
+                <span style="color: gray">// class function</span><br>
                 def add3(x1, x2, x3):<br>
                 <span>&nbsp;&nbsp;</span>return x1 + x2 + x3
               </td>
               <td>
+                <span style="color: gray">// ???</span><br>
                 def add3(x1, x2, x3)<br>
                 <span>&nbsp;&nbsp;</span>x1 + x2 + x3<br>
                 end<br>
@@ -3202,6 +3205,41 @@
                 <span style="color: gray"># parens are optional and customarily<br>
                 # omitted when defining functions<br>
                 # with no parameters</span>
+              </td>
+            </tr>
+            <tr>
+              <td>function annotation</td>
+              <td>
+                <span style="color: gray">// <a href="https://jsdoc.app/">JSDoc</a><br>
+                /**<br>
+                &nbsp;* Add three numbers.<br>
+                &nbsp;* @param {number} x1 - The first number.<br>
+                &nbsp;* @param {number} x2 - The second number.<br>
+                &nbsp;* @param {number} x3 - The third number.<br>
+                &nbsp;* @returns {number} The sum of the three numbers.<br>
+                &nbsp;*/<br>
+                </span>
+                function add3(x1, x2, x3) {<br>
+                <span>&nbsp;&nbsp;</span>return x1 + x2 + x3;<br>
+                }
+              </td>
+              <td>
+                <span style="color: gray"># build-in <a href="https://peps.python.org/pep-0257/">Docstring</a></span><br>
+                def add3(x1, x2, x3):<br>
+                <span>&nbsp;&nbsp;</span>"""Add three numbers."""<br>
+                <span>&nbsp;&nbsp;</span>return x1 + x2 + x3
+              </td>
+              <td>
+                <span style="color: gray"># <a href="https://yardoc.org/">YARD</a><br>
+                # @param x1 [Integer] the first number<br>
+                # @param x2 [Integer] the second number<br>
+                # @param x3 [Integer] the third number<br>
+                # @return [Integer] the sum of the three numbers</span><br>
+                </span>
+                def add3(x1, x2, x3)<br>
+                <span>&nbsp;&nbsp;</span>x1 + x2 + x3<br>
+                end<br>
+                <br>
               </td>
             </tr>
             <tr>
