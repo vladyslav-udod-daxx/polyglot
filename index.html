@@ -250,7 +250,7 @@
                 <a href="https://hyperpolyglot.org/scripting#local-var-note">local variable</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td><span style="color: gray"><span>//</span> new in ES6:</span><br>
+              <td>
                 let x = 1;<br>
                 let y = 2, z = 3;<br>
                 <br>
@@ -384,9 +384,7 @@
               <td><a href="https://hyperpolyglot.org/scripting#parallel-assignment-note">parallel assignment</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td><span style="color: gray"><span>//</span> new in ES6:</span><br>
-                let [x, y, z] = [1, 2, 3];
-              </td>
+              <td>let [x, y, z] = [1, 2, 3];</td>
               <td>x, y, z = 1, 2, 3<br>
                 <br>
                 <span style="color: gray"># raises ValueError:</span><br>
@@ -426,9 +424,7 @@
               <td><a href="#">swap</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td><span style="color: gray"><span>//</span> new in ES6:</span><br>
-                [x, y] = [y, x];
-              </td>
+              <td>[x, y] = [y, x];</td>
               <td>x, y = y, x</td>
               <td>x, y = y, x</td>
             </tr>
@@ -1328,7 +1324,7 @@
             </tr>
             <tr>
               <td><a href="#">replicate</a><br><br></td>
-              <td>let hbar = _.repeat('-', 80);</td>
+              <td>let hbar = '-'.repeat(80);</td>
               <td>hbar = '-' * 80</td>
               <td>hbar = "-" * 80</td>
             </tr>
@@ -1388,9 +1384,7 @@
               <td><a href="https://hyperpolyglot.org/scripting#capitalize-note">capitalize</a><br>
                 <span style="color: gray"><em>string, words</em></span>
               </td>
-              <td>_.capitalize('lorem');<br>
-                <span style="color: gray"><em>none</em></span>
-              </td>
+              <td><span style="color: gray"><em>none</em></span></td>
               <td>import string<br>
                 <br>
                 'lorem'.capitalize()<br>
@@ -1421,11 +1415,14 @@
               <td><a href="https://hyperpolyglot.org/scripting#pad-note">pad</a><br>
                 <span style="color: gray"><em>on right, on left, centered</em></span>
               </td>
-              <td>_.padStart('lorem', 10)<br>
-                _.padEnd('lorem', 10)<br>
-                _.pad('lorem', 10)
+              <td>
+                <span style="color: gray">// both methods have second optional parameter for pad string</span>
+                'lorem'.padStart(10)<br>
+                'lorem'.padEnd(10)<br>
+                <span style="color: gray"><em>none</em></span>
               </td>
-              <td>'lorem'.ljust(10)<br>
+              <td>
+                'lorem'.ljust(10)<br>
                 'lorem'.rjust(10)<br>
                 'lorem'.center(10)
               </td>
@@ -2160,8 +2157,8 @@
             </tr>
             <tr>
               <td>difference</td>
-              <td><span style="color: gray">// none</span></td>
-              <td><span style="color: gray"># none</span></td>
+              <td><span style="color: gray">none</span></td>
+              <td><span style="color: gray">none</span></td>
               <td>
                 a = [1, 2, 3]<br>
                 b = [1, 2]<br>
@@ -2296,7 +2293,6 @@
                 <span>&nbsp;&nbsp;</span>console.log(n);<br>
                 });<br>
                 <br>
-                <span style="color: gray"><span>//</span> new in ES6:</span><br>
                 for (let n of [6, 7, 8]) {<br>
                 <span>&nbsp;&nbsp;</span>console.log(n);<br>
                 }
@@ -2343,11 +2339,8 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#range-array-note">instantiate range as array</a></td>
-              <td>let a = _.range(1, 11);</td>
-              <td>a = range(1, 11)<br>
-                <span style="color: gray"><em>Python 3:</em></span><br>
-                a = list(range(1, 11))
-              </td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td>a = list(range(1, 11))</td>
               <td>a = (1..10).to_a</td>
             </tr>
             <tr>
@@ -2483,8 +2476,10 @@
               <td><a href="https://hyperpolyglot.org/scripting#shuffle-sample-note">shuffle and sample</a></td>
               <td>let a = [1, 2, 3, 4];<br>
                 <br>
-                a = _.shuffle(a);<br>
-                let samp = _.sampleSize([1, 2, 3, 4], 2);
+                <span style="color: gray"><em>// no build-in functions</em></span><br>
+                <span style="color: gray"><em>// for simple cases shuffle can be replaced by random sort</em></span><br>
+                a.sort(() =&gt; Math.random() - 0.5)<br>
+                <span style="color: gray"><em>// none</em></span>
               </td>
               <td>from random import shuffle, sample<br>
                 <br>
@@ -2500,11 +2495,7 @@
               <td><a href="https://hyperpolyglot.org/scripting#flatten-note">flatten</a><br>
                 <span style="color: gray"><em>one level, completely</em></span>
               </td>
-              <td>let a = [1, [2, [3, 4]]];<br>
-                <br>
-                let a2 = _.flatten(a);<br>
-                let a3 = _.flattenDeep(a);
-              </td>
+              <td><span style="color: gray"><em>none</em></span></td>
               <td><span style="color: gray"><em>none</em></span></td>
               <td>a = [1, [2, [3, 4]]]<br>
                 a2 = a.flatten(1)<br>
@@ -2515,11 +2506,7 @@
               <td><a href="https://hyperpolyglot.org/scripting#zip-note">zip</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td>let a = _.zip([1, 2, 3], ['a', 'b', 'c']);<br>
-                <br>
-                <span style="color: gray"><span>//</span> shorter array padded with undefined:</span><br>
-                _.zip([1, 2, 3], ['a', 'b'])
-              </td>
+              <td><span style="color: gray"><em>none</em></span></td>
               <td>list(zip([1, 2, 3], ['a', 'b', 'c']))<br>
                 <br>
                 <span style="color: gray"># extras in longer array dropped:</span><br>
@@ -2566,7 +2553,7 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#dict-size-note">size</a></td>
-              <td>_.size(d)<br>
+              <td>
                 Object.getOwnPropertyNames(d).length
               </td>
               <td>len(d)</td>
@@ -2643,7 +2630,7 @@
                 </a>
               </td>
               <td>let a = [['a', 1], ['b', 2], ['c', 3]];<br>
-                let d = _.fromPairs(a);<br>
+                let d = Object.fromEntries(a);<br>
                 <br>
                 <span style="color: gray"><em>none</em></span>
               </td>
@@ -2685,24 +2672,21 @@
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#dict-merge-note">merge</a></td>
               <td>let d1 = {a: 1, b: 2};<br>
-                let d2 = {b: 3, c: 4};<br>
-                <span style="color: gray"><span>//</span> d2 overwrites shared keys in d1:</span><br>
-                d1 = _.assignIn(d1, d2);
+                let d2 = {b: 3, c: 4};<br><br>
+                Object.assign(d1, d2)
               </td>
               <td>d1 = {'a': 1, 'b': 2}<br>
-                d2 = {'b': 3, 'c': 4}<br>
+                d2 = {'b': 3, 'c': 4}<br><br>
                 d1.update(d2)
               </td>
               <td>d1 = {'a' =&gt; 1, 'b' =&gt; 2}<br>
-                d2 = {'b' =&gt; 3, 'c' =&gt; 4}<br>
+                d2 = {'b' =&gt; 3, 'c' =&gt; 4}<br><br>
                 d1.merge!(d2)
               </td>
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#dict-invert-note">invert</a></td>
-              <td>let let2num = {t: 1, f: 0};<br>
-                let num2let = _.invert(let2num);
-              </td>
+              <td><span style="color: gray"><em>none</em></span></td>
               <td>to_num = {'t': 1, 'f': 0}<br>
                 <span style="color: gray"># dict comprehensions added in 2.7:</span><br>
                 to_let = {v: k for k, v<br>
@@ -2732,8 +2716,9 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#dict-key-val-note">keys and values as arrays</a></td>
-              <td>Object.keys(d)<br>
-                _.values(d)
+              <td>
+                Object.keys(d)<br>
+                Object.values(d)
               </td>
               <td>list(d.keys())<br>
                 list(d.values())<br>
@@ -2747,21 +2732,24 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#dict-sort-values-note">sort by values</a></td>
-              <td>let cmp = (a, b) =&gt; a[1] - b[1];<br>
+              <td>
+                let cmp = (a, b) =&gt; a[1] - b[1];<br>
                 let d = {t: 1, f: 0};<br>
                 <br>
-                for (let p of _.toPairs(d).sort(cmp)) {<br>
+                for (let p of Object.entries(d).sort(cmp)) {<br>
                 <span>&nbsp;&nbsp;</span>console.log(p);<br>
                 }
               </td>
-              <td>from operator import itemgetter<br>
+              <td>
+                from operator import itemgetter<br>
                 <br>
                 pairs = sorted(d.items(), key=itemgetter(1))<br>
                 <br>
                 for k, v in pairs:<br>
                 <span>&nbsp;&nbsp;</span>print('{}: {}'.format(k, v))
               </td>
-              <td>d.sort_by { |k, v| v }.each do |k, v|<br>
+              <td>
+                d.sort_by { |k, v| v }.each do |k, v|<br>
                 <span>&nbsp;&nbsp;</span>puts "#{k}: #{v}"<br>
                 end
               </td>
@@ -3266,7 +3254,7 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#default-arg-note">default argument</a></td>
-              <td><span style="color: gray"><span>//</span> new in ES6:</span><br>
+              <td>
                 function myLog (x, base = 10) {<br>
                 <span>&nbsp;&nbsp;</span>return Math.log(x) / Math.log(base);<br>
                 }
@@ -3298,7 +3286,6 @@
                 <span>&nbsp;&nbsp;</span>}<br>
                 }<br>
                 <br>
-                <span style="color: gray"><span>// ...</span> operator new in ES6:</span><br>
                 function firstAndLast(<span>...</span>a) {<br>
                 <span>&nbsp;&nbsp;</span>if (a.length &gt;= 1) {<br>
                 <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>console.log('first: ' + a[0]);<br>
@@ -3407,7 +3394,6 @@
                 <span>&nbsp;&nbsp;</span>return x * x;<br>
                 };<br>
                 <br>
-                <span style="color: gray"><span>//</span> =&gt; new in ES6:</span><br>
                 let square = (x) =&gt; { return x * x; };<br>
                 <br>
                 <span style="color: gray"><span>//</span> expression body variant:</span><br>
