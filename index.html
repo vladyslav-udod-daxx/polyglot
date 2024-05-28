@@ -133,13 +133,13 @@
               <td>$ ruby foo.rb</td>
             </tr>
             <tr>
-              <td><a href="#">repl</a><br><br></td>
+              <td><a href="https://hyperpolyglot.org/scripting#repl-note">repl</a><br><br></td>
               <td>$ node</td>
               <td>$ python</td>
               <td>$ irb</td>
             </tr>
             <tr>
-              <td><a href="#">exit from repl</a></td>
+              <td>exit from repl</td>
               <td>process.exit()</td>
               <td>exit()</td>
               <td>
@@ -148,7 +148,7 @@
               </td>
             </tr>
             <tr>
-              <td><a href="#">command line program</a><br><br></td>
+              <td><a href="https://hyperpolyglot.org/scripting#cmd-line-program-note">command line program</a><br><br></td>
               <td>$ node -e "console.log('hi!');"</td>
               <td>$ python -c 'print("hi!")'</td>
               <td>$ ruby -e 'puts "hi!"'</td>
@@ -236,7 +236,7 @@
           <tbody>
             <tr>
               <th colspan="4">
-                <a id="var" href="#">variables</a>
+                <a id="var" href="https://hyperpolyglot.org/scripting#var-expr-note">variables</a>
               </th>
             </tr>
             <tr>
@@ -327,7 +327,7 @@
               </td>
             </tr>
             <tr>
-              <td><a href="#">reserved words</a></td>
+              <td>reserved words</td>
               <td>
                 break case catch class const continue debugger default delete do else export extends
                 false finally for function if import in instanceof new null return super switch this
@@ -403,7 +403,7 @@
               </td>
             </tr>
             <tr>
-              <td><a href="#">destructuring assignment</a><br><br></td>
+              <td>destructuring assignment</td>
               <td>
                 const foo = ["one", "two", "three"];<br><br>
                 let [one, two, three] = foo;<br>
@@ -421,7 +421,7 @@
               </td>
             </tr>
             <tr>
-              <td><a href="#">swap</a><br>
+              <td><a href="https://hyperpolyglot.org/scripting#swap-note">swap</a><br>
                 <span>&nbsp;</span>
               </td>
               <td>[x, y] = [y, x];</td>
@@ -449,6 +449,15 @@
                 &amp;&amp;= <span>||</span>= ^=<br>
                 <span>&lt;&lt;= &gt;&gt;= </span>&amp;= |= ^=
               </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#conditional-expr-note">conditional expression</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>x &gt; 0 ? x : -x</td>
+              <td>x if x &gt; 0 else -x</td>
+              <td>x &gt; 0 ? x : -x</td>
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#incr-decr-note">increment and decrement</a><br>
@@ -496,23 +505,12 @@
               <td><span style="color: gray"><em>raises</em></span> NameError</td>
               <td><span style="color: gray"><em>raises</em></span> NameError</td>
             </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#conditional-expr-note">conditional expression</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>x &gt; 0 ? x : -x</td>
-              <td>x if x &gt; 0 else -x</td>
-              <td>x &gt; 0 ? x : -x</td>
-            </tr>
           </tbody>
 
           <!-- Data types -->
           <tbody>
             <tr>
-              <th colspan="4">
-                <a id="data-types" href="#">data types</a>
-              </th>
+              <th colspan="4">data types</th>
             </tr>
             <tr>
               <th></th>
@@ -530,7 +528,7 @@
               <td>o.object_id</td>
             </tr>
             <tr>
-              <td><a href="#">inspect type</a><br>
+              <td><a href="https://hyperpolyglot.org/scripting2#inspect-type-note">inspect type</a><br>
                 <span>&nbsp;</span>
               </td>
               <td>typeof([]) === 'object'</td>
@@ -538,7 +536,7 @@
               <td>[].class == Array</td>
             </tr>
             <tr>
-              <td><a href="#">basic types</a></td>
+              <td><a href="https://hyperpolyglot.org/scripting2#types-note">basic types</a></td>
               <td>
                 bigint<br>
                 boolean<br>
@@ -606,7 +604,10 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#inspect-class-hierarchy-note">inspect class hierarchy</a></td>
-              <td>let pa = Object.getPrototypeOf(o)<br>
+              <td>
+                <span style="color: gray">// tests the presence of constructor in prototype chain</span>
+                objectName instanceof objectType<br><br>
+                let pa = Object.getPrototypeOf(o)<br>
                 <span style="color: gray"><span>//</span> prototype's of prototype object:</span><br>
                 let grandpa = Object.getPrototypeOf(pa)
               </td>
@@ -616,18 +617,12 @@
               </td>
             </tr>
             <tr>
-              <td><a href="#">has method?</a><br>
+              <td><a href="https://hyperpolyglot.org/scripting2#has-method-note">has method?</a><br>
                 <span>&nbsp;</span>
               </td>
               <td>o.reverse &amp;&amp; typeof(o.reverse) === 'function'</td>
               <td>hasattr(o, 'reverse')</td>
               <td>o.respond_to?("reverse")</td>
-            </tr>
-            <tr>
-              <td><a href="#">instanceof</a><br><br></td>
-              <td>objectName instanceof objectType</td>
-              <td></td>
-              <td></td>
             </tr>
           </tbody>
 
@@ -697,9 +692,7 @@
           <!-- Arithmetic -->
           <tbody>
             <tr>
-              <th colspan="4">
-                <a id="arithmetic" href="#">arithmetic</a>
-              </th>
+              <th colspan="4">arithmetic</th>
             </tr>
             <tr>
               <th></th>
@@ -708,7 +701,7 @@
               <th>ruby</th>
             </tr>
             <tr>
-              <td><a href="#">number literal</a><br><br></td>
+              <td>number literal</td>
               <td>
                 <span style="color: gray"><em>integer and float have the same type</em></span><br>
                 let i = 5
@@ -723,7 +716,7 @@
               </td>
             </tr>
             <tr>
-              <td><a href="#">exponential notation</a><br><br></td>
+              <td>exponential notation</td>
               <td>
                 let x = 1e6
               </td>
@@ -735,13 +728,13 @@
               </td>
             </tr>
             <tr>
-              <td><a href="#">long integer</a><br><br></td>
+              <td>long integer</td>
               <td>let x = 1_000_000_000</td>
               <td><span style="color: gray"><em>none</em></span></td>
               <td>x = 1_000_000_000</td>
             </tr>
             <tr>
-              <td><a href="#">converting into number</a><br><br></td>
+              <td>convert into number</td>
               <td>
                 Number('123')<br>
                 +'123'<br>
@@ -770,8 +763,14 @@
               <td>+ - * x.fdiv(y) / %</td>
             </tr>
             <tr>
-              <td><a href="#">operations with integer and floats</a><br><br></td>
-              <td>4 + 1.0 <span style="color: gray"><em>// 5</em></span></td>
+              <td>operations with integer and floats</td>
+              <td>
+                <span style="color: gray">
+                  <em>since integer and float have the same type, the empty float part is automatically removed</em>
+                </span>
+                <br>
+                4 + 1.0 <span style="color: gray"><em>// 5</em></span>
+              </td>
               <td>4 + 1.0 <span style="color: gray"><em># 5.0</em></span></td>
               <td>4 + 1.0 <span style="color: gray"><em># 5.0</em></span></td>
             </tr>
@@ -1166,7 +1165,7 @@
               <td>"lorem ipsum"[6]</td>
             </tr>
             <tr>
-              <td><a href="#">last character</a><br><br></td>
+              <td>last character</td>
               <td>'abc'.at(-1)</td>
               <td>'abc'[-1]</td>
               <td>'abc'[-1]</td>
@@ -1323,13 +1322,13 @@
               </td>
             </tr>
             <tr>
-              <td><a href="#">replicate</a><br><br></td>
+              <td><a href="https://hyperpolyglot.org/scripting#str-replicate-note">replicate</a><br><br></td>
               <td>let hbar = '-'.repeat(80);</td>
               <td>hbar = '-' * 80</td>
               <td>hbar = "-" * 80</td>
             </tr>
             <tr>
-              <td><a href="#">looping through a string</a><br></td>
+              <td>loop through a string</td>
               <td>
                 for (let x of 'banana') {<br>
                 &nbsp;&nbsp;console.log(x);<br>
@@ -1348,9 +1347,7 @@
           <!-- String methods -->
           <tbody>
             <tr>
-              <th colspan="4">
-                <a id="strings-methods" href="#">string methods and properties</a>
-              </th>
+              <th colspan="4">string methods and properties</th>
             </tr>
             <tr>
               <th></th>
@@ -1592,7 +1589,7 @@
               </td>
             </tr>
             <tr>
-              <td><a href="#">byte array type</a></td>
+              <td><a href="https://hyperpolyglot.org/scripting#bytes-type-note">byte array type</a></td>
               <td>Buffer</td>
               <td>bytes<br>
                 <br>
@@ -2031,13 +2028,13 @@
               </td>
             </tr>
             <tr>
-              <td><a href="#">check if variable is array</a><br></td>
+              <td>check if variable is array</td>
               <td>Array.isArray(a)</td>
               <td>type(a) == list</td>
               <td>a.class == Array</td>
             </tr>
             <tr>
-              <td><a href="#">size</a><br>
+              <td><a href="https://hyperpolyglot.org/scripting#array-size-note">size</a><br>
                 <span>&nbsp;</span>
               </td>
               <td>a.length</td>
@@ -3787,7 +3784,7 @@
           <!-- Execution control -->
           <tbody>
             <tr>
-              <th colspan="4"><a id="execution-control" href="#">execution control</a></th>
+              <th colspan="4"><a id="execution-control" href="https://hyperpolyglot.org/scripting#execution-control-note"></a></th>
             </tr>
             <tr>
               <th></th>
@@ -3855,7 +3852,7 @@
             </tr>
             <tr>
               <td>
-                <a href="#">while</a><br>
+                <a href="https://hyperpolyglot.org/scripting#while-note">while</a><br>
                 <span>&nbsp;</span>
               </td>
               <td>
@@ -3877,7 +3874,7 @@
               </td>
             </tr>
             <tr>
-              <td><a href="#">do...while</a><br></td>
+              <td>do...while</td>
               <td>
                 let i = 0;<br><br>
                 do {<br>
@@ -3889,7 +3886,7 @@
               <td></td>
             </tr>
             <tr>
-              <td><a href="#">for</a></td>
+              <td><a href="https://hyperpolyglot.org/scripting#for-note">for</a></td>
               <td>
                 <span style="color: gray"><em>// common loop</em></span><br>
                 for (let i = 0; i &lt; 10; ++i) {<br>
@@ -3912,7 +3909,7 @@
             </tr>
             <tr>
               <td>
-                <a href="#">break</a><br>
+                <a href="https://hyperpolyglot.org/scripting#break-note">break</a><br>
                 <span>&nbsp;</span>
               </td>
               <td>
@@ -3928,7 +3925,7 @@
             </tr>
             <tr>
               <td>
-                <a href="#">continue</a><br>
+                <a href="https://hyperpolyglot.org/scripting#continue-note">continue</a><br>
                 <span>&nbsp;</span>
               </td>
               <td>
@@ -3943,7 +3940,7 @@
               <td>next</td>
             </tr>
             <tr>
-              <td><a href="#">statement modifiers</a><br>
+              <td><a href="https://hyperpolyglot.org/scripting#statement-modifiers-note">statement modifiers</a><br>
               <span>&nbsp;</span></td>
               <td><span style="color: gray"><em>none</em></span></td>
               <td><span style="color: gray"><em>none</em></span></td>
@@ -3956,7 +3953,7 @@
           <tbody>
             <tr>
               <th colspan="4">
-                <a id="exceptions" href="#">exceptions</a>
+                <a id="exceptions" href="https://hyperpolyglot.org/scripting#exceptions-note">exceptions</a>
               </th>
             </tr>
             <tr>
@@ -3966,7 +3963,7 @@
               <th>ruby</th>
             </tr>
             <tr>
-              <td><a href="#">base exception</a></td>
+              <td><a href="https://hyperpolyglot.org/scripting#base-exc-note">base exception</a></td>
               <td><span style="color: gray"><em>Any value can be thrown.</em></span></td>
               <td>BaseException<br>
                 <br>
@@ -5911,9 +5908,8 @@
               </td>
             </tr>
 
-
             <tr>
-              <th colspan="4"><a href="#">reflection</a></th>
+              <th colspan="4"><a href="https://hyperpolyglot.org/scripting2#reflection-note">reflection</a></th>
             </tr>
             <tr>
               <th></th>
@@ -5922,7 +5918,7 @@
               <th>ruby</th>
             </tr>
             <tr>
-              <td><a href="#">message passing</a><br>
+              <td><a href="https://hyperpolyglot.org/scripting2#msg-passing-note">message passing</a><br>
                 <span>&nbsp;</span>
               </td>
               <td><span style="color: gray"><em>not a standard feature</em></span></td>
