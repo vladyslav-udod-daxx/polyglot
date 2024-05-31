@@ -5,13 +5,13 @@
     <link rel="icon" type="image/gif" href="https://hyperpolyglot.org/favicon.gif">
     <link rel="apple-touch-icon" sizes="120x120" href="https://hyperpolyglot.org/touch-icon-iphone-retina.png">
     <link rel="apple-touch-icon" sizes="152x152" href="https://hyperpolyglot.org/touch-icon-ipad-retina.png">
-    <title>Scripting Languages I: Node.js, Python, PHP, Ruby - Hyperpolyglot</title>
+    <title>Scripting Languages : JavaScript(Node.js / Chrome), Python, PHP, Ruby - Hyperpolyglot</title>
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
     <div id="container-wrap">
       <h1><a href="https://hyperpolyglot.org/"><span>Hyperpolyglot</span></a></h1>
-      <div id="page-title">Scripting Languages: Node.js, Python, Ruby</div>
+      <div id="page-title">Scripting Languages: JavaScript(Node.js / Chrome), Python, Ruby</div>
       <p>
         <strong>sheet one</strong>
         <a href="#version">version</a> |
@@ -49,7 +49,7 @@
       </p>
       <div id="page-content">
         <table class="wiki-content-table">
-          <!-- Version -->
+          <!-- Version and execution -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -57,43 +57,32 @@
               </th>
             </tr>
             <tr>
-              <th colspan="4"><a id="version" href="https://hyperpolyglot.org/scripting#version-note">version</a></th>
+              <th colspan="4">
+                <a id="version" href="https://hyperpolyglot.org/scripting#version-note">version and execution</a>
+              </th>
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#version-used-note">version used</a><br>
-                <span>&nbsp;</span>
+              <td><a href="https://hyperpolyglot.org/scripting#version-used-note">version used</a></td>
+              <td>
+                <span style="color: gray"><em>
+                  Node.js 20.14<br>
+                  Chrome 125
+                </em></span>
               </td>
-              <td><span style="color: gray"><em>6.11</em></span></td>
               <td><span style="color: gray"><em>3.12</em></span></td>
               <td><span style="color: gray"><em>3.3.1</em></span></td>
             </tr>
             <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#version-note">show version</a><br>
-                <span>&nbsp;</span>
-              </td>
+              <td><a href="https://hyperpolyglot.org/scripting#version-note">show version</a></td>
               <td>$ node <span>--</span>version</td>
               <td>$ python -V<br> $ python <span>--</span>version</td>
               <td>$ ruby <span>--</span>version</td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#implicit-prologue-note">implicit prologue</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>
-                <span style="color: gray">
-                <span>//</span> npm install lodash</span>
-                <br>const _ = require('lodash');
-              </td>
-              <td>import os, re, sys</td>
-              <td><span style="color: gray"><em>none</em></span></td>
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#cmd-line-doc-note">command line documentation</a></td>
@@ -105,23 +94,6 @@
                 $ ri Math<br>
                 $ ri Math.atan2
               </td>
-            </tr>
-          </tbody>
-
-          <!-- Grammar -->
-          <tbody>
-            <tr>
-              <th colspan="4">
-                <a id="grammar-invocation" href="https://hyperpolyglot.org/scripting#grammar-execution-note">
-                  grammar and execution
-                </a>
-              </th>
-            </tr>
-            <tr>
-              <th></th>
-              <th>node.js</th>
-              <th>python</th>
-              <th>ruby</th>
             </tr>
             <tr>
               <td>
@@ -153,6 +125,23 @@
               <td>$ python -c 'print("hi!")'</td>
               <td>$ ruby -e 'puts "hi!"'</td>
             </tr>
+          </tbody>
+
+          <!-- Grammar -->
+          <tbody>
+            <tr>
+              <th colspan="4">
+                <a id="grammar-invocation" href="https://hyperpolyglot.org/scripting#grammar-execution-note">
+                  grammar
+                </a>
+              </th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>javascript</th>
+              <th>python</th>
+              <th>ruby</th>
+            </tr>
             <tr>
               <td>
                 <a href="https://hyperpolyglot.org/scripting#block-delimiters-note">block delimiters</a><br>
@@ -163,6 +152,16 @@
               <td>{}<br>
                 do end
               </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#implicit-prologue-note">implicit prologue</a></td>
+              <td>
+                <span style="color: gray">
+                <span>//</span> npm install lodash</span>
+                <br>const _ = require('lodash');
+              </td>
+              <td>import os, re, sys</td>
+              <td><span style="color: gray"><em>none</em></span></td>
             </tr>
             <tr>
               <td>
@@ -241,7 +240,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -365,7 +364,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -492,7 +491,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -644,7 +643,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -705,7 +704,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -1127,7 +1126,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -1360,7 +1359,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -1688,7 +1687,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -2020,7 +2019,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -2532,7 +2531,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -2796,7 +2795,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -3068,9 +3067,9 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
-              <th>ruby</th>x
+              <th>ruby</th>
             </tr>
             <tr>
               <td>object as a value of constant</td>
@@ -3173,7 +3172,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -3581,7 +3580,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -3797,7 +3796,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -3967,7 +3966,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -4207,7 +4206,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -4493,7 +4492,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -4562,7 +4561,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -4899,7 +4898,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -4939,7 +4938,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -5093,7 +5092,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -5311,7 +5310,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -5513,7 +5512,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -5669,7 +5668,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -5922,7 +5921,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -6051,7 +6050,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -6257,7 +6256,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
@@ -6425,7 +6424,7 @@
             </tr>
             <tr>
               <th></th>
-              <th>node.js</th>
+              <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
             </tr>
