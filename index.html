@@ -13,42 +13,50 @@
       <h1><a href="https://hyperpolyglot.org/"><span>Hyperpolyglot</span></a></h1>
       <div id="page-title">Scripting Languages: JavaScript(Node.js / Chrome), Python, Ruby</div>
       <p>
-        <strong>sheet one</strong>
-        <a href="#version">version</a> |
-        <a href="#grammar-invocation">grammar and invocation</a> |
+        <strong>Sheet one: Interaction with the OS</strong>:
+        <a href="#version">version and execution</a> |
+        <a href="#processes-environment">processes and environment</a>
+      </p>
+      <p>
+        <strong>Sheet two: Core features</strong>:
+        <a href="#grammar-invocation">grammar</a> |
         <a href="#var">variables</a> |
-        <a href="#expr">expressions and operators</a> |
         <a href="#data-types">data types</a> |
+        <a href="#logic">logic</a> |
         <a href="#arithmetic">arithmetic</a> |
+        <a href="#expr">expressions and operators</a> |
         <a href="#strings">strings</a> |
         <a href="#strings-methods">string methods</a> |
-        <a href="#regexes">regexes</a> |
-        <a href="#sets">sets</a> |
         <a href="#arrays">arrays</a> |
         <a href="#dictionaries">dictionaries</a> |
+        <a href="#sets">sets</a> |
+        <a href="#frozen-objects">frozen objects</a> |
         <a href="#functions">functions</a> |
+        <a href="#objects">objects and classes</a> |
         <a href="#execution-control">execution control</a> |
-        <a href="#objects">objects</a> |
         <a href="#exceptions">exceptions</a> |
+      </p>
       <p>
-        <strong>sheet two</strong>:
+        <strong>Sheet three: Standart library and additional features</strong>:
+        <a href="#regexes">regexes</a> |
         <a href="#dates-time">dates and time</a> |
-        <a href="#threads">threads</a>
+        <a href="#threads">threads</a> |
         <a href="#streams">streams</a> |
         <a href="#async">asynchronous events</a> |
+        <a href="#reflection">reflection</a> |
+        <a href="#libraries-namespaces">libraries and namespaces</a> |
         <a href="#files">files</a> |
         <a href="#file-fmt">file formats</a> |
         <a href="#directories">directories</a> |
-        <a href="#processes-environment">processes and environment</a> |
         <a href="#option-parsing">option parsing</a> |
-        <a href="#libraries-namespaces">libraries and namespaces</a> |
-        <a href="#reflection">reflection</a> |
         <a href="#net-web">net and web</a> |
         <a href="#unit-tests">unit tests</a> |
         <a href="#debugging">debugging</a>
       </p>
       <div id="page-content">
         <table class="wiki-content-table">
+
+          <!-- Sheet One -->
           <!-- Version and execution -->
           <tbody>
             <tr>
@@ -127,8 +135,171 @@
             </tr>
           </tbody>
 
+          <!-- Processes and environment -->
+          <tbody>
+            <tr>
+              <th colspan="4">
+                <a id="processes-environment" href="https://hyperpolyglot.org/scripting2#processes-environment-note">
+                  processes and environment
+                </a>
+              </th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>javascript</th>
+              <th>python</th>
+              <th>ruby</th>
+            </tr>
+            <tr>
+              <td><a id="cmd-line-arg" href="https://hyperpolyglot.org/scripting2#cmd-line-arg-note">command line arguments</a><br>
+                <span style="color: gray"><em>and script name</em></span>
+              </td>
+              <td>process.argv.slice(2)<br>
+                process.argv[1]<br>
+                <span style="color: gray"><span>//</span> process.argv[0] contains "node"</span>
+              </td>
+              <td>sys.argv[1:]<br>
+                sys.argv[0]
+              </td>
+              <td>ARGV<br>
+                $PROGRAM_NAME
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#env-var-note">environment variable</a><br>
+                <br>
+                <span style="color: gray"><em>get, set</em></span>
+              </td>
+              <td>process.env["HOME"]<br>
+                <br>
+                process.env["PATH"] = "/bin";
+              </td>
+              <td>os.getenv('HOME')<br>
+                <br>
+                os.environ['PATH'] = '/bin'
+              </td>
+              <td>ENV["HOME"]<br>
+                <br>
+                ENV["PATH"] = "/bin"
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#pid-note">get pid, parent pid</a></td>
+              <td>process.pid<br>
+                <span style="color: gray"><em>none</em></span>
+              </td>
+              <td>os.getpid()<br>
+                os.getppid()
+              </td>
+              <td>Process.pid<br>
+                Process.ppid
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#user-id-name-note">user id and name</a></td>
+              <td></td>
+              <td>import getpass<br>
+                <br>
+                os.getuid()<br>
+                getpass.getuser()
+              </td>
+              <td>require 'etc'<br>
+                <br>
+                Process.uid<br>
+                Etc.getpwuid(Process.uid)["name"]
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#exit-note">exit</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>process.exit(0);</td>
+              <td>sys.exit(0)</td>
+              <td>exit(0)</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#signal-handler-note">set signal handler</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td></td>
+              <td>import signal<br>
+                <br>
+                def handler(signo, frame):<br>
+                <span>&nbsp;&nbsp;</span>print('exiting<span>...</span>')<br>
+                <span>&nbsp;&nbsp;</span>sys.exit(1)<br>
+                <br>
+                signal.signal(signal.SIGINT, handler)
+              </td>
+              <td>Signal.trap("INT",<br>
+                <span>&nbsp;&nbsp;</span>lambda do |signo|<br>
+                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>puts "exiting<span>...</span>"<br>
+                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>exit 1<br>
+                <span>&nbsp;&nbsp;</span>end<br>
+                )
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#external-cmd-note">external command</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td></td>
+              <td>if os.system('ls -l /tmp'):<br>
+                <span>&nbsp;&nbsp;</span>raise Exception('ls failed')
+              </td>
+              <td>unless system("ls -l /tmp")<br>
+                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#shell-esc-external-cmd-note">shell-escaped external command</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td></td>
+              <td>import subprocess<br>
+                <br>
+                cmd = ['ls', '-l', '/tmp']<br>
+                if subprocess.call(cmd):<br>
+                <span>&nbsp;&nbsp;</span>raise Exception('ls failed')
+              </td>
+              <td>path = gets<br>
+                path.chomp!<br>
+                unless system("ls", "-l", path)<br>
+                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#cmd-subst-note">command substitution</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td></td>
+              <td>import subprocess<br>
+                <br>
+                cmd = ['ls', '-l', '/tmp']<br>
+                files = subprocess.check_output(cmd)
+              </td>
+              <td>files = <span>`</span>ls -l /tmp<span>`</span><br>
+                unless $?.success?<br>
+                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
+                end<br>
+                <br>
+                files = %x(ls)<br>
+                unless $?.success?<br>
+                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
+                end
+              </td>
+            </tr>
+          </tbody>
+
+          <!-- Sheet two -->
           <!-- Grammar -->
           <tbody>
+            <tr>
+              <th colspan="4">
+                <h3>Sheet two</h3>
+              </th>
+            </tr>
             <tr>
               <th colspan="4">
                 <a id="grammar-invocation" href="https://hyperpolyglot.org/scripting#grammar-execution-note">
@@ -152,16 +323,6 @@
               <td>{}<br>
                 do end
               </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#implicit-prologue-note">implicit prologue</a></td>
-              <td>
-                <span style="color: gray">
-                <span>//</span> npm install lodash</span>
-                <br>const _ = require('lodash');
-              </td>
-              <td>import os, re, sys</td>
-              <td><span style="color: gray"><em>none</em></span></td>
             </tr>
             <tr>
               <td>
@@ -228,6 +389,156 @@
                 another line<br>
                 =end</span>
               </td>
+            </tr>
+          </tbody>
+
+          <!-- Data types -->
+          <tbody>
+            <tr>
+              <th colspan="4"><span id="data-types">data types</span></th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>javascript</th>
+              <th>python</th>
+              <th>ruby</th>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting2#object-id-note">object id</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td>id(o)</td>
+              <td>o.object_id</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#types-note">basic types</a></td>
+              <td>
+                bigint<br>
+                boolean<br>
+                function <span style="color: gray">// not a real type</span> <br>
+                number<br>
+                object<br>
+                string<br>
+                symbol<br>
+                undefined<br>
+                <br>
+                <span style="color: gray"><span>//</span> these evaluate as 'object':</span><br>
+                typeof(null)<br>
+                typeof([])<br>
+                typeof({})
+              </td>
+              <td>
+                bool<br>
+                int<br>
+                float<br>
+                complex<br>
+                str<br>
+                range<br>
+                tuple<br>
+                bytes<br>
+                list<br>
+                bytearray<br>
+                dict<br>
+                file<br>
+                set<br>
+                frozenset<br>
+                function<br>
+                datetime<br>
+                memoryview<br>
+                Ellipsis<br>
+                NoneType<br>
+                NotImplemented<br>
+                re.Pattern<br>
+              </td>
+              <td>NilClass<br>
+                TrueClass<br>
+                FalseClass<br>
+                Fixnum<br>
+                Bignum<br>
+                Float<br>
+                String<br>
+                Regexp<br>
+                Time<br>
+                Array<br>
+                Hash<br>
+                Object<br>
+                File
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#null-note">null</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>null</td>
+              <td>None</td>
+              <td>nil</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#null-test-note">null test</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>v === null</td>
+              <td>v is None</td>
+              <td>v == nil<br>
+                v.nil?
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#undef-var-note">undefined variable</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td><span style="color: gray"><em>Evaluates as</em></span> undefined<br>
+                <br>
+                <span style="color: gray"><em>Use the triple equality</em></span> === <span style="color: gray"><em>operator to test for this value.</em></span>
+              </td>
+              <td><span style="color: gray"><em>raises</em></span> NameError</td>
+              <td><span style="color: gray"><em>raises</em></span> NameError</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#inspect-type-note">inspect type</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>typeof([]) === 'object'</td>
+              <td>type([]) == list</td>
+              <td>[].class == Array</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#inspect-class-note">inspect class</a></td>
+              <td><span style="color: gray"><span>//</span> returns prototype object:</span><br>
+                Object.getPrototypeOf(o)
+              </td>
+              <td>o.<span>__class__</span> == Foo<br>
+                isinstance(o, Foo)
+              </td>
+              <td>o.class == Foo<br>
+                o.instance_of?(Foo)
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#inspect-class-hierarchy-note">inspect class hierarchy</a></td>
+              <td>
+                <span style="color: gray">// tests the presence of constructor in prototype chain</span>
+                objectName instanceof objectType<br><br>
+                let pa = Object.getPrototypeOf(o)<br>
+                <span style="color: gray"><span>//</span> prototype's of prototype object:</span><br>
+                let grandpa = Object.getPrototypeOf(pa)
+              </td>
+              <td>o.<span>__class__</span>.<span>__bases__</span></td>
+              <td>o.class.superclass<br>
+                o.class.included_modules
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#has-method-note">has method?</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>o.reverse &amp;&amp; typeof(o.reverse) === 'function'</td>
+              <td>hasattr(o, 'reverse')</td>
+              <td>o.respond_to?("reverse")</td>
             </tr>
           </tbody>
 
@@ -484,156 +795,6 @@
             </tr>
           </tbody>
 
-          <!-- Data types -->
-          <tbody>
-            <tr>
-              <th colspan="4">data types</th>
-            </tr>
-            <tr>
-              <th></th>
-              <th>javascript</th>
-              <th>python</th>
-              <th>ruby</th>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting2#object-id-note">object id</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td>id(o)</td>
-              <td>o.object_id</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#types-note">basic types</a></td>
-              <td>
-                bigint<br>
-                boolean<br>
-                function <span style="color: gray">// not a real type</span> <br>
-                number<br>
-                object<br>
-                string<br>
-                symbol<br>
-                undefined<br>
-                <br>
-                <span style="color: gray"><span>//</span> these evaluate as 'object':</span><br>
-                typeof(null)<br>
-                typeof([])<br>
-                typeof({})
-              </td>
-              <td>
-                bool<br>
-                int<br>
-                float<br>
-                complex<br>
-                str<br>
-                range<br>
-                tuple<br>
-                bytes<br>
-                list<br>
-                bytearray<br>
-                dict<br>
-                file<br>
-                set<br>
-                frozenset<br>
-                function<br>
-                datetime<br>
-                memoryview<br>
-                Ellipsis<br>
-                NoneType<br>
-                NotImplemented<br>
-                re.Pattern<br>
-              </td>
-              <td>NilClass<br>
-                TrueClass<br>
-                FalseClass<br>
-                Fixnum<br>
-                Bignum<br>
-                Float<br>
-                String<br>
-                Regexp<br>
-                Time<br>
-                Array<br>
-                Hash<br>
-                Object<br>
-                File
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#null-note">null</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>null</td>
-              <td>None</td>
-              <td>nil</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#null-test-note">null test</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>v === null</td>
-              <td>v is None</td>
-              <td>v == nil<br>
-                v.nil?
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#undef-var-note">undefined variable</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td><span style="color: gray"><em>Evaluates as</em></span> undefined<br>
-                <br>
-                <span style="color: gray"><em>Use the triple equality</em></span> === <span style="color: gray"><em>operator to test for this value.</em></span>
-              </td>
-              <td><span style="color: gray"><em>raises</em></span> NameError</td>
-              <td><span style="color: gray"><em>raises</em></span> NameError</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#inspect-type-note">inspect type</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>typeof([]) === 'object'</td>
-              <td>type([]) == list</td>
-              <td>[].class == Array</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#inspect-class-note">inspect class</a></td>
-              <td><span style="color: gray"><span>//</span> returns prototype object:</span><br>
-                Object.getPrototypeOf(o)
-              </td>
-              <td>o.<span>__class__</span> == Foo<br>
-                isinstance(o, Foo)
-              </td>
-              <td>o.class == Foo<br>
-                o.instance_of?(Foo)
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#inspect-class-hierarchy-note">inspect class hierarchy</a></td>
-              <td>
-                <span style="color: gray">// tests the presence of constructor in prototype chain</span>
-                objectName instanceof objectType<br><br>
-                let pa = Object.getPrototypeOf(o)<br>
-                <span style="color: gray"><span>//</span> prototype's of prototype object:</span><br>
-                let grandpa = Object.getPrototypeOf(pa)
-              </td>
-              <td>o.<span>__class__</span>.<span>__bases__</span></td>
-              <td>o.class.superclass<br>
-                o.class.included_modules
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#has-method-note">has method?</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>o.reverse &amp;&amp; typeof(o.reverse) === 'function'</td>
-              <td>hasattr(o, 'reverse')</td>
-              <td>o.respond_to?("reverse")</td>
-            </tr>
-          </tbody>
-
           <!-- Logic -->
           <tbody>
             <tr>
@@ -700,7 +861,7 @@
           <!-- Arithmetic -->
           <tbody>
             <tr>
-              <th colspan="4">arithmetic</th>
+              <th colspan="4"><span id="arithmetic">arithmetic</span></th>
             </tr>
             <tr>
               <th></th>
@@ -1119,7 +1280,10 @@
                 "60".to_i(7)
               </td>
             </tr>
+          </tbody>
 
+          <!-- Strings -->
+          <tbody>
             <tr>
               <th colspan="4">
                 <a id="strings" href="https://hyperpolyglot.org/scripting#strings-note">strings</a></th>
@@ -1355,7 +1519,9 @@
           <!-- String methods -->
           <tbody>
             <tr>
-              <th colspan="4">string methods and properties</th>
+              <th colspan="4">
+                <span id="strings-methods">string methods and properties</span>
+              </th>
             </tr>
             <tr>
               <th></th>
@@ -1677,338 +1843,6 @@
                 <span>&nbsp;&nbsp;</span>'too<span>&nbsp;&nbsp;&nbsp;</span>much<span>&nbsp;&nbsp;&nbsp;</span>space')
               </td>
               <td>"too<span>&nbsp;&nbsp;&nbsp;</span>much<span>&nbsp;&nbsp;&nbsp;</span>space".squeeze(" ")</td>
-            </tr>
-          </tbody>
-
-          <!-- Reg exes -->
-          <tbody>
-            <tr>
-              <th colspan="4"><a id="regexes" href="https://hyperpolyglot.org/scripting#regexes-note">regular expressions</a></th>
-            </tr>
-            <tr>
-              <th></th>
-              <th>javascript</th>
-              <th>python</th>
-              <th>ruby</th>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#regex-literal-note">literal, custom delimited literal</a>
-              </td>
-              <td>/lorem|ipsum/</td>
-              <td>re.compile(r'lorem|ipsum')<br>
-                <span style="color: gray"><em>none</em></span>
-              </td>
-              <td>
-                /lorem|ipsum/<br>
-                %r(/etc/hosts)<br>
-                <span style="color: gray"># double quoted string escapes<br>
-                # and #{} substitution can be used</span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#ascii-char-class-abbrev-note">
-                  ascii character class abbreviations
-                </a>
-              </td>
-              <td>.<span>&nbsp;&nbsp;&nbsp;</span>[^\n]<br>
-                \d<span>&nbsp;&nbsp;</span>[0-9]<br>
-                \D<span>&nbsp;&nbsp;</span>[^0-9]<br>
-                \s<span>&nbsp;&nbsp;</span>[ \t\r\n\f]<br>
-                \S<span>&nbsp;&nbsp;</span>[^ \t\r\n\f]<br>
-                \w<span>&nbsp;&nbsp;</span>[A-Za-z0-9_]<br>
-                \W<span>&nbsp;&nbsp;</span>[^A-Za-z0-9_]
-              </td>
-              <td>
-                .<span>&nbsp;&nbsp;&nbsp;</span>[^\n]<span>&nbsp;&nbsp;</span><span style="color: gray"><em>with</em> re.S <em>modifier matches all chars</em></span><br>
-                \d<span>&nbsp;&nbsp;</span>[0-9]<br>
-                \D<span>&nbsp;&nbsp;</span>[^0-9]<br>
-                \s<span>&nbsp;&nbsp;</span>[ \t\r\n\f]<br>
-                \S<span>&nbsp;&nbsp;</span>[^ \t\r\n\f]<br>
-                \w<span>&nbsp;&nbsp;</span>[A-Za-z0-9_]<br>
-                \W<span>&nbsp;&nbsp;</span>[^A-Za-z0-9_]<br>
-                <br>
-                <span style="color: gray"><em>In Python 3, the above definitions are used when</em> re.A <em>is in effect.</em></span>
-              </td>
-              <td>
-                .<span>&nbsp;&nbsp;&nbsp;</span>[^\n]<span>&nbsp;&nbsp;</span><span style="color: gray"><em>with</em> m <em>modifier matches all chars</em></span><br>
-                \d<span>&nbsp;&nbsp;</span>[0-9]<br>
-                \D<span>&nbsp;&nbsp;</span>[^0-9]<br>
-                \h<span>&nbsp;&nbsp;</span>[0-9a-fA-F]<br>
-                \H<span>&nbsp;&nbsp;</span>[^0-9a-fA-F]<br>
-                \s<span>&nbsp;&nbsp;</span>[ \t\r\n\f]<br>
-                \S<span>&nbsp;&nbsp;</span>[^ \t\r\n\f]<br>
-                \w<span>&nbsp;&nbsp;</span>[A-Za-z0-9_]<br>
-                \W<span>&nbsp;&nbsp;</span>[^ A-Za-z0-9_]
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#unicode-char-class-abbrev-note">
-                  unicode character class abbreviations
-                </a>
-              </td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td>
-                .<span>&nbsp;&nbsp;&nbsp;</span>[^\n]<span>&nbsp;&nbsp;</span><span style="color: gray"><em>with</em> re.S <em>modifier matches all chars</em></span><br>
-                \d<span>&nbsp;&nbsp;</span>[<span style="color: gray"><em>Nd</em></span>]<span>&nbsp;&nbsp;</span><span style="color: gray">Nd: <em>Number, decimal digit</em></span><br>
-                \D<span>&nbsp;&nbsp;</span>[^<span style="color: gray"><em>Nd</em></span>]<br>
-                \s<span>&nbsp;&nbsp;</span>[<span style="color: gray"><em>Z</em></span>\t\n\r\f\v\x1c\x1d\x1e\x1f\x85]<br>
-                \S<span>&nbsp;&nbsp;</span>[^<span style="color: gray"><em>Z</em></span>\t\n\r\f\v\x1c\x1d\x1e\x1f\x85]<br>
-                \w [<span style="color: gray"><em>LN</em></span>_]<span>&nbsp;&nbsp;</span><span style="color: gray">L: <em>Letter</em>; N: <em>Number</em></span><br>
-                \W [<span style="color: gray">^<em>LN</em></span>_]<br>
-                <br>
-                <span style="color: gray"><em>In Python 2, the above definitions are used when</em> re.U <em>is in effect.</em></span>
-              </td>
-              <td>.\p{Digit}<br>
-                \p{^Digit}<br>
-                \p{Space}<br>
-                \p{^Space}<br>
-                \p{Word}<br>
-                \p{^Word}<br>
-                <br>
-                <span style="color: gray"><em>POSIX character classes (e.g.</em> <span>[[:alpha:]]</span><em>), general category values (e.g.</em> \p{L}, \p{Lu}<em>), and script names (e.g.</em> \p{Greek}) <em>also supported.</em></span>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#regex-anchors-note">anchors</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>^<span>&nbsp;&nbsp;&nbsp;</span><span style="color: gray"><em>start of string or line with</em> m <em>modifier</em></span><br>
-                $<span>&nbsp;&nbsp;&nbsp;</span><span style="color: gray"><em>end of string or line with</em> m <em>modifier</em></span><br>
-                \b<span>&nbsp;&nbsp;</span><span style="color: gray"><em>word boundary:</em> \w\W <em>or</em> \W\w</span><br>
-                \B<span>&nbsp;&nbsp;</span><span style="color: gray"><em>non word boundary</em></span>
-              </td>
-              <td>^<span>&nbsp;&nbsp;&nbsp;</span><span style="color: gray"><em>start of string or line with</em> re.M</span><br>
-                $<span>&nbsp;&nbsp;&nbsp;</span><span style="color: gray"><em>end of string or line with</em> re.M</span><br>
-                \A<span>&nbsp;&nbsp;</span><span style="color: gray"><em>start of string</em></span><br>
-                \b<span>&nbsp;&nbsp;</span><span style="color: gray"><em>word boundary:</em> \w\W <em>or</em> \W\w</span><br>
-                \B<span>&nbsp;&nbsp;</span><span style="color: gray"><em>non word boundary</em></span><br>
-                \Z<span>&nbsp;&nbsp;</span><span style="color: gray"><em>end of string</em></span>
-              </td>
-              <td>^<span>&nbsp;&nbsp;&nbsp;</span><span style="color: gray"><em>start of line</em></span><br>
-                $<span>&nbsp;&nbsp;&nbsp;</span><span style="color: gray"><em>end of line</em></span><br>
-                \A<span>&nbsp;&nbsp;</span><span style="color: gray"><em>start of string</em></span><br>
-                \b<span>&nbsp;&nbsp;</span><span style="color: gray"><em>unicode-aware word boundary</em></span><br>
-                \B<span>&nbsp;&nbsp;</span><span style="color: gray"><em>unicode-aware non word boundary</em></span><br>
-                \z<span>&nbsp;&nbsp;</span><span style="color: gray"><em>end of string</em></span><br>
-                \Z<span>&nbsp;&nbsp;</span><span style="color: gray"><em>end of string, excluding final newline</em></span>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#regex-test-note">match test</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>if (s.match(/1999/)) {<br>
-                <span>&nbsp;&nbsp;</span>console.log('party!');<br>
-                }
-              </td>
-              <td>if re.search('1999', s):<br>
-                <span>&nbsp;&nbsp;</span>print('party!')
-              </td>
-              <td>if /1999/.match(s)<br>
-                <span>&nbsp;&nbsp;</span>puts "party!"<br>
-                end
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#case-insensitive-regex-note">case insensitive match test</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>'Lorem'.match(/lorem/i)</td>
-              <td>re.search('lorem', 'Lorem', re.I)</td>
-              <td>/lorem/i.match("Lorem")</td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#regex-modifiers-note">modifiers</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>g<span>&nbsp;&nbsp;</span><span style="color: gray"><em>used for global substitution and scanning</em></span><br>
-                i<span>&nbsp;&nbsp;</span><span style="color: gray"><em>make case insensitive</em></span><br>
-                m<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> ^ <em>and</em> $</span><br>
-                u<span>&nbsp;&nbsp;</span><span style="color: gray">\u{} <em>syntax and astral character support</em></span><br>
-                y<span>&nbsp;&nbsp;</span><span style="color: gray"><em>used to scan in loop</em></span>
-              </td>
-              <td>re.A<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> \b \B \d \D \s \S \w \W</span><br>
-                re.I<span>&nbsp;&nbsp;</span><span style="color: gray"><em>make case insensitive</em></span><br>
-                re.M<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> ^ <em>and</em> $</span><br>
-                re.S<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> .</span><br>
-                re.X<span>&nbsp;&nbsp;</span><span style="color: gray"><em>ignore whitespace outside char class</em></span>
-              </td>
-              <td>i<span>&nbsp;&nbsp;</span><span style="color: gray"><em>make case insensitive</em></span><br>
-                o<span>&nbsp;&nbsp;</span><span style="color: gray"><em>interpolate #{} in literal once</em></span><br>
-                m<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> .</span><br>
-                x<span>&nbsp;&nbsp;</span><span style="color: gray"><em>ignore whitespace outside char class</em></span>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#subst-note">substitution</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>s = 'do re mi mi mi';<br>
-                s.replace(/mi/g, 'ma');
-              </td>
-              <td>s = 'do re mi mi mi'<br>
-                s = re.compile('mi').sub('ma', s)
-              </td>
-              <td>s = "do re mi mi mi"<br>
-                s.gsub!(/mi/, "ma")
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#match-prematch-postmatch-note">match, prematch, postmatch</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>m = /\d{4}/.exec(s);<br>
-                if (m) {<br>
-                <span>&nbsp;&nbsp;</span>match = m[0];<br>
-                <span>&nbsp;&nbsp;</span><span style="color: gray"><span>//</span> no prematch or postmatch</span><br>
-                }
-              </td>
-              <td>m = re.search('\d{4}', s)<br>
-                if m:<br>
-                <span>&nbsp;&nbsp;</span>match = m.group()<br>
-                <span>&nbsp;&nbsp;</span>prematch = s[0:m.start(0)]<br>
-                <span>&nbsp;&nbsp;</span>postmatch = s[m.end(0):len(s)]
-              </td>
-              <td>m = /\d{4}/.match(s)<br>
-                if m<br>
-                <span>&nbsp;&nbsp;</span>match = m[0]<br>
-                <span>&nbsp;&nbsp;</span>prematch = m.pre_match<br>
-                <span>&nbsp;&nbsp;</span>postmatch = m.post_match<br>
-                end
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#case-insensitive-regex-note">case insensitive match test</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>'Lorem'.match(/lorem/i)</td>
-              <td>re.search('lorem', 'Lorem', re.I)</td>
-              <td>/lorem/i.match("Lorem")</td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#regex-modifiers-note">modifiers</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>
-                g<span>&nbsp;&nbsp;</span><span style="color: gray"><em>used for global substitution and scanning</em></span><br>
-                i<span>&nbsp;&nbsp;</span><span style="color: gray"><em>make case insensitive</em></span><br>
-                m<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> ^ <em>and</em> $</span><br>
-                u<span>&nbsp;&nbsp;</span><span style="color: gray">\u{} <em>syntax and astral character support</em></span><br>
-                y<span>&nbsp;&nbsp;</span><span style="color: gray"><em>used to scan in loop</em></span>
-              </td>
-              <td>
-                re.A<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> \b \B \d \D \s \S \w \W</span><br>
-                re.I<span>&nbsp;&nbsp;</span><span style="color: gray"><em>make case insensitive</em></span><br>
-                re.M<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> ^ <em>and</em> $</span><br>
-                re.S<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> .</span><br>
-                re.X<span>&nbsp;&nbsp;</span><span style="color: gray"><em>ignore whitespace outside char class</em></span>
-              </td>
-              <td>
-                i<span>&nbsp;&nbsp;</span><span style="color: gray"><em>make case insensitive</em></span><br>
-                o<span>&nbsp;&nbsp;</span><span style="color: gray"><em>interpolate #{} in literal once</em></span><br>
-                m<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> .</span><br>
-                x<span>&nbsp;&nbsp;</span><span style="color: gray"><em>ignore whitespace outside char class</em></span>
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#subst-note">substitution</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>s = 'do re mi mi mi';<br>
-                s.replace(/mi/g, 'ma');
-              </td>
-              <td>s = 'do re mi mi mi'<br>
-                s = re.compile('mi').sub('ma', s)
-              </td>
-              <td>s = "do re mi mi mi"<br>
-                s.gsub!(/mi/, "ma")
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#match-prematch-postmatch-note">match, prematch, postmatch</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>m = /\d{4}/.exec(s);<br>
-                if (m) {<br>
-                <span>&nbsp;&nbsp;</span>match = m[0];<br>
-                <span>&nbsp;&nbsp;</span><span style="color: gray"><span>//</span> no prematch or postmatch</span><br>
-                }
-              </td>
-              <td>m = re.search('\d{4}', s)<br>
-                if m:<br>
-                <span>&nbsp;&nbsp;</span>match = m.group()<br>
-                <span>&nbsp;&nbsp;</span>prematch = s[0:m.start(0)]<br>
-                <span>&nbsp;&nbsp;</span>postmatch = s[m.end(0):len(s)]
-              </td>
-              <td>m = /\d{4}/.match(s)<br>
-                if m<br>
-                <span>&nbsp;&nbsp;</span>match = m[0]<br>
-                <span>&nbsp;&nbsp;</span>prematch = m.pre_match<br>
-                <span>&nbsp;&nbsp;</span>postmatch = m.post_match<br>
-                end
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#named-group-capture-note">named group capture</a></td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td>rx = '^(?P&lt;file&gt;.+)\.(?P&lt;suffix&gt;.+)$'<br>
-                m = re.search(rx, 'foo.txt')<br>
-                <br>
-                m.groupdict()['file']<br>
-                m.groupdict()['suffix']
-              </td>
-              <td>rx = /^(?&lt;file&gt;.+)\.(?&lt;suffix&gt;.+)$/<br>
-                m = rx.match('foo.txt')<br>
-                <br>
-                m["file"]<br>
-                m["suffix"]
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#scan-note">scan</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>let a = 'dolor sit amet'.match(/\w+/g);</td>
-              <td>
-                s = 'dolor sit amet'<br>
-                a = re.findall('\w+', s)
-              </td>
-              <td>a = "dolor sit amet".scan(/\w+/)</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#backreference-note">backreference in match and substitution</a></td>
-              <td>
-                /(\w+) \1/.exec('do do')<br>
-                <br>
-                'do re'.replace(/(\w+) (\w+)/, '$2 $1')
-              </td>
-              <td>
-                <span style="color: gray"><em>none</em></span><br>
-                <br>
-                rx = re.compile('(\w+) (\w+)')<br>
-                rx.sub(r'\2 \1', 'do re')
-              </td>
-              <td>/(\w+) \1/.match("do do")<br>
-                <br>
-                "do re".sub(/(\w+) (\w+)/, '\2 \1')
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#recursive-regex-note">recursive regex</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td>/(?&lt;foo&gt;\(([^()]*|\g&lt;foo&gt;)*\))/</td>
             </tr>
           </tbody>
 
@@ -2523,7 +2357,10 @@
                 [1, 2, 3].zip(["a", "b"])
               </td>
             </tr>
+          </tbody>
 
+          <!-- Dictionaries -->
+          <tbody>
             <tr>
               <th colspan="4">
                 <a id="dictionaries" href="https://hyperpolyglot.org/scripting#dictionaries-note">dictionaries</a>
@@ -3063,7 +2900,7 @@
           <!-- Frozen objects -->
           <tbody>
             <tr>
-              <th colspan="4">frozen objects</th>
+              <th colspan="4"><span id="frozen-objects"></span>frozen objects</th>
             </tr>
             <tr>
               <th></th>
@@ -3792,7 +3629,9 @@
           <!-- Execution control -->
           <tbody>
             <tr>
-              <th colspan="4"><a id="execution-control" href="https://hyperpolyglot.org/scripting#execution-control-note"></a></th>
+              <th colspan="4">
+                <a id="execution-control" href="https://hyperpolyglot.org/scripting#execution-control-note">execution control</a>
+              </th>
             </tr>
             <tr>
               <th></th>
@@ -4194,15 +4033,351 @@
             </tr>
           </tbody>
 
+
+          <!-- Sheet three -->
+          <!-- Regexes -->
+          <tbody>
+            <tr>
+              <th colspan="4">
+                <h3>Sheet three</h3>
+              </th>
+            </tr>
+            <tr>
+              <th colspan="4"><a id="regexes" href="https://hyperpolyglot.org/scripting#regexes-note">regular expressions</a></th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>javascript</th>
+              <th>python</th>
+              <th>ruby</th>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#regex-literal-note">literal, custom delimited literal</a>
+              </td>
+              <td>/lorem|ipsum/</td>
+              <td>re.compile(r'lorem|ipsum')<br>
+                <span style="color: gray"><em>none</em></span>
+              </td>
+              <td>
+                /lorem|ipsum/<br>
+                %r(/etc/hosts)<br>
+                <span style="color: gray"># double quoted string escapes<br>
+                # and #{} substitution can be used</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#ascii-char-class-abbrev-note">
+                  ascii character class abbreviations
+                </a>
+              </td>
+              <td>.<span>&nbsp;&nbsp;&nbsp;</span>[^\n]<br>
+                \d<span>&nbsp;&nbsp;</span>[0-9]<br>
+                \D<span>&nbsp;&nbsp;</span>[^0-9]<br>
+                \s<span>&nbsp;&nbsp;</span>[ \t\r\n\f]<br>
+                \S<span>&nbsp;&nbsp;</span>[^ \t\r\n\f]<br>
+                \w<span>&nbsp;&nbsp;</span>[A-Za-z0-9_]<br>
+                \W<span>&nbsp;&nbsp;</span>[^A-Za-z0-9_]
+              </td>
+              <td>
+                .<span>&nbsp;&nbsp;&nbsp;</span>[^\n]<span>&nbsp;&nbsp;</span><span style="color: gray"><em>with</em> re.S <em>modifier matches all chars</em></span><br>
+                \d<span>&nbsp;&nbsp;</span>[0-9]<br>
+                \D<span>&nbsp;&nbsp;</span>[^0-9]<br>
+                \s<span>&nbsp;&nbsp;</span>[ \t\r\n\f]<br>
+                \S<span>&nbsp;&nbsp;</span>[^ \t\r\n\f]<br>
+                \w<span>&nbsp;&nbsp;</span>[A-Za-z0-9_]<br>
+                \W<span>&nbsp;&nbsp;</span>[^A-Za-z0-9_]<br>
+                <br>
+                <span style="color: gray"><em>In Python 3, the above definitions are used when</em> re.A <em>is in effect.</em></span>
+              </td>
+              <td>
+                .<span>&nbsp;&nbsp;&nbsp;</span>[^\n]<span>&nbsp;&nbsp;</span><span style="color: gray"><em>with</em> m <em>modifier matches all chars</em></span><br>
+                \d<span>&nbsp;&nbsp;</span>[0-9]<br>
+                \D<span>&nbsp;&nbsp;</span>[^0-9]<br>
+                \h<span>&nbsp;&nbsp;</span>[0-9a-fA-F]<br>
+                \H<span>&nbsp;&nbsp;</span>[^0-9a-fA-F]<br>
+                \s<span>&nbsp;&nbsp;</span>[ \t\r\n\f]<br>
+                \S<span>&nbsp;&nbsp;</span>[^ \t\r\n\f]<br>
+                \w<span>&nbsp;&nbsp;</span>[A-Za-z0-9_]<br>
+                \W<span>&nbsp;&nbsp;</span>[^ A-Za-z0-9_]
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#unicode-char-class-abbrev-note">
+                  unicode character class abbreviations
+                </a>
+              </td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td>
+                .<span>&nbsp;&nbsp;&nbsp;</span>[^\n]<span>&nbsp;&nbsp;</span><span style="color: gray"><em>with</em> re.S <em>modifier matches all chars</em></span><br>
+                \d<span>&nbsp;&nbsp;</span>[<span style="color: gray"><em>Nd</em></span>]<span>&nbsp;&nbsp;</span><span style="color: gray">Nd: <em>Number, decimal digit</em></span><br>
+                \D<span>&nbsp;&nbsp;</span>[^<span style="color: gray"><em>Nd</em></span>]<br>
+                \s<span>&nbsp;&nbsp;</span>[<span style="color: gray"><em>Z</em></span>\t\n\r\f\v\x1c\x1d\x1e\x1f\x85]<br>
+                \S<span>&nbsp;&nbsp;</span>[^<span style="color: gray"><em>Z</em></span>\t\n\r\f\v\x1c\x1d\x1e\x1f\x85]<br>
+                \w [<span style="color: gray"><em>LN</em></span>_]<span>&nbsp;&nbsp;</span><span style="color: gray">L: <em>Letter</em>; N: <em>Number</em></span><br>
+                \W [<span style="color: gray">^<em>LN</em></span>_]<br>
+                <br>
+                <span style="color: gray"><em>In Python 2, the above definitions are used when</em> re.U <em>is in effect.</em></span>
+              </td>
+              <td>.\p{Digit}<br>
+                \p{^Digit}<br>
+                \p{Space}<br>
+                \p{^Space}<br>
+                \p{Word}<br>
+                \p{^Word}<br>
+                <br>
+                <span style="color: gray"><em>POSIX character classes (e.g.</em> <span>[[:alpha:]]</span><em>), general category values (e.g.</em> \p{L}, \p{Lu}<em>), and script names (e.g.</em> \p{Greek}) <em>also supported.</em></span>
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#regex-anchors-note">anchors</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>^<span>&nbsp;&nbsp;&nbsp;</span><span style="color: gray"><em>start of string or line with</em> m <em>modifier</em></span><br>
+                $<span>&nbsp;&nbsp;&nbsp;</span><span style="color: gray"><em>end of string or line with</em> m <em>modifier</em></span><br>
+                \b<span>&nbsp;&nbsp;</span><span style="color: gray"><em>word boundary:</em> \w\W <em>or</em> \W\w</span><br>
+                \B<span>&nbsp;&nbsp;</span><span style="color: gray"><em>non word boundary</em></span>
+              </td>
+              <td>^<span>&nbsp;&nbsp;&nbsp;</span><span style="color: gray"><em>start of string or line with</em> re.M</span><br>
+                $<span>&nbsp;&nbsp;&nbsp;</span><span style="color: gray"><em>end of string or line with</em> re.M</span><br>
+                \A<span>&nbsp;&nbsp;</span><span style="color: gray"><em>start of string</em></span><br>
+                \b<span>&nbsp;&nbsp;</span><span style="color: gray"><em>word boundary:</em> \w\W <em>or</em> \W\w</span><br>
+                \B<span>&nbsp;&nbsp;</span><span style="color: gray"><em>non word boundary</em></span><br>
+                \Z<span>&nbsp;&nbsp;</span><span style="color: gray"><em>end of string</em></span>
+              </td>
+              <td>^<span>&nbsp;&nbsp;&nbsp;</span><span style="color: gray"><em>start of line</em></span><br>
+                $<span>&nbsp;&nbsp;&nbsp;</span><span style="color: gray"><em>end of line</em></span><br>
+                \A<span>&nbsp;&nbsp;</span><span style="color: gray"><em>start of string</em></span><br>
+                \b<span>&nbsp;&nbsp;</span><span style="color: gray"><em>unicode-aware word boundary</em></span><br>
+                \B<span>&nbsp;&nbsp;</span><span style="color: gray"><em>unicode-aware non word boundary</em></span><br>
+                \z<span>&nbsp;&nbsp;</span><span style="color: gray"><em>end of string</em></span><br>
+                \Z<span>&nbsp;&nbsp;</span><span style="color: gray"><em>end of string, excluding final newline</em></span>
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#regex-test-note">match test</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>if (s.match(/1999/)) {<br>
+                <span>&nbsp;&nbsp;</span>console.log('party!');<br>
+                }
+              </td>
+              <td>if re.search('1999', s):<br>
+                <span>&nbsp;&nbsp;</span>print('party!')
+              </td>
+              <td>if /1999/.match(s)<br>
+                <span>&nbsp;&nbsp;</span>puts "party!"<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#case-insensitive-regex-note">case insensitive match test</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>'Lorem'.match(/lorem/i)</td>
+              <td>re.search('lorem', 'Lorem', re.I)</td>
+              <td>/lorem/i.match("Lorem")</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#regex-modifiers-note">modifiers</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>g<span>&nbsp;&nbsp;</span><span style="color: gray"><em>used for global substitution and scanning</em></span><br>
+                i<span>&nbsp;&nbsp;</span><span style="color: gray"><em>make case insensitive</em></span><br>
+                m<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> ^ <em>and</em> $</span><br>
+                u<span>&nbsp;&nbsp;</span><span style="color: gray">\u{} <em>syntax and astral character support</em></span><br>
+                y<span>&nbsp;&nbsp;</span><span style="color: gray"><em>used to scan in loop</em></span>
+              </td>
+              <td>re.A<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> \b \B \d \D \s \S \w \W</span><br>
+                re.I<span>&nbsp;&nbsp;</span><span style="color: gray"><em>make case insensitive</em></span><br>
+                re.M<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> ^ <em>and</em> $</span><br>
+                re.S<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> .</span><br>
+                re.X<span>&nbsp;&nbsp;</span><span style="color: gray"><em>ignore whitespace outside char class</em></span>
+              </td>
+              <td>i<span>&nbsp;&nbsp;</span><span style="color: gray"><em>make case insensitive</em></span><br>
+                o<span>&nbsp;&nbsp;</span><span style="color: gray"><em>interpolate #{} in literal once</em></span><br>
+                m<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> .</span><br>
+                x<span>&nbsp;&nbsp;</span><span style="color: gray"><em>ignore whitespace outside char class</em></span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#subst-note">substitution</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>s = 'do re mi mi mi';<br>
+                s.replace(/mi/g, 'ma');
+              </td>
+              <td>s = 'do re mi mi mi'<br>
+                s = re.compile('mi').sub('ma', s)
+              </td>
+              <td>s = "do re mi mi mi"<br>
+                s.gsub!(/mi/, "ma")
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#match-prematch-postmatch-note">match, prematch, postmatch</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>m = /\d{4}/.exec(s);<br>
+                if (m) {<br>
+                <span>&nbsp;&nbsp;</span>match = m[0];<br>
+                <span>&nbsp;&nbsp;</span><span style="color: gray"><span>//</span> no prematch or postmatch</span><br>
+                }
+              </td>
+              <td>m = re.search('\d{4}', s)<br>
+                if m:<br>
+                <span>&nbsp;&nbsp;</span>match = m.group()<br>
+                <span>&nbsp;&nbsp;</span>prematch = s[0:m.start(0)]<br>
+                <span>&nbsp;&nbsp;</span>postmatch = s[m.end(0):len(s)]
+              </td>
+              <td>m = /\d{4}/.match(s)<br>
+                if m<br>
+                <span>&nbsp;&nbsp;</span>match = m[0]<br>
+                <span>&nbsp;&nbsp;</span>prematch = m.pre_match<br>
+                <span>&nbsp;&nbsp;</span>postmatch = m.post_match<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#case-insensitive-regex-note">case insensitive match test</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>'Lorem'.match(/lorem/i)</td>
+              <td>re.search('lorem', 'Lorem', re.I)</td>
+              <td>/lorem/i.match("Lorem")</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#regex-modifiers-note">modifiers</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>
+                g<span>&nbsp;&nbsp;</span><span style="color: gray"><em>used for global substitution and scanning</em></span><br>
+                i<span>&nbsp;&nbsp;</span><span style="color: gray"><em>make case insensitive</em></span><br>
+                m<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> ^ <em>and</em> $</span><br>
+                u<span>&nbsp;&nbsp;</span><span style="color: gray">\u{} <em>syntax and astral character support</em></span><br>
+                y<span>&nbsp;&nbsp;</span><span style="color: gray"><em>used to scan in loop</em></span>
+              </td>
+              <td>
+                re.A<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> \b \B \d \D \s \S \w \W</span><br>
+                re.I<span>&nbsp;&nbsp;</span><span style="color: gray"><em>make case insensitive</em></span><br>
+                re.M<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> ^ <em>and</em> $</span><br>
+                re.S<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> .</span><br>
+                re.X<span>&nbsp;&nbsp;</span><span style="color: gray"><em>ignore whitespace outside char class</em></span>
+              </td>
+              <td>
+                i<span>&nbsp;&nbsp;</span><span style="color: gray"><em>make case insensitive</em></span><br>
+                o<span>&nbsp;&nbsp;</span><span style="color: gray"><em>interpolate #{} in literal once</em></span><br>
+                m<span>&nbsp;&nbsp;</span><span style="color: gray"><em>change meaning of</em> .</span><br>
+                x<span>&nbsp;&nbsp;</span><span style="color: gray"><em>ignore whitespace outside char class</em></span>
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#subst-note">substitution</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>s = 'do re mi mi mi';<br>
+                s.replace(/mi/g, 'ma');
+              </td>
+              <td>s = 'do re mi mi mi'<br>
+                s = re.compile('mi').sub('ma', s)
+              </td>
+              <td>s = "do re mi mi mi"<br>
+                s.gsub!(/mi/, "ma")
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#match-prematch-postmatch-note">match, prematch, postmatch</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>m = /\d{4}/.exec(s);<br>
+                if (m) {<br>
+                <span>&nbsp;&nbsp;</span>match = m[0];<br>
+                <span>&nbsp;&nbsp;</span><span style="color: gray"><span>//</span> no prematch or postmatch</span><br>
+                }
+              </td>
+              <td>m = re.search('\d{4}', s)<br>
+                if m:<br>
+                <span>&nbsp;&nbsp;</span>match = m.group()<br>
+                <span>&nbsp;&nbsp;</span>prematch = s[0:m.start(0)]<br>
+                <span>&nbsp;&nbsp;</span>postmatch = s[m.end(0):len(s)]
+              </td>
+              <td>m = /\d{4}/.match(s)<br>
+                if m<br>
+                <span>&nbsp;&nbsp;</span>match = m[0]<br>
+                <span>&nbsp;&nbsp;</span>prematch = m.pre_match<br>
+                <span>&nbsp;&nbsp;</span>postmatch = m.post_match<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#named-group-capture-note">named group capture</a></td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td>rx = '^(?P&lt;file&gt;.+)\.(?P&lt;suffix&gt;.+)$'<br>
+                m = re.search(rx, 'foo.txt')<br>
+                <br>
+                m.groupdict()['file']<br>
+                m.groupdict()['suffix']
+              </td>
+              <td>rx = /^(?&lt;file&gt;.+)\.(?&lt;suffix&gt;.+)$/<br>
+                m = rx.match('foo.txt')<br>
+                <br>
+                m["file"]<br>
+                m["suffix"]
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#scan-note">scan</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>let a = 'dolor sit amet'.match(/\w+/g);</td>
+              <td>
+                s = 'dolor sit amet'<br>
+                a = re.findall('\w+', s)
+              </td>
+              <td>a = "dolor sit amet".scan(/\w+/)</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#backreference-note">backreference in match and substitution</a></td>
+              <td>
+                /(\w+) \1/.exec('do do')<br>
+                <br>
+                'do re'.replace(/(\w+) (\w+)/, '$2 $1')
+              </td>
+              <td>
+                <span style="color: gray"><em>none</em></span><br>
+                <br>
+                rx = re.compile('(\w+) (\w+)')<br>
+                rx.sub(r'\2 \1', 'do re')
+              </td>
+              <td>/(\w+) \1/.match("do do")<br>
+                <br>
+                "do re".sub(/(\w+) (\w+)/, '\2 \1')
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#recursive-regex-note">recursive regex</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td>/(?&lt;foo&gt;\(([^()]*|\g&lt;foo&gt;)*\))/</td>
+            </tr>
+          </tbody>
+
           <!-- Dates and time -->
           <tbody>
             <tr>
               <th colspan="4">
-                <h3>Sheet two</h3>
+                <a id="dates-time" href="https://hyperpolyglot.org/scripting#dates-time-note">dates and time</a>
               </th>
-            </tr>
-            <tr>
-              <th colspan="4"><a id="dates-time" href="https://hyperpolyglot.org/scripting#dates-time-note">dates and time</a></th>
             </tr>
             <tr>
               <th></th>
@@ -4486,6 +4661,7 @@
             </tr>
           </tbody>
 
+          <!-- Threads -->
           <tbody>
             <tr>
               <th colspan="4"><a id="threads" href="https://hyperpolyglot.org/scripting#threads-note">threads</a></th>
@@ -4555,6 +4731,7 @@
             </tr>
           </tbody>
 
+          <!-- Streams -->
           <tbody>
             <tr>
               <th colspan="4"><a id="streams" href="https://hyperpolyglot.org/scripting2#streams-note">streams</a></th>
@@ -4932,380 +5109,12 @@
             </tr>
           </tbody>
 
-          <tbody>
-            <tr>
-              <th colspan="4"><a id="files" href="https://hyperpolyglot.org/scripting2#files-note">files</a></th>
-            </tr>
-            <tr>
-              <th></th>
-              <th>javascript</th>
-              <th>python</th>
-              <th>ruby</th>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#file-test-note">file exists test, file regular test</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>let fs = require('fs');<br>
-                <br>
-                let exists = fs.existsSync('/etc/hosts');<br>
-                let stat = fs.statSync('/etc/hosts');<br>
-                let regular = stat.isFile();
-              </td>
-              <td>os.path.exists('/etc/hosts')<br>
-                os.path.isfile('/etc/hosts')
-              </td>
-              <td>File.exists?("/etc/hosts")<br>
-                File.file?("/etc/hosts")
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#file-size-note">file size</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>let fs = require('fs');<br>
-                <br>
-                let stat = fs.statSync('/etc/hosts');<br>
-                let size = stat.size;
-              </td>
-              <td>os.path.getsize('/etc/hosts')</td>
-              <td>File.size("/etc/hosts")</td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting2#readable-writable-executable-note">
-                  is file readable, writable, executable
-                </a>
-              </td>
-              <td>let fs = require('fs');<br>
-                <br>
-                <span style="color: gray"><span>//</span> no return values; exception thrown<br>
-                <span>//</span> if not readable, writable, or executable:</span><br>
-                fs.accessSync('/etc/hosts',<br>
-                <span>&nbsp;&nbsp;</span>fs.constants.R_OK);<br>
-                fs.accessSync('/etc/hosts',<br>
-                <span>&nbsp;&nbsp;</span>fs.constants.W_OK);<br>
-                fs.accessSync('/etc/hosts',<br>
-                <span>&nbsp;&nbsp;</span>fs.constants.X_OK);
-              </td>
-              <td>os.access('/etc/hosts', os.R_OK)<br>
-                os.access('/etc/hosts', os.W_OK)<br>
-                os.access('/etc/hosts', os.X_OK)
-              </td>
-              <td>File.readable?("/etc/hosts")<br>
-                File.writable?("/etc/hosts")<br>
-                File.executable?("/etc/hosts")
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#chmod-note">set file permissions</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>let fs = require('fs');<br>
-                <br>
-                fs.chmodSync('/tmp/foo', parseInt('755', 8));
-              </td>
-              <td>os.chmod('/tmp/foo', 0755)</td>
-              <td>File.chmod(0755, "/tmp/foo")</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#last-modification-time-note">last modification time</a></td>
-              <td>let fs = require('fs');<br>
-                <br>
-                let stat = fs.statSync('/etc/hosts');<br>
-                let dt = stat.mtime;
-              </td>
-              <td>from datetime import datetime as dt<br>
-                <br>
-                <span style="color: gray"># unix epoch:</span><br>
-                t = os.stat('/etc/passwd').st_mtime<br>
-                <br>
-                <span style="color: gray"># datetime object:</span><br>
-                t2 = dt.fromtimestamp(t)
-              </td>
-              <td><span style="color: gray"># Time object:</span><br>
-                t2 = File.stat('/etc/passwd').mtime<br>
-                <br>
-                <span style="color: gray"># unix epoch:</span><br>
-                t = t2.to_i
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#file-cp-rm-mv-note">copy file, remove file, rename file</a></td>
-              <td><span style="color: gray"><span>//</span> npm install fs-extra</span><br>
-                let fs = require('fs-extra');<br>
-                <br>
-                fs.copySync('/tmp/foo', '/tmp/bar');<br>
-                fs.unlinkSync('/tmp/foo');<br>
-                fs.renameSync('/tmp/bar', '/tmp/foo');
-              </td>
-              <td>import shutil<br>
-                <br>
-                shutil.copy('/tmp/foo', '/tmp/bar')<br>
-                os.remove('/tmp/foo')<br>
-                shutil.move('/tmp/bar', '/tmp/foo')
-              </td>
-              <td>require 'fileutils'<br>
-                <br>
-                FileUtils.cp("/tmp/foo", "/tmp/bar")<br>
-                FileUtils.rm("/tmp/foo")<br>
-                FileUtils.mv("/tmp/bar", "/tmp/foo")
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#symlink-note">create symlink, symlink test, readlink</a></td>
-              <td>let fs = require('fs');<br>
-                <br>
-                fs.symlinkSync('/etc/hosts', '/tmp/hosts');<br>
-                let lstat = fs.lstatSync('/tmp/hosts');<br>
-                let isLink = lstat.isSymbolicLink();<br>
-                let path = fs.readlinkSync('/tmp/hosts');
-              </td>
-              <td>os.symlink('/etc/hosts', '/tmp/hosts')<br>
-                os.path.islink('/tmp/hosts')<br>
-                os.path.realpath('/tmp/hosts')
-              </td>
-              <td>File.symlink("/etc/hosts", "/tmp/hosts")<br>
-                File.symlink?("/etc/hosts")<br>
-                File.realpath("/tmp/hosts")
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#unused-file-name-note">generate unused file name</a></td>
-              <td><span style="color: gray"><span>//</span> npm install tempfile</span><br>
-                let tempfile = require('tempfile');<br>
-                let path = tempfile();
-              </td>
-              <td>import tempfile<br>
-                <br>
-                f, path = tempfile.mkstemp(<br>
-                <span>&nbsp;&nbsp;</span>prefix='foo',<br>
-                <span>&nbsp;&nbsp;</span>dir='/tmp')
-              </td>
-              <td></td>
-            </tr>
-          </tbody>
 
-          <tbody>
-            <tr>
-              <th colspan="4"><a href="https://hyperpolyglot.org/scripting2#file-fmt-note">file formats</a></th>
-            </tr>
-            <tr>
-              <th></th>
-              <th>javascript</th>
-              <th>python</th>
-              <th>ruby</th>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#parse-csv-note">parse csv</a></td>
-              <td>let fs = require('fs');<br>
-                <span style="color: gray"><span>//</span> npm install csv</span><br>
-                let csv = require('csv');<br>
-                <br>
-                let path = 'no-header.csv';<br>
-                let f = fs.createReadStream(path);<br>
-                f.pipe(csv.parse()).pipe(<br>
-                <span>&nbsp;&nbsp;</span>csv.transform(function (record) {<br>
-                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>console.log(record.join('\t'));<br>
-                <span>&nbsp;&nbsp;</span>})<br>
-                );
-              </td>
-              <td>import csv<br>
-                <br>
-                with open('foo.csv') as f:<br>
-                <span>&nbsp;&nbsp;</span>cr = csv.reader(f)<br>
-                <span>&nbsp;&nbsp;</span>for row in cr:<br>
-                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>print('\t'.join(row))
-              </td>
-              <td>require 'csv'<br>
-                <br>
-                CSV.foreach("foo.csv") do |row|<br>
-                <span>&nbsp;&nbsp;</span>puts row.join("\t")<br>
-                end
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#generate-csv-note">generate csv</a></td>
-              <td></td>
-              <td>import csv<br>
-                <br>
-                with open('foo.csv', 'w') as f:<br>
-                <span>&nbsp;&nbsp;</span>cw = csv.writer(f)<br>
-                <span>&nbsp;&nbsp;</span>cw.writerow(['one', 'une', 'uno'])<br>
-                <span>&nbsp;&nbsp;</span>cw.writerow(['two', 'deux', 'dos'])
-              </td>
-              <td>require 'csv'<br>
-                <br>
-                CSV.open("foo.csv", "w") do |csv|<br>
-                <span>&nbsp;&nbsp;</span>csv <span>&lt;&lt;</span> ["one", "une", "uno"]<br>
-                <span>&nbsp;&nbsp;</span>csv <span>&lt;&lt;</span> ["two", "deux", "dos"]<br>
-                end
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#parse-json-note">parse json</a></td>
-              <td>let s = '{"t":1,"f":0}';<br>
-                let data = JSON.parse(s);
-              </td>
-              <td>import json<br>
-                <br>
-                d = json.loads('{"t":1,"f":0}')
-              </td>
-              <td>require 'json'<br>
-                <br>
-                d = JSON.parse('{"t":1,"f":0}')
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#generate-json-note">generate json</a></td>
-              <td>let data = {'t': 1, 'f': 0};<br>
-                let s = JSON.stringify(data);
-              </td>
-              <td>import json<br>
-                <br>
-                s = json.dumps({'t': 1, 'f': 0})
-              </td>
-              <td>require 'json'<br>
-                <br>
-                s = {'t' =&gt; 1,'f' =&gt; 0}.to_json
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#parse-yaml-note">parse yaml</a></td>
-              <td></td>
-              <td><span style="color: gray"># sudo pip install PyYAML</span><br>
-                import yaml<br>
-                <br>
-                data = yaml.safe_load('{f: 0, t: 1}\n')
-              </td>
-              <td><span style="color: gray"># sudo gem install safe_yaml</span><br>
-                require 'safe_yaml'<br>
-                <br>
-                data = YAML.safe_load("<span>---</span>\nt: 1\nf: 0\n")
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#generate-yaml-note">generate yaml</a></td>
-              <td></td>
-              <td><span style="color: gray"># sudo pip install PyYAML</span><br>
-                import yaml<br>
-                <br>
-                s = yaml.safe_dump({'t': 1, 'f': 0})
-              </td>
-              <td><span style="color: gray"># sudo gem install safe_yaml</span><br>
-                require 'safe_yaml'<br>
-                <br>
-                s = YAML.dump({'t' =&gt; 1, 'f' =&gt; 0})
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#parse-xml-note">parse xml</a><br>
-                <span style="color: gray"><em>all nodes matching xpath query; first node matching xpath query</em></span>
-              </td>
-              <td><span style="color: gray"><span>//</span> npm install xmldom xpath</span><br>
-                let dom = require('xmldom').DOMParser;<br>
-                let xpath = require('xpath');<br>
-                <br>
-                let xml = '&lt;a&gt;&lt;b&gt;&lt;c ref="3"&gt;foo&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;';<br>
-                let doc = new dom().parseFromString(xml);<br>
-                let nodes = xpath.select('/a/b/c', doc);<br>
-                nodes.length;<br>
-                nodes[0].firstChild.data;
-              </td>
-              <td>from xml.etree import ElementTree<br>
-                <br>
-                xml = '&lt;a&gt;&lt;b&gt;&lt;c ref="3"&gt;foo&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;'<br>
-                <br>
-                <span style="color: gray"># raises xml.etree.ElementTree.ParseError<br>
-                # if not well-formed:</span><br>
-                doc = ElementTree.fromstring(xml)<br>
-                <br>
-                nodes = doc.findall('b/c')<br>
-                print(len(nodes))<br>
-                print(nodes[0].text)<br>
-                <br>
-                node = doc.find('b/c')<br>
-                print(node.text)<br>
-                print(node.attrib['ref'])
-              </td>
-              <td>require 'rexml/document'<br>
-                include REXML<br>
-                <br>
-                xml = "&lt;a&gt;&lt;b&gt;&lt;c ref='3'&gt;foo&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;"<br>
-                <br>
-                <span style="color: gray"># raises REXML::ParseException if<br>
-                # not well-formed:</span><br>
-                doc = Document.new(xml)<br>
-                <br>
-                nodes = XPath.match(doc,"/a/b/c")<br>
-                puts nodes.size<br>
-                puts nodes[0].text<br>
-                <br>
-                node = XPath.first(doc,"/a/b/c")<br>
-                puts node.text<br>
-                puts node.attributes["ref"]
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#generate-xml-note">generate xml</a></td>
-              <td><span style="color: gray"><span>//</span> npm install xmlbuilder</span><br>
-                let builder = require('xmlbuilder');<br>
-                <br>
-                let xml = builder.create('a').ele('b', {id: 123}, 'foo').end();
-              </td>
-              <td>import xml.etree.ElementTree as ET<br>
-                <br>
-                builder = ET.TreeBuilder()<br>
-                builder.start('a', {})<br>
-                builder.start('b', {'id': '123'})<br>
-                builder.data('foo')<br>
-                builder.end('b')<br>
-                builder.end('a')<br>
-                et = builder.close()<br>
-                <br>
-                <span style="color: gray"># &lt;a&gt;&lt;b id="123"&gt;foo&lt;/b&gt;&lt;/a&gt;:</span><br>
-                print(ET.tostring(et))
-              </td>
-              <td><span style="color: gray"># gem install builder</span><br>
-                require 'builder'<br>
-                <br>
-                builder = Builder::XmlMarkup.new<br>
-                xml = builder.a do |child|<br>
-                <span>&nbsp;&nbsp;</span>child.b("foo", :id=&gt;"123")<br>
-                end<br>
-                <br>
-                <span style="color: gray"># &lt;a&gt;&lt;b id="123"&gt;foo&lt;/b&gt;&lt;/a&gt;:</span><br>
-                puts xml
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#parse-html-note">parse html</a></td>
-              <td></td>
-              <td><span style="color: gray"># pip install beautifulsoup4</span><br>
-                import bs4<br>
-                <br>
-                html = open('foo.html').read()<br>
-                doc = bs4.BeautifulSoup(html)<br>
-                <br>
-                for link in doc.find_all('a'):<br>
-                <span>&nbsp;&nbsp;</span>print(link.get('href'))
-              </td>
-              <td><span style="color: gray"># gem install nokogiri</span><br>
-                require 'nokogiri'<br>
-                <br>
-                html = File.open("foo.html").read<br>
-                doc = Nokogiri::HTML(html)<br>
-                doc = doc.xpath("<span>//</span>a").each do |link|<br>
-                <span>&nbsp;&nbsp;</span>puts link["href"]<br>
-                end
-              </td>
-            </tr>
-          </tbody>
-
+          <!-- Reflection -->
           <tbody>
             <tr>
               <th colspan="4">
-                <a id="directories" href="https://hyperpolyglot.org/scripting2#directories-note">directories</a>
+                <a id="reflection" href="https://hyperpolyglot.org/scripting2#reflection-note">reflection</a>
               </th>
             </tr>
             <tr>
@@ -5315,349 +5124,123 @@
               <th>ruby</th>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#working-dir-note">working directory</a></td>
-              <td>let old_dir = process.cwd();<br>
-                <br>
-                process.chdir("/tmp");
-              </td>
-              <td>old_dir = os.path.abspath('.')<br>
-                <br>
-                os.chdir('/tmp')
-              </td>
-              <td>old_dir = Dir.pwd<br>
-                <br>
-                Dir.chdir("/tmp")
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#build-pathname-note">build pathname</a></td>
-              <td>let path = require('path');<br>
-                <br>
-                path.join('/etc', 'hosts');
-              </td>
-              <td>os.path.join('/etc', 'hosts')</td>
-              <td>File.join("/etc", "hosts")</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#dirname-basename-note">dirname and basename</a></td>
-              <td>let path = require('path');<br>
-                <br>
-                path.dirname('/etc/hosts')<br>
-                path.basename('/etc/hosts')
-              </td>
-              <td>os.path.dirname('/etc/hosts')<br>
-                os.path.basename('/etc/hosts')
-              </td>
-              <td>File.dirname("/etc/hosts")<br>
-                File.basename("/etc/hosts")
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#absolute-pathname-note">absolute pathname</a><br>
-                <span style="color: gray"><em>and tilde expansion</em></span>
-              </td>
-              <td></td>
-              <td><span style="color: gray"># symbolic links are not resolved:</span><br>
-                os.path.abspath('foo')<br>
-                os.path.abspath('/foo')<br>
-                os.path.abspath('../foo')<br>
-                os.path.abspath('./foo')<br>
-                os.path.expanduser('~/foo')
-              </td>
-              <td><span style="color: gray"># symbolic links are not resolved:</span><br>
-                File.expand_path("foo")<br>
-                File.expand_path("/foo")<br>
-                File.expand_path("../foo")<br>
-                File.expand_path("./foo")<br>
-                File.expand_path("~/foo")
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#dir-iterate-note">iterate over directory by file</a></td>
-              <td>let fs = require('fs');<br>
-                <br>
-                fs.readdirSync('/etc').forEach(<br>
-                <span>&nbsp;&nbsp;</span>function(s) { console.log(s); }<br>
-                );
-              </td>
-              <td>for filename in os.listdir('/etc'):<br>
-                <span>&nbsp;&nbsp;</span>print(filename)
-              </td>
-              <td>Dir.open("/etc").each do |file|<br>
-                <span>&nbsp;&nbsp;</span>puts file<br>
-                end
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#glob-note">glob paths</a></td>
-              <td><span style="color: gray"><span>//</span> npm install glob</span><br>
-                let glob = require('glob');<br>
-                <br>
-                glob('/etc/*', function(err, paths) {<br>
-                <span>&nbsp;&nbsp;</span>paths.forEach(function(path) {<br>
-                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>console.log(path);<br>
-                <span>&nbsp;&nbsp;</span>});<br>
-                });
-              </td>
-              <td>import glob<br>
-                <br>
-                for path in glob.glob('/etc/*'):<br>
-                <span>&nbsp;&nbsp;</span>print(path)
-              </td>
-              <td>Dir.glob("/etc/*").each do |path|<br>
-                <span>&nbsp;&nbsp;</span>puts path<br>
-                end
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#mkdir-note">make directory</a></td>
-              <td>const fs = require('fs');<br>
-                <br>
-                if (!fs.existsSync('/tmp/foo')) {<br>
-                <span>&nbsp;&nbsp;</span>fs.mkdirSync('/tmp/foo', 0755);<br>
-                }<br>
-                fs.mkdirSync('/tmp/foo/bar', 0755);
-              </td>
-              <td>dirname = '/tmp/foo/bar'<br>
-                if not os.path.isdir(dirname):<br>
-                <span>&nbsp;&nbsp;</span>os.makedirs(dirname)
-              </td>
-              <td>require 'fileutils'<br>
-                <br>
-                FileUtils.mkdir_p("/tmp/foo/bar")
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#recursive-cp-note">recursive copy</a></td>
-              <td></td>
-              <td>import shutil<br>
-                <br>
-                shutil.copytree('/tmp/foodir',<br>
-                <span>&nbsp;&nbsp;</span>'/tmp/bardir')
-              </td>
-              <td>require 'fileutils'<br>
-                <br>
-                FileUtils.cp_r("/tmp/foodir",<br>
-                <span>&nbsp;&nbsp;</span>"/tmp/bardir")
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#rmdir-note">remove empty directory</a></td>
-              <td>const fs = require('fs');<br>
-                <br>
-                fs.rmdirSync('/tmp/foodir');
-              </td>
-              <td>os.rmdir('/tmp/foodir')</td>
-              <td>File.rmdir("/tmp/foodir")</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#rm-rf-note">remove directory and contents</a></td>
-              <td></td>
-              <td>import shutil<br>
-                <br>
-                shutil.rmtree('/tmp/foodir')
-              </td>
-              <td>require 'fileutils'<br>
-                <br>
-                FileUtils.rm_rf("/tmp/foodir")
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#dir-test-note">directory test</a><br>
+              <td><a href="https://hyperpolyglot.org/scripting2#msg-passing-note">message passing</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td></td>
-              <td>os.path.isdir('/tmp')</td>
-              <td>File.directory?("/tmp")</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#unused-dir-note">generate unused directory</a></td>
-              <td>const fs = require('fs');<br>
-                <br>
-                const dir = fs.mkdtemp('/tmp/foo');
+              <td><span style="color: gray"><em>not a standard feature</em></span></td>
+              <td>for i in range(1,10):<br>
+                <span>&nbsp;&nbsp;</span>getattr(o, 'phone'+str(i))(None)
               </td>
-              <td>import tempfile<br>
-                <br>
-                path = tempfile.mkdtemp(dir='/tmp',<br>
-                <span>&nbsp;&nbsp;</span>prefix='foo')
-              </td>
-              <td>require 'tmpdir'<br>
-                <br>
-                path = Dir.mktmpdir("/tmp/foo")
+              <td>(1..9).each do |i|<br>
+                <span>&nbsp;&nbsp;</span>o.send("phone#{i}=", nil)<br>
+                end
               </td>
             </tr>
             <tr>
               <td>
-                <a id="system-tmp-dir" href="https://hyperpolyglot.org/scripting2#system-tmp-dir-note">
-                  system temporary file directory
-                </a>
-              </td>
-              <td></td>
-              <td>import tempfile<br>
-                <br>
-                tempfile.gettempdir()
-              </td>
-              <td>require 'tmpdir'<br>
-                <br>
-                Dir.tmpdir
-              </td>
-            </tr>
-
-            <tr>
-              <th colspan="4">
-                <a id="processes-environment" href="https://hyperpolyglot.org/scripting2#processes-environment-note">
-                  processes and environment
-                </a>
-              </th>
-            </tr>
-            <tr>
-              <th></th>
-              <th>javascript</th>
-              <th>python</th>
-              <th>ruby</th>
-            </tr>
-            <tr>
-              <td><a id="cmd-line-arg" href="https://hyperpolyglot.org/scripting2#cmd-line-arg-note">command line arguments</a><br>
-                <span style="color: gray"><em>and script name</em></span>
-              </td>
-              <td>process.argv.slice(2)<br>
-                process.argv[1]<br>
-                <span style="color: gray"><span>//</span> process.argv[0] contains "node"</span>
-              </td>
-              <td>sys.argv[1:]<br>
-                sys.argv[0]
-              </td>
-              <td>ARGV<br>
-                $PROGRAM_NAME
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#env-var-note">environment variable</a><br>
-                <br>
-                <span style="color: gray"><em>get, set</em></span>
-              </td>
-              <td>process.env["HOME"]<br>
-                <br>
-                process.env["PATH"] = "/bin";
-              </td>
-              <td>os.getenv('HOME')<br>
-                <br>
-                os.environ['PATH'] = '/bin'
-              </td>
-              <td>ENV["HOME"]<br>
-                <br>
-                ENV["PATH"] = "/bin"
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#pid-note">get pid, parent pid</a></td>
-              <td>process.pid<br>
-                <span style="color: gray"><em>none</em></span>
-              </td>
-              <td>os.getpid()<br>
-                os.getppid()
-              </td>
-              <td>Process.pid<br>
-                Process.ppid
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#user-id-name-note">user id and name</a></td>
-              <td></td>
-              <td>import getpass<br>
-                <br>
-                os.getuid()<br>
-                getpass.getuser()
-              </td>
-              <td>require 'etc'<br>
-                <br>
-                Process.uid<br>
-                Etc.getpwuid(Process.uid)["name"]
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#exit-note">exit</a><br>
+                <a href="https://hyperpolyglot.org/scripting2#eval-note">eval</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td>process.exit(0);</td>
-              <td>sys.exit(0)</td>
-              <td>exit(0)</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#signal-handler-note">set signal handler</a><br>
-                <span>&nbsp;</span>
+              <td>eval('1 + 1')</td>
+              <td><span style="color: gray"><em>argument of</em> eval <em>must be an expression:</em></span><br>
+                while True:<br>
+                <span>&nbsp;&nbsp;</span>print(eval(sys.stdin.readline()))
               </td>
-              <td></td>
-              <td>import signal<br>
-                <br>
-                def handler(signo, frame):<br>
-                <span>&nbsp;&nbsp;</span>print('exiting<span>...</span>')<br>
-                <span>&nbsp;&nbsp;</span>sys.exit(1)<br>
-                <br>
-                signal.signal(signal.SIGINT, handler)
-              </td>
-              <td>Signal.trap("INT",<br>
-                <span>&nbsp;&nbsp;</span>lambda do |signo|<br>
-                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>puts "exiting<span>...</span>"<br>
-                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>exit 1<br>
-                <span>&nbsp;&nbsp;</span>end<br>
-                )
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#external-cmd-note">external command</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td></td>
-              <td>if os.system('ls -l /tmp'):<br>
-                <span>&nbsp;&nbsp;</span>raise Exception('ls failed')
-              </td>
-              <td>unless system("ls -l /tmp")<br>
-                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
+              <td>loop do<br>
+                <span>&nbsp;&nbsp;</span>puts eval(gets)<br>
                 end
               </td>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#shell-esc-external-cmd-note">shell-escaped external command</a><br>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting2#list-obj-methods-note">list object methods</a><br>
                 <span>&nbsp;</span>
               </td>
               <td></td>
-              <td>import subprocess<br>
-                <br>
-                cmd = ['ls', '-l', '/tmp']<br>
-                if subprocess.call(cmd):<br>
-                <span>&nbsp;&nbsp;</span>raise Exception('ls failed')
+              <td>[m for m in dir(o)<br>
+                <span>&nbsp;&nbsp;</span>if callable(getattr(o,m))]
               </td>
-              <td>path = gets<br>
-                path.chomp!<br>
-                unless system("ls", "-l", path)<br>
-                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
+              <td>o.methods</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting2#list-obj-attr-note">list object attributes</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td></td>
+              <td>dir(o)</td>
+              <td>o.instance_variables</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting2#list-loaded-lib-note">list loaded libraries</a></td>
+              <td></td>
+              <td></td>
+              <td><span style="color: gray"># relative to directory in lib path:</span><br>
+                $LOADED_FEATURES<br>
+                $"
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#list-loaded-namespaces-note">list loaded namespaces</a></td>
+              <td></td>
+              <td>dir()</td>
+              <td>Class.constants.select do |c|<br>
+                <span>&nbsp;&nbsp;</span>Module.const_get(c).class == Class<br>
                 end
               </td>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#cmd-subst-note">command substitution</a><br>
+              <td><a href="https://hyperpolyglot.org/scripting2#inspect-namespace-note">inspect namespace</a></td>
+              <td></td>
+              <td>import urlparse<br>
+                <br>
+                dir(urlparse)
+              </td>
+              <td>require 'uri'<br>
+                <br>
+                URI.constants<br>
+                URI.methods<br>
+                URI.class_variables
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#pretty-print-note">pretty-print</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td></td>
-              <td>import subprocess<br>
-                <br>
-                cmd = ['ls', '-l', '/tmp']<br>
-                files = subprocess.check_output(cmd)
+              <td>let d = {"lorem": 1, "ipsum": [2, 3]};<br>
+                console.log(JSON.stringify(d, null, 2));
               </td>
-              <td>files = <span>`</span>ls -l /tmp<span>`</span><br>
-                unless $?.success?<br>
-                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
-                end<br>
+              <td>import pprint<br>
                 <br>
-                files = %x(ls)<br>
-                unless $?.success?<br>
-                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
-                end
+                d = {'lorem':1, 'ipsum':[2,3]}<br>
+                <br>
+                pprint.PrettyPrinter().pprint(d)
+              </td>
+              <td>require 'pp'<br>
+                <br>
+                d = {'lorem' =&gt; 1, 'ipsum' =&gt; [2, 3]}<br>
+                <br>
+                pp d
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting2#src-line-file-note">source line number and file name</a></td>
+              <td></td>
+              <td>import inspect<br>
+                <br>
+                cf = inspect.currentframe()<br>
+                cf.f_lineno<br>
+                cf.f_code.co_filename
+              </td>
+              <td><span>__LINE__</span><br>
+                <span>__FILE__</span>
               </td>
             </tr>
           </tbody>
 
+          <!-- Libraries and namespaces -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -5671,6 +5254,16 @@
               <th>javascript</th>
               <th>python</th>
               <th>ruby</th>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#implicit-prologue-note">implicit prologue</a></td>
+              <td>
+                <span style="color: gray">
+                <span>//</span> npm install lodash</span>
+                <br>const _ = require('lodash');
+              </td>
+              <td>import os, re, sys</td>
+              <td><span style="color: gray"><em>none</em></span></td>
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#load-lib-note">load library</a></td>
@@ -5915,9 +5508,12 @@
                 end
               </td>
             </tr>
+          </tbody>
 
+          <!-- Files -->
+          <tbody>
             <tr>
-              <th colspan="4"><a href="https://hyperpolyglot.org/scripting2#reflection-note">reflection</a></th>
+              <th colspan="4"><a id="files" href="https://hyperpolyglot.org/scripting2#files-note">files</a></th>
             </tr>
             <tr>
               <th></th>
@@ -5926,122 +5522,572 @@
               <th>ruby</th>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#msg-passing-note">message passing</a><br>
+              <td><a href="https://hyperpolyglot.org/scripting2#file-test-note">file exists test, file regular test</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td><span style="color: gray"><em>not a standard feature</em></span></td>
-              <td>for i in range(1,10):<br>
-                <span>&nbsp;&nbsp;</span>getattr(o, 'phone'+str(i))(None)
+              <td>let fs = require('fs');<br>
+                <br>
+                let exists = fs.existsSync('/etc/hosts');<br>
+                let stat = fs.statSync('/etc/hosts');<br>
+                let regular = stat.isFile();
               </td>
-              <td>(1..9).each do |i|<br>
-                <span>&nbsp;&nbsp;</span>o.send("phone#{i}=", nil)<br>
+              <td>os.path.exists('/etc/hosts')<br>
+                os.path.isfile('/etc/hosts')
+              </td>
+              <td>File.exists?("/etc/hosts")<br>
+                File.file?("/etc/hosts")
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#file-size-note">file size</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>let fs = require('fs');<br>
+                <br>
+                let stat = fs.statSync('/etc/hosts');<br>
+                let size = stat.size;
+              </td>
+              <td>os.path.getsize('/etc/hosts')</td>
+              <td>File.size("/etc/hosts")</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting2#readable-writable-executable-note">
+                  is file readable, writable, executable
+                </a>
+              </td>
+              <td>let fs = require('fs');<br>
+                <br>
+                <span style="color: gray"><span>//</span> no return values; exception thrown<br>
+                <span>//</span> if not readable, writable, or executable:</span><br>
+                fs.accessSync('/etc/hosts',<br>
+                <span>&nbsp;&nbsp;</span>fs.constants.R_OK);<br>
+                fs.accessSync('/etc/hosts',<br>
+                <span>&nbsp;&nbsp;</span>fs.constants.W_OK);<br>
+                fs.accessSync('/etc/hosts',<br>
+                <span>&nbsp;&nbsp;</span>fs.constants.X_OK);
+              </td>
+              <td>os.access('/etc/hosts', os.R_OK)<br>
+                os.access('/etc/hosts', os.W_OK)<br>
+                os.access('/etc/hosts', os.X_OK)
+              </td>
+              <td>File.readable?("/etc/hosts")<br>
+                File.writable?("/etc/hosts")<br>
+                File.executable?("/etc/hosts")
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#chmod-note">set file permissions</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>let fs = require('fs');<br>
+                <br>
+                fs.chmodSync('/tmp/foo', parseInt('755', 8));
+              </td>
+              <td>os.chmod('/tmp/foo', 0755)</td>
+              <td>File.chmod(0755, "/tmp/foo")</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#last-modification-time-note">last modification time</a></td>
+              <td>let fs = require('fs');<br>
+                <br>
+                let stat = fs.statSync('/etc/hosts');<br>
+                let dt = stat.mtime;
+              </td>
+              <td>from datetime import datetime as dt<br>
+                <br>
+                <span style="color: gray"># unix epoch:</span><br>
+                t = os.stat('/etc/passwd').st_mtime<br>
+                <br>
+                <span style="color: gray"># datetime object:</span><br>
+                t2 = dt.fromtimestamp(t)
+              </td>
+              <td><span style="color: gray"># Time object:</span><br>
+                t2 = File.stat('/etc/passwd').mtime<br>
+                <br>
+                <span style="color: gray"># unix epoch:</span><br>
+                t = t2.to_i
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#file-cp-rm-mv-note">copy file, remove file, rename file</a></td>
+              <td><span style="color: gray"><span>//</span> npm install fs-extra</span><br>
+                let fs = require('fs-extra');<br>
+                <br>
+                fs.copySync('/tmp/foo', '/tmp/bar');<br>
+                fs.unlinkSync('/tmp/foo');<br>
+                fs.renameSync('/tmp/bar', '/tmp/foo');
+              </td>
+              <td>import shutil<br>
+                <br>
+                shutil.copy('/tmp/foo', '/tmp/bar')<br>
+                os.remove('/tmp/foo')<br>
+                shutil.move('/tmp/bar', '/tmp/foo')
+              </td>
+              <td>require 'fileutils'<br>
+                <br>
+                FileUtils.cp("/tmp/foo", "/tmp/bar")<br>
+                FileUtils.rm("/tmp/foo")<br>
+                FileUtils.mv("/tmp/bar", "/tmp/foo")
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#symlink-note">create symlink, symlink test, readlink</a></td>
+              <td>let fs = require('fs');<br>
+                <br>
+                fs.symlinkSync('/etc/hosts', '/tmp/hosts');<br>
+                let lstat = fs.lstatSync('/tmp/hosts');<br>
+                let isLink = lstat.isSymbolicLink();<br>
+                let path = fs.readlinkSync('/tmp/hosts');
+              </td>
+              <td>os.symlink('/etc/hosts', '/tmp/hosts')<br>
+                os.path.islink('/tmp/hosts')<br>
+                os.path.realpath('/tmp/hosts')
+              </td>
+              <td>File.symlink("/etc/hosts", "/tmp/hosts")<br>
+                File.symlink?("/etc/hosts")<br>
+                File.realpath("/tmp/hosts")
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#unused-file-name-note">generate unused file name</a></td>
+              <td><span style="color: gray"><span>//</span> npm install tempfile</span><br>
+                let tempfile = require('tempfile');<br>
+                let path = tempfile();
+              </td>
+              <td>import tempfile<br>
+                <br>
+                f, path = tempfile.mkstemp(<br>
+                <span>&nbsp;&nbsp;</span>prefix='foo',<br>
+                <span>&nbsp;&nbsp;</span>dir='/tmp')
+              </td>
+              <td></td>
+            </tr>
+          </tbody>
+
+          <!-- File formats -->
+          <tbody>
+            <tr>
+              <th colspan="4">
+                <a id="file-fmt" href="https://hyperpolyglot.org/scripting2#file-fmt-note">file formats</a>
+              </th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>javascript</th>
+              <th>python</th>
+              <th>ruby</th>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#parse-csv-note">parse csv</a></td>
+              <td>let fs = require('fs');<br>
+                <span style="color: gray"><span>//</span> npm install csv</span><br>
+                let csv = require('csv');<br>
+                <br>
+                let path = 'no-header.csv';<br>
+                let f = fs.createReadStream(path);<br>
+                f.pipe(csv.parse()).pipe(<br>
+                <span>&nbsp;&nbsp;</span>csv.transform(function (record) {<br>
+                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>console.log(record.join('\t'));<br>
+                <span>&nbsp;&nbsp;</span>})<br>
+                );
+              </td>
+              <td>import csv<br>
+                <br>
+                with open('foo.csv') as f:<br>
+                <span>&nbsp;&nbsp;</span>cr = csv.reader(f)<br>
+                <span>&nbsp;&nbsp;</span>for row in cr:<br>
+                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>print('\t'.join(row))
+              </td>
+              <td>require 'csv'<br>
+                <br>
+                CSV.foreach("foo.csv") do |row|<br>
+                <span>&nbsp;&nbsp;</span>puts row.join("\t")<br>
                 end
               </td>
             </tr>
             <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting2#eval-note">eval</a><br>
-                <span>&nbsp;</span>
+              <td><a href="https://hyperpolyglot.org/scripting2#generate-csv-note">generate csv</a></td>
+              <td></td>
+              <td>import csv<br>
+                <br>
+                with open('foo.csv', 'w') as f:<br>
+                <span>&nbsp;&nbsp;</span>cw = csv.writer(f)<br>
+                <span>&nbsp;&nbsp;</span>cw.writerow(['one', 'une', 'uno'])<br>
+                <span>&nbsp;&nbsp;</span>cw.writerow(['two', 'deux', 'dos'])
               </td>
-              <td>eval('1 + 1')</td>
-              <td><span style="color: gray"><em>argument of</em> eval <em>must be an expression:</em></span><br>
-                while True:<br>
-                <span>&nbsp;&nbsp;</span>print(eval(sys.stdin.readline()))
-              </td>
-              <td>loop do<br>
-                <span>&nbsp;&nbsp;</span>puts eval(gets)<br>
+              <td>require 'csv'<br>
+                <br>
+                CSV.open("foo.csv", "w") do |csv|<br>
+                <span>&nbsp;&nbsp;</span>csv <span>&lt;&lt;</span> ["one", "une", "uno"]<br>
+                <span>&nbsp;&nbsp;</span>csv <span>&lt;&lt;</span> ["two", "deux", "dos"]<br>
                 end
               </td>
             </tr>
             <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting2#list-obj-methods-note">list object methods</a><br>
-                <span>&nbsp;</span>
+              <td><a href="https://hyperpolyglot.org/scripting2#parse-json-note">parse json</a></td>
+              <td>let s = '{"t":1,"f":0}';<br>
+                let data = JSON.parse(s);
               </td>
-              <td></td>
-              <td>[m for m in dir(o)<br>
-                <span>&nbsp;&nbsp;</span>if callable(getattr(o,m))]
+              <td>import json<br>
+                <br>
+                d = json.loads('{"t":1,"f":0}')
               </td>
-              <td>o.methods</td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting2#list-obj-attr-note">list object attributes</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td></td>
-              <td>dir(o)</td>
-              <td>o.instance_variables</td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting2#list-loaded-lib-note">list loaded libraries</a></td>
-              <td></td>
-              <td></td>
-              <td><span style="color: gray"># relative to directory in lib path:</span><br>
-                $LOADED_FEATURES<br>
-                $"
+              <td>require 'json'<br>
+                <br>
+                d = JSON.parse('{"t":1,"f":0}')
               </td>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#list-loaded-namespaces-note">list loaded namespaces</a></td>
+              <td><a href="https://hyperpolyglot.org/scripting2#generate-json-note">generate json</a></td>
+              <td>let data = {'t': 1, 'f': 0};<br>
+                let s = JSON.stringify(data);
+              </td>
+              <td>import json<br>
+                <br>
+                s = json.dumps({'t': 1, 'f': 0})
+              </td>
+              <td>require 'json'<br>
+                <br>
+                s = {'t' =&gt; 1,'f' =&gt; 0}.to_json
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#parse-yaml-note">parse yaml</a></td>
               <td></td>
-              <td>dir()</td>
-              <td>Class.constants.select do |c|<br>
-                <span>&nbsp;&nbsp;</span>Module.const_get(c).class == Class<br>
+              <td><span style="color: gray"># sudo pip install PyYAML</span><br>
+                import yaml<br>
+                <br>
+                data = yaml.safe_load('{f: 0, t: 1}\n')
+              </td>
+              <td><span style="color: gray"># sudo gem install safe_yaml</span><br>
+                require 'safe_yaml'<br>
+                <br>
+                data = YAML.safe_load("<span>---</span>\nt: 1\nf: 0\n")
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#generate-yaml-note">generate yaml</a></td>
+              <td></td>
+              <td><span style="color: gray"># sudo pip install PyYAML</span><br>
+                import yaml<br>
+                <br>
+                s = yaml.safe_dump({'t': 1, 'f': 0})
+              </td>
+              <td><span style="color: gray"># sudo gem install safe_yaml</span><br>
+                require 'safe_yaml'<br>
+                <br>
+                s = YAML.dump({'t' =&gt; 1, 'f' =&gt; 0})
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#parse-xml-note">parse xml</a><br>
+                <span style="color: gray"><em>all nodes matching xpath query; first node matching xpath query</em></span>
+              </td>
+              <td><span style="color: gray"><span>//</span> npm install xmldom xpath</span><br>
+                let dom = require('xmldom').DOMParser;<br>
+                let xpath = require('xpath');<br>
+                <br>
+                let xml = '&lt;a&gt;&lt;b&gt;&lt;c ref="3"&gt;foo&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;';<br>
+                let doc = new dom().parseFromString(xml);<br>
+                let nodes = xpath.select('/a/b/c', doc);<br>
+                nodes.length;<br>
+                nodes[0].firstChild.data;
+              </td>
+              <td>from xml.etree import ElementTree<br>
+                <br>
+                xml = '&lt;a&gt;&lt;b&gt;&lt;c ref="3"&gt;foo&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;'<br>
+                <br>
+                <span style="color: gray"># raises xml.etree.ElementTree.ParseError<br>
+                # if not well-formed:</span><br>
+                doc = ElementTree.fromstring(xml)<br>
+                <br>
+                nodes = doc.findall('b/c')<br>
+                print(len(nodes))<br>
+                print(nodes[0].text)<br>
+                <br>
+                node = doc.find('b/c')<br>
+                print(node.text)<br>
+                print(node.attrib['ref'])
+              </td>
+              <td>require 'rexml/document'<br>
+                include REXML<br>
+                <br>
+                xml = "&lt;a&gt;&lt;b&gt;&lt;c ref='3'&gt;foo&lt;/c&gt;&lt;/b&gt;&lt;/a&gt;"<br>
+                <br>
+                <span style="color: gray"># raises REXML::ParseException if<br>
+                # not well-formed:</span><br>
+                doc = Document.new(xml)<br>
+                <br>
+                nodes = XPath.match(doc,"/a/b/c")<br>
+                puts nodes.size<br>
+                puts nodes[0].text<br>
+                <br>
+                node = XPath.first(doc,"/a/b/c")<br>
+                puts node.text<br>
+                puts node.attributes["ref"]
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#generate-xml-note">generate xml</a></td>
+              <td><span style="color: gray"><span>//</span> npm install xmlbuilder</span><br>
+                let builder = require('xmlbuilder');<br>
+                <br>
+                let xml = builder.create('a').ele('b', {id: 123}, 'foo').end();
+              </td>
+              <td>import xml.etree.ElementTree as ET<br>
+                <br>
+                builder = ET.TreeBuilder()<br>
+                builder.start('a', {})<br>
+                builder.start('b', {'id': '123'})<br>
+                builder.data('foo')<br>
+                builder.end('b')<br>
+                builder.end('a')<br>
+                et = builder.close()<br>
+                <br>
+                <span style="color: gray"># &lt;a&gt;&lt;b id="123"&gt;foo&lt;/b&gt;&lt;/a&gt;:</span><br>
+                print(ET.tostring(et))
+              </td>
+              <td><span style="color: gray"># gem install builder</span><br>
+                require 'builder'<br>
+                <br>
+                builder = Builder::XmlMarkup.new<br>
+                xml = builder.a do |child|<br>
+                <span>&nbsp;&nbsp;</span>child.b("foo", :id=&gt;"123")<br>
+                end<br>
+                <br>
+                <span style="color: gray"># &lt;a&gt;&lt;b id="123"&gt;foo&lt;/b&gt;&lt;/a&gt;:</span><br>
+                puts xml
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#parse-html-note">parse html</a></td>
+              <td></td>
+              <td><span style="color: gray"># pip install beautifulsoup4</span><br>
+                import bs4<br>
+                <br>
+                html = open('foo.html').read()<br>
+                doc = bs4.BeautifulSoup(html)<br>
+                <br>
+                for link in doc.find_all('a'):<br>
+                <span>&nbsp;&nbsp;</span>print(link.get('href'))
+              </td>
+              <td><span style="color: gray"># gem install nokogiri</span><br>
+                require 'nokogiri'<br>
+                <br>
+                html = File.open("foo.html").read<br>
+                doc = Nokogiri::HTML(html)<br>
+                doc = doc.xpath("<span>//</span>a").each do |link|<br>
+                <span>&nbsp;&nbsp;</span>puts link["href"]<br>
                 end
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#inspect-namespace-note">inspect namespace</a></td>
-              <td></td>
-              <td>import urlparse<br>
-                <br>
-                dir(urlparse)
-              </td>
-              <td>require 'uri'<br>
-                <br>
-                URI.constants<br>
-                URI.methods<br>
-                URI.class_variables
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#pretty-print-note">pretty-print</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>let d = {"lorem": 1, "ipsum": [2, 3]};<br>
-                console.log(JSON.stringify(d, null, 2));
-              </td>
-              <td>import pprint<br>
-                <br>
-                d = {'lorem':1, 'ipsum':[2,3]}<br>
-                <br>
-                pprint.PrettyPrinter().pprint(d)
-              </td>
-              <td>require 'pp'<br>
-                <br>
-                d = {'lorem' =&gt; 1, 'ipsum' =&gt; [2, 3]}<br>
-                <br>
-                pp d
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting2#src-line-file-note">source line number and file name</a></td>
-              <td></td>
-              <td>import inspect<br>
-                <br>
-                cf = inspect.currentframe()<br>
-                cf.f_lineno<br>
-                cf.f_code.co_filename
-              </td>
-              <td><span>__LINE__</span><br>
-                <span>__FILE__</span>
               </td>
             </tr>
           </tbody>
 
+          <!-- Directories -->
+          <tbody>
+            <tr>
+              <th colspan="4">
+                <a id="directories" href="https://hyperpolyglot.org/scripting2#directories-note">directories</a>
+              </th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>javascript</th>
+              <th>python</th>
+              <th>ruby</th>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#working-dir-note">working directory</a></td>
+              <td>let old_dir = process.cwd();<br>
+                <br>
+                process.chdir("/tmp");
+              </td>
+              <td>old_dir = os.path.abspath('.')<br>
+                <br>
+                os.chdir('/tmp')
+              </td>
+              <td>old_dir = Dir.pwd<br>
+                <br>
+                Dir.chdir("/tmp")
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#build-pathname-note">build pathname</a></td>
+              <td>let path = require('path');<br>
+                <br>
+                path.join('/etc', 'hosts');
+              </td>
+              <td>os.path.join('/etc', 'hosts')</td>
+              <td>File.join("/etc", "hosts")</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#dirname-basename-note">dirname and basename</a></td>
+              <td>let path = require('path');<br>
+                <br>
+                path.dirname('/etc/hosts')<br>
+                path.basename('/etc/hosts')
+              </td>
+              <td>os.path.dirname('/etc/hosts')<br>
+                os.path.basename('/etc/hosts')
+              </td>
+              <td>File.dirname("/etc/hosts")<br>
+                File.basename("/etc/hosts")
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#absolute-pathname-note">absolute pathname</a><br>
+                <span style="color: gray"><em>and tilde expansion</em></span>
+              </td>
+              <td></td>
+              <td><span style="color: gray"># symbolic links are not resolved:</span><br>
+                os.path.abspath('foo')<br>
+                os.path.abspath('/foo')<br>
+                os.path.abspath('../foo')<br>
+                os.path.abspath('./foo')<br>
+                os.path.expanduser('~/foo')
+              </td>
+              <td><span style="color: gray"># symbolic links are not resolved:</span><br>
+                File.expand_path("foo")<br>
+                File.expand_path("/foo")<br>
+                File.expand_path("../foo")<br>
+                File.expand_path("./foo")<br>
+                File.expand_path("~/foo")
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#dir-iterate-note">iterate over directory by file</a></td>
+              <td>let fs = require('fs');<br>
+                <br>
+                fs.readdirSync('/etc').forEach(<br>
+                <span>&nbsp;&nbsp;</span>function(s) { console.log(s); }<br>
+                );
+              </td>
+              <td>for filename in os.listdir('/etc'):<br>
+                <span>&nbsp;&nbsp;</span>print(filename)
+              </td>
+              <td>Dir.open("/etc").each do |file|<br>
+                <span>&nbsp;&nbsp;</span>puts file<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#glob-note">glob paths</a></td>
+              <td><span style="color: gray"><span>//</span> npm install glob</span><br>
+                let glob = require('glob');<br>
+                <br>
+                glob('/etc/*', function(err, paths) {<br>
+                <span>&nbsp;&nbsp;</span>paths.forEach(function(path) {<br>
+                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>console.log(path);<br>
+                <span>&nbsp;&nbsp;</span>});<br>
+                });
+              </td>
+              <td>import glob<br>
+                <br>
+                for path in glob.glob('/etc/*'):<br>
+                <span>&nbsp;&nbsp;</span>print(path)
+              </td>
+              <td>Dir.glob("/etc/*").each do |path|<br>
+                <span>&nbsp;&nbsp;</span>puts path<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#mkdir-note">make directory</a></td>
+              <td>const fs = require('fs');<br>
+                <br>
+                if (!fs.existsSync('/tmp/foo')) {<br>
+                <span>&nbsp;&nbsp;</span>fs.mkdirSync('/tmp/foo', 0755);<br>
+                }<br>
+                fs.mkdirSync('/tmp/foo/bar', 0755);
+              </td>
+              <td>dirname = '/tmp/foo/bar'<br>
+                if not os.path.isdir(dirname):<br>
+                <span>&nbsp;&nbsp;</span>os.makedirs(dirname)
+              </td>
+              <td>require 'fileutils'<br>
+                <br>
+                FileUtils.mkdir_p("/tmp/foo/bar")
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#recursive-cp-note">recursive copy</a></td>
+              <td></td>
+              <td>import shutil<br>
+                <br>
+                shutil.copytree('/tmp/foodir',<br>
+                <span>&nbsp;&nbsp;</span>'/tmp/bardir')
+              </td>
+              <td>require 'fileutils'<br>
+                <br>
+                FileUtils.cp_r("/tmp/foodir",<br>
+                <span>&nbsp;&nbsp;</span>"/tmp/bardir")
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#rmdir-note">remove empty directory</a></td>
+              <td>const fs = require('fs');<br>
+                <br>
+                fs.rmdirSync('/tmp/foodir');
+              </td>
+              <td>os.rmdir('/tmp/foodir')</td>
+              <td>File.rmdir("/tmp/foodir")</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#rm-rf-note">remove directory and contents</a></td>
+              <td></td>
+              <td>import shutil<br>
+                <br>
+                shutil.rmtree('/tmp/foodir')
+              </td>
+              <td>require 'fileutils'<br>
+                <br>
+                FileUtils.rm_rf("/tmp/foodir")
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#dir-test-note">directory test</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td></td>
+              <td>os.path.isdir('/tmp')</td>
+              <td>File.directory?("/tmp")</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#unused-dir-note">generate unused directory</a></td>
+              <td>const fs = require('fs');<br>
+                <br>
+                const dir = fs.mkdtemp('/tmp/foo');
+              </td>
+              <td>import tempfile<br>
+                <br>
+                path = tempfile.mkdtemp(dir='/tmp',<br>
+                <span>&nbsp;&nbsp;</span>prefix='foo')
+              </td>
+              <td>require 'tmpdir'<br>
+                <br>
+                path = Dir.mktmpdir("/tmp/foo")
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a id="system-tmp-dir" href="https://hyperpolyglot.org/scripting2#system-tmp-dir-note">
+                  system temporary file directory
+                </a>
+              </td>
+              <td></td>
+              <td>import tempfile<br>
+                <br>
+                tempfile.gettempdir()
+              </td>
+              <td>require 'tmpdir'<br>
+                <br>
+                Dir.tmpdir
+              </td>
+            </tr>
+          </tbody>
+
+          <!-- Net and web -->
           <tbody>
             <tr>
               <th colspan="4">
@@ -6262,12 +6308,11 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#test-class-note">test class</a></td>
-              <td><span style="color: gray"><span>//</span> npm install -g nodeunit</span><br>
-                <br>
-                exports.testFoo = function(test) {<br>
-                <span>&nbsp;&nbsp;</span>test.ok(true, 'not true!.');<br>
-                <span>&nbsp;&nbsp;</span>test.done();<br>
-                }
+              <td>
+                <span style="color: gray"><em>
+                  not a standard feature<br>
+                  can use packages nodeunit, jasmine, mocha, qunit, etc.
+                </em></span>
               </td>
               <td>import unittest<br>
                 <br>
@@ -6289,13 +6334,11 @@
             </tr>
           </tbody>
 
+          <!-- Tests -->
           <tbody>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#run-test-note">run tests, run test method</a></td>
-              <td>$ nodeunit test_foo.js<br>
-                <br>
-                $ nodeunit -t testFoo test_foo.js
-              </td>
+              <td></td>
               <td>$ python test_foo.py<br>
                 $ python test_foo.py TestFoo.test_01
               </td>
@@ -6305,9 +6348,7 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#assert-equal-note">equality assertion</a></td>
-              <td>let s = 'do re mi';<br>
-                test.equals(s, 'do re mi');
-              </td>
+              <td></td>
               <td>s = 'do re me'<br>
                 self.assertEqual('do re me',<br>
                 <span>&nbsp;&nbsp;</span>s,<br>
@@ -6416,6 +6457,7 @@
             </tr>
           </tbody>
 
+          <!-- Debugging -->
           <tbody>
             <tr>
               <th colspan="4">
