@@ -200,7 +200,7 @@
                 <br>
                 <span style="color: gray"># -*- coding: us-ascii -*-</span>
               </td>
-              <td><span style="color: gray"><em>Ruby 2.0 source is UTF-8 by default</em></span><br><br><span style="color: gray"># -*- coding: utf-8 -*-</span></td>
+              <td><span style="color: gray"><em>After Ruby 2.0 source is UTF-8 by default</em></span><br><br><span style="color: gray"># -*- coding: utf-8 -*-</span></td>
             </tr>
             <tr>
               <td>
@@ -475,35 +475,13 @@
               </td>
             </tr>
             <tr>
+              <td>member access, optional member access</td>
               <td>
-                <a href="https://hyperpolyglot.org/scripting#null-note">null</a><br>
-                <span>&nbsp;</span>
+                x.y <span style="color: gray"><em>// throws an error if x is null or undefined</em></span><br>
+                x?.y <span style="color: gray"><em>// returns undefined if x is null or undefined</em></span><br>
               </td>
-              <td>null</td>
-              <td>None</td>
-              <td>nil</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#null-test-note">null test</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>v === null</td>
-              <td>v is None</td>
-              <td>v == nil<br>
-                v.nil?
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting#undef-var-note">undefined variable</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td><span style="color: gray"><em>Evaluates as</em></span> undefined<br>
-                <br>
-                <span style="color: gray"><em>Use the triple equality</em></span> === <span style="color: gray"><em>operator to test for this value.</em></span>
-              </td>
-              <td><span style="color: gray"><em>raises</em></span> NameError</td>
-              <td><span style="color: gray"><em>raises</em></span> NameError</td>
+              <td></td>
+              <td></td>
             </tr>
           </tbody>
 
@@ -526,14 +504,6 @@
               <td><span style="color: gray"><em>none</em></span></td>
               <td>id(o)</td>
               <td>o.object_id</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#inspect-type-note">inspect type</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td>typeof([]) === 'object'</td>
-              <td>type([]) == list</td>
-              <td>[].class == Array</td>
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#types-note">basic types</a></td>
@@ -589,6 +559,45 @@
                 Object<br>
                 File
               </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#null-note">null</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>null</td>
+              <td>None</td>
+              <td>nil</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#null-test-note">null test</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>v === null</td>
+              <td>v is None</td>
+              <td>v == nil<br>
+                v.nil?
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting#undef-var-note">undefined variable</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td><span style="color: gray"><em>Evaluates as</em></span> undefined<br>
+                <br>
+                <span style="color: gray"><em>Use the triple equality</em></span> === <span style="color: gray"><em>operator to test for this value.</em></span>
+              </td>
+              <td><span style="color: gray"><em>raises</em></span> NameError</td>
+              <td><span style="color: gray"><em>raises</em></span> NameError</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#inspect-type-note">inspect type</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>typeof([]) === 'object'</td>
+              <td>type([]) == list</td>
+              <td>[].class == Array</td>
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#inspect-class-note">inspect class</a></td>
