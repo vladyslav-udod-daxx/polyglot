@@ -15,7 +15,8 @@
       <p>
         <strong>Sheet one: Interaction with the OS</strong>:
         <a href="#version">version and execution</a> |
-        <a href="#processes-environment">processes and environment</a>
+        <a href="#packages">packages</a> |
+        <a href="#debugging">debugging</a> |
       </p>
       <p>
         <strong>Sheet two: Core features</strong>:
@@ -42,6 +43,7 @@
         <a href="#dates-time">dates and time</a> |
         <a href="#threads">threads</a> |
         <a href="#streams">streams</a> |
+        <a href="#processes-environment">processes and environment</a> |
         <a href="#async">asynchronous events</a> |
         <a href="#reflection">reflection</a> |
         <a href="#libraries-namespaces">libraries and namespaces</a> |
@@ -50,8 +52,7 @@
         <a href="#directories">directories</a> |
         <a href="#option-parsing">option parsing</a> |
         <a href="#net-web">net and web</a> |
-        <a href="#unit-tests">unit tests</a> |
-        <a href="#debugging">debugging</a>
+        <a href="#unit-tests">unit tests</a>
       </p>
       <div id="page-content">
         <table class="wiki-content-table">
@@ -135,13 +136,11 @@
             </tr>
           </tbody>
 
-          <!-- Processes and environment -->
+          <!-- Packages -->
           <tbody>
             <tr>
               <th colspan="4">
-                <a id="processes-environment" href="https://hyperpolyglot.org/scripting2#processes-environment-note">
-                  processes and environment
-                </a>
+                <span id="packages">packages</span>
               </th>
             </tr>
             <tr>
@@ -151,143 +150,140 @@
               <th>ruby</th>
             </tr>
             <tr>
-              <td><a id="cmd-line-arg" href="https://hyperpolyglot.org/scripting2#cmd-line-arg-note">command line arguments</a><br>
-                <span style="color: gray"><em>and script name</em></span>
+              <td><a href="https://hyperpolyglot.org/scripting2#lib-path-note">library path</a></td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td>sys.path<br>
+                <br>
+                sys.path.append('/some/path')
               </td>
-              <td>process.argv.slice(2)<br>
-                process.argv[1]<br>
-                <span style="color: gray"><span>//</span> process.argv[0] contains "node"</span>
-              </td>
-              <td>sys.argv[1:]<br>
-                sys.argv[0]
-              </td>
-              <td>ARGV<br>
-                $PROGRAM_NAME
+              <td><span style="color: gray"># $: is synonym for $LOAD_PATH:</span><br>
+                $LOAD_PATH<br>
+                <br>
+                $LOAD_PATH <span>&lt;&lt;</span> "/some/path"
               </td>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#env-var-note">environment variable</a><br>
-                <br>
-                <span style="color: gray"><em>get, set</em></span>
-              </td>
-              <td>process.env["HOME"]<br>
-                <br>
-                process.env["PATH"] = "/bin";
-              </td>
-              <td>os.getenv('HOME')<br>
-                <br>
-                os.environ['PATH'] = '/bin'
-              </td>
-              <td>ENV["HOME"]<br>
-                <br>
-                ENV["PATH"] = "/bin"
-              </td>
+              <td><a href="https://hyperpolyglot.org/scripting2#lib-path-env-note">library path environment variable</a></td>
+              <td>$ NODE_PATH=~/lib node foo.js</td>
+              <td>$ PYTHONPATH=~/lib python foo.py</td>
+              <td>$ RUBYLIB=~/lib ruby foo.rb</td>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#pid-note">get pid, parent pid</a></td>
-              <td>process.pid<br>
-                <span style="color: gray"><em>none</em></span>
-              </td>
-              <td>os.getpid()<br>
-                os.getppid()
-              </td>
-              <td>Process.pid<br>
-                Process.ppid
-              </td>
+              <td><a href="https://hyperpolyglot.org/scripting2#lib-path-cmd-line-note">library path command line option</a></td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td>$ ruby -I ~/lib foo.rb</td>
             </tr>
+
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#user-id-name-note">user id and name</a></td>
-              <td></td>
-              <td>import getpass<br>
-                <br>
-                os.getuid()<br>
-                getpass.getuser()
-              </td>
-              <td>require 'etc'<br>
-                <br>
-                Process.uid<br>
-                Etc.getpwuid(Process.uid)["name"]
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#exit-note">exit</a><br>
+              <td><a href="https://hyperpolyglot.org/scripting2#pkg-management-note">list installed packages</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td>process.exit(0);</td>
-              <td>sys.exit(0)</td>
-              <td>exit(0)</td>
+              <td>$ npm list</td>
+              <td>$ pip freeze</td>
+              <td>$ gem list</td>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#signal-handler-note">set signal handler</a><br>
-                <span>&nbsp;</span>
+              <td>install a package</td>
+              <td>
+                $ npm install angular<br>
+                <span style="color: gray"><em>shorthand</em></span><br>
+                $ npm i angular
               </td>
-              <td></td>
-              <td>import signal<br>
-                <br>
-                def handler(signo, frame):<br>
-                <span>&nbsp;&nbsp;</span>print('exiting<span>...</span>')<br>
-                <span>&nbsp;&nbsp;</span>sys.exit(1)<br>
-                <br>
-                signal.signal(signal.SIGINT, handler)
-              </td>
-              <td>Signal.trap("INT",<br>
-                <span>&nbsp;&nbsp;</span>lambda do |signo|<br>
-                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>puts "exiting<span>...</span>"<br>
-                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>exit 1<br>
-                <span>&nbsp;&nbsp;</span>end<br>
-                )
-              </td>
+              <td>$ pip install jinja2</td>
+              <td>$ gem install rails</td>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#external-cmd-note">external command</a><br>
-                <span>&nbsp;</span>
+              <td>install list of packages from file</td>
+              <td>
+                $ npm install package.json<br>
+                <span style="color: gray"><em>shorthand for packages from package.json</em></span><br>
+                npm i
               </td>
-              <td></td>
-              <td>if os.system('ls -l /tmp'):<br>
-                <span>&nbsp;&nbsp;</span>raise Exception('ls failed')
+              <td>
+                $ pip install -r requirements.txt
               </td>
-              <td>unless system("ls -l /tmp")<br>
-                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
-                end
+              <td>
+                $ bundle install
               </td>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#shell-esc-external-cmd-note">shell-escaped external command</a><br>
-                <span>&nbsp;</span>
+              <td>uninstall a package</td>
+              <td>
+                $ npm uninstall angular<br>
+                <span style="color: gray"><em>shorthand</em></span><br>
+                $ npm rm angular
               </td>
-              <td></td>
-              <td>import subprocess<br>
+              <td>$ pip uninstall jinja2</td>
+              <td>$ gem uninstall rails</td>
+            </tr>
+          </tbody>
+
+          <!-- Debugging -->
+          <tbody>
+            <tr>
+              <th colspan="4">
+                <a id="debugging" href="https://hyperpolyglot.org/scripting2#debugging-note">debugging</a>
+              </th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>javascript</th>
+              <th>python</th>
+              <th>ruby</th>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://hyperpolyglot.org/scripting2#check-syntax-note">check syntax</a>
+              </td>
+              <td>$ node -c foo.js</td>
+              <td>import py_compile<br>
                 <br>
-                cmd = ['ls', '-l', '/tmp']<br>
-                if subprocess.call(cmd):<br>
-                <span>&nbsp;&nbsp;</span>raise Exception('ls failed')
+                <span style="color: gray"># precompile to bytecode:</span><br>
+                py_compile.compile('foo.py')
               </td>
-              <td>path = gets<br>
-                path.chomp!<br>
-                unless system("ls", "-l", path)<br>
-                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
-                end
+              <td>$ ruby -c foo.rb</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#check-for-errors-note">check for errors</a></td>
+              <td>$ npm install -g semistandard<br>
+                $ semistandard foo.js
+              </td>
+              <td>$ sudo pip install pylint<br>
+                $ pylint foo.py
+              </td>
+              <td>$ sudo gem install rubocop<br>
+                $ rubocop -D foo.rb
               </td>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#cmd-subst-note">command substitution</a><br>
-                <span>&nbsp;</span>
+              <td><a href="https://hyperpolyglot.org/scripting2#check-style-note">check style</a></td>
+              <td>$ npm install -g semistandard<br>
+                $ semistandard foo.js
               </td>
-              <td></td>
-              <td>import subprocess<br>
-                <br>
-                cmd = ['ls', '-l', '/tmp']<br>
-                files = subprocess.check_output(cmd)
+              <td>$ sudo pip install pep8<br>
+                $ pep8 foo.py
               </td>
-              <td>files = <span>`</span>ls -l /tmp<span>`</span><br>
-                unless $?.success?<br>
-                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
-                end<br>
-                <br>
-                files = %x(ls)<br>
-                unless $?.success?<br>
-                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
-                end
+              <td>$ sudo gem install rubocop<br>
+                $ rubocop -D foo.rb
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#debugger-note">run debugger</a></td>
+              <td>$ node debug foo.js</td>
+              <td>$ python -m pdb foo.py</td>
+              <td>$ sudo gem install ruby-debug<br>
+                $ rdebug foo.rb
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#profile-note">profile code</a></td>
+              <td>$ node <span>--</span>prof foo.js<br>
+                $ node <span>--</span>prof-process *v8.log
+              </td>
+              <td>$ python -m cProfile foo.py</td>
+              <td>$ sudo gem install ruby-prof<br>
+                $ ruby-prof foo.rb
               </td>
             </tr>
           </tbody>
@@ -417,7 +413,7 @@
               <td>
                 bigint<br>
                 boolean<br>
-                function <span style="color: gray">// not a real type</span> <br>
+                function <span style="color: gray">// not a real type, function is an object</span> <br>
                 number<br>
                 object<br>
                 string<br>
@@ -427,7 +423,9 @@
                 <span style="color: gray"><span>//</span> these evaluate as 'object':</span><br>
                 typeof(null)<br>
                 typeof([])<br>
-                typeof({})
+                typeof({})<br>
+                <br>
+                typeof(function f() {}) <span style="color: gray">// function</span>
               </td>
               <td>
                 bool<br>
@@ -600,6 +598,7 @@
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#global-var-note">global variable</a></td>
               <td>
+                <span style="color: gray">// in node <em>global</em>, in browser <em>window</em></em></span><br>
                 global.g = 1;<br>
                 <br>
                 function incrGlobal() {<br>
@@ -624,9 +623,7 @@
               <td><a href="https://hyperpolyglot.org/scripting#const-note">constant</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td><span style="color: gray"><span>//</span> new in ES6</span><br>
-                const PI = 3.14;
-              </td>
+              <td>const PI = 3.14;</td>
               <td><span style="color: gray"># uppercase identifiers<br>
                 # constant by convention</span><br>
                 PI = 3.14
@@ -742,19 +739,21 @@
               <td><a href="https://hyperpolyglot.org/scripting#compound-assignment-note">compound assignment</a><br>
                 <span style="color: gray"><em>arithmetic, string, logical, bit</em></span>
               </td>
-              <td>+= -= *= /= %= **=<br>
+              <td>
+                += -= *= /= <span style="color: gray"><em>none</em></span> %=  **=<br>
                 +=<br>
-                &&= ||= <br>
+                &&= ||= ??=&nbsp;<span style="color: gray"><em>// nullish coalescing assignment</em></span><br>
                 <span>&lt;&lt;= &gt;&gt;= </span>&amp;= |= ^=<br>
-                ??=&nbsp;<span style="color: gray"><em>// nullish coalescing assignment</em></span>
               </td>
-              <td><span style="color: gray"># do not return values:</span><br>
+              <td>
+                <span style="color: gray"># do not return values:</span><br>
                 += -= *= /= <span>//</span>= %= <span>**</span>=<br>
                 += *=<br>
                 &amp;= <span>|</span>= ^=<br>
                 <span>&lt;&lt;= &gt;&gt;= </span>&amp;= |= ^=
               </td>
-              <td>+= -= *= /= <span style="color: gray"><em>none</em></span> %= <span>**</span>=<br>
+              <td>
+                += -= *= /= <span style="color: gray"><em>none</em></span> %= <span>**</span>=<br>
                 += *=<br>
                 &amp;&amp;= <span>||</span>= ^=<br>
                 <span>&lt;&lt;= &gt;&gt;= </span>&amp;= |= ^=
@@ -790,8 +789,14 @@
                 x.y <span style="color: gray"><em>// throws an error if x is null or undefined</em></span><br>
                 x?.y <span style="color: gray"><em>// returns undefined if x is null or undefined</em></span><br>
               </td>
-              <td></td>
-              <td></td>
+              <td>
+                x.y <span style="color: gray"><em># throws an AttributeError error if x is None</em></span><br>
+                <span style="color: gray"><em># none</em></span>
+              </td>
+              <td>
+                x.y <span style="color: gray"><em># throws a NoMethodError error if x is nil</em></span><br>
+                x&.y <span style="color: gray"><em># returns nil if x is nil</em></span>
+              </td>
             </tr>
           </tbody>
 
@@ -2049,6 +2054,21 @@
               </td>
             </tr>
             <tr>
+              <td>remove an item by index</td>
+              <td>
+                let a = [1, 2, 3];<br>
+                delete a[1]; <span style="color: gray">// left [1, undefined, 3]</span>
+              </td>
+              <td>
+                a = [1, 2, 3]<br>
+                del a[1] <span style="color: gray"># left [1, 3]</span>
+              </td>
+              <td>
+                a = [1, 2, 3]<br>
+                a.delete_at(1) <span style="color: gray"># left [1, 3]</span>
+              </td>
+            </tr>
+            <tr>
               <td>remove an item with the specified value</td>
               <td><span style="color: gray">none</span></td>
               <td>
@@ -3181,11 +3201,25 @@
               </td>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#named-param-note">named parameters</a><br>
+              <td><a href="https://hyperpolyglot.org/scripting#named-param-note">named parameters (keyword arguments)</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td>def fequal(x, y, eps=0.01):<br>
+              <td>
+                <span style="color: gray">passing an object can be used:</span><br>
+                function f(options) {<br>
+                &nbsp;&nbsp;let x = options.x || 1;<br>
+                &nbsp;&nbsp;let y = options.y || 1;<br>
+                &nbsp;&nbsp;let eps = options.eps || 0.01;<br>
+                &nbsp;&nbsp;return Math.abs(x - y) &lt; eps;<br>
+                }<br>
+              </td>
+              <td>
+                <span style="color: gray">
+                  positional and named parameters can be splitted<br>
+                  <em>def f(pos1, pos2, /, pos_or_kwd, *, kwd1, kwd2):</em><br>
+                </span>
+                <br>
+                def fequal(x, y, eps=0.01):<br>
                 <span>&nbsp;&nbsp;</span>return abs(x - y) &lt; eps<br>
                 <br>
                 fequal(1.0, 1.001)<br>
@@ -3200,6 +3234,22 @@
               </td>
             </tr>
             <tr>
+              <td>grouping named parameters</td>
+              <td>
+                <span style="color: gray"><em>none</em></span>
+              </td>
+              <td>
+                <span style="color: gray"><em>keywords</em> is a dictionary containing all keyword arguments</span><br>
+                def f(pos_arg, *args, **kwargs):<br>
+                &nbsp;&nbsp;print(pos_arg)<br>
+                &nbsp;&nbsp;for arg in arguments:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;print(arg)<br>
+                &nbsp;&nbsp;for kw in keywords:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;print(kw, ":", keywords[kw])<br>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
               <td><a href="https://hyperpolyglot.org/scripting#retval-note">return value</a><br>
                 <span>&nbsp;</span>
               </td>
@@ -3212,7 +3262,12 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#multiple-retval-note">multiple return values</a></td>
-              <td>function firstAndSecond(a) {<br>
+              <td>
+                <span style="color: gray">
+                  no proper multiple return <br>
+                  an array be used for returning multiple values <br>
+                </span>
+                function firstAndSecond(a) {<br>
                 <span>&nbsp;&nbsp;</span>return [a[0], a[1]];<br>
                 }<br>
                 <br>
@@ -3674,26 +3729,29 @@
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#switch-note">switch</a></td>
               <td>
+                <span style="color: gray">comparisons === is used for matching</span><br>
                 switch (n) {<br>
-                case 0:<br>
-                <span>&nbsp;&nbsp;</span>console.log('no hits\n;);<br>
-                <span>&nbsp;&nbsp;</span>break;<br>
-                case 1:<br>
-                <span>&nbsp;&nbsp;</span>console.log('one hit\n');<br>
-                <span>&nbsp;&nbsp;</span>break;<br>
-                default:<br>
-                <span>&nbsp;&nbsp;</span>console.log(n + ' hits\n');<br>
+                &nbsp;&nbsp;case 0:<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>console.log('no hits\n;);<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>break; <span style="color: gray">// without break next expression will be executed</span><br>
+                &nbsp;&nbsp;case 1:<br>
+                &nbsp;&nbsp;case 2:<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>console.log('one hit\n');<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>break;<br>
+                &nbsp;&nbsp;default:<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>console.log(n + ' hits\n');<br>
                 }
               </td>
               <td><span style="color: gray"><em>none</em></span></td>
               <td>
+                <span style="color: gray">condition in when can be regex, range, proc, etc.</span><br>
                 case n<br>
-                when 0<br>
-                <span>&nbsp;&nbsp;</span>puts "no hits"<br>
-                when 1<br>
-                <span>&nbsp;&nbsp;</span>puts "one hit"<br>
+                &nbsp;&nbsp;when 0<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>puts "no hits"<br>
+                &nbsp;&nbsp;when 1<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>puts "one hit"<br>
                 else<br>
-                <span>&nbsp;&nbsp;</span>puts "#{n} hits"<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>puts "#{n} hits"<br>
                 end
               </td>
             </tr>
@@ -3761,13 +3819,20 @@
               </td>
               <td>
                 for (let i = 30; i &lt; 50; ++i) {<br>
-                <span>&nbsp;&nbsp;</span>if (i % 7 === 0) {<br>
-                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>console.log('first multiple: ' + i);<br>
-                <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>break;<br>
-                <span>&nbsp;&nbsp;</span>}<br>
+                &nbsp;&nbsp;if (i % 7 === 0) {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp; console.log(`first multiple: ${i}`);<br>
+                &nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+                &nbsp;&nbsp; }<br>
                 }
               </td>
-              <td>break</td>
+              <td>
+                for i in range(30, 50):<br>
+                &nbsp;&nbsp;if i % 7 == 0:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;print(f'first multiple: {i}')<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;break<br>
+                <br>
+                <br>
+              </td>
               <td>break</td>
             </tr>
             <tr>
@@ -3783,7 +3848,12 @@
                 <span>&nbsp;&nbsp;</span>console.log('not divisible: ' + i);<br>
                 }
               </td>
-              <td>continue</td>
+              <td>
+                for i in range(30, 50):<br>
+                &nbsp;&nbsp;if i % 7 == 0:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;continue<br>
+                &nbsp;&nbsp;print(f'not divisible: {i}')
+              </td>
               <td>next</td>
             </tr>
             <tr>
@@ -5109,6 +5179,141 @@
             </tr>
           </tbody>
 
+          <!-- Processes and environment -->
+          <tbody>
+            <tr>
+              <th colspan="4">
+                <a id="processes-environment" href="https://hyperpolyglot.org/scripting2#processes-environment-note">
+                  processes and environment
+                </a>
+              </th>
+            </tr>
+            <tr>
+              <th></th>
+              <th>javascript</th>
+              <th>python</th>
+              <th>ruby</th>
+            </tr>
+            <tr>
+              <td><a id="cmd-line-arg" href="https://hyperpolyglot.org/scripting2#cmd-line-arg-note">command line arguments</a><br>
+                <span style="color: gray"><em>and script name</em></span>
+              </td>
+              <td>process.argv.slice(2)<br>
+                process.argv[1]<br>
+                <span style="color: gray"><span>//</span> process.argv[0] contains "node"</span>
+              </td>
+              <td>sys.argv[1:]<br>
+                sys.argv[0]
+              </td>
+              <td>ARGV<br>
+                $PROGRAM_NAME
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#env-var-note">environment variable</a><br>
+                <br>
+                <span style="color: gray"><em>get, set</em></span>
+              </td>
+              <td>process.env["HOME"]<br>
+                <br>
+                process.env["PATH"] = "/bin";
+              </td>
+              <td>os.getenv('HOME')<br>
+                <br>
+                os.environ['PATH'] = '/bin'
+              </td>
+              <td>ENV["HOME"]<br>
+                <br>
+                ENV["PATH"] = "/bin"
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#pid-note">get pid, parent pid</a></td>
+              <td>process.pid<br>
+                <span style="color: gray"><em>none</em></span>
+              </td>
+              <td>os.getpid()<br>
+                os.getppid()
+              </td>
+              <td>Process.pid<br>
+                Process.ppid
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#user-id-name-note">user id and name</a></td>
+              <td></td>
+              <td>import getpass<br>
+                <br>
+                os.getuid()<br>
+                getpass.getuser()
+              </td>
+              <td>require 'etc'<br>
+                <br>
+                Process.uid<br>
+                Etc.getpwuid(Process.uid)["name"]
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#exit-note">exit</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td>process.exit(0);</td>
+              <td>sys.exit(0)</td>
+              <td>exit(0)</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#external-cmd-note">external command</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td></td>
+              <td>if os.system('ls -l /tmp'):<br>
+                <span>&nbsp;&nbsp;</span>raise Exception('ls failed')
+              </td>
+              <td>unless system("ls -l /tmp")<br>
+                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#shell-esc-external-cmd-note">shell-escaped external command</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td></td>
+              <td>import subprocess<br>
+                <br>
+                cmd = ['ls', '-l', '/tmp']<br>
+                if subprocess.call(cmd):<br>
+                <span>&nbsp;&nbsp;</span>raise Exception('ls failed')
+              </td>
+              <td>path = gets<br>
+                path.chomp!<br>
+                unless system("ls", "-l", path)<br>
+                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#cmd-subst-note">command substitution</a><br>
+                <span>&nbsp;</span>
+              </td>
+              <td></td>
+              <td>import subprocess<br>
+                <br>
+                cmd = ['ls', '-l', '/tmp']<br>
+                files = subprocess.check_output(cmd)
+              </td>
+              <td>files = <span>`</span>ls -l /tmp<span>`</span><br>
+                unless $?.success?<br>
+                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
+                end<br>
+                <br>
+                files = %x(ls)<br>
+                unless $?.success?<br>
+                <span>&nbsp;&nbsp;</span>raise "ls failed"<br>
+                end
+              </td>
+            </tr>
+          </tbody>
 
           <!-- Reflection -->
           <tbody>
@@ -5127,7 +5332,7 @@
               <td><a href="https://hyperpolyglot.org/scripting2#msg-passing-note">message passing</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td><span style="color: gray"><em>not a standard feature</em></span></td>
+              <td><span style="color: gray"><em>non-standard feature</em></span></td>
               <td>for i in range(1,10):<br>
                 <span>&nbsp;&nbsp;</span>getattr(o, 'phone'+str(i))(None)
               </td>
@@ -5334,31 +5539,6 @@
               </td>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#lib-path-note">library path</a></td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td>sys.path<br>
-                <br>
-                sys.path.append('/some/path')
-              </td>
-              <td><span style="color: gray"># $: is synonym for $LOAD_PATH:</span><br>
-                $LOAD_PATH<br>
-                <br>
-                $LOAD_PATH <span>&lt;&lt;</span> "/some/path"
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#lib-path-env-note">library path environment variable</a></td>
-              <td>$ NODE_PATH=~/lib node foo.js</td>
-              <td>$ PYTHONPATH=~/lib python foo.py</td>
-              <td>$ RUBYLIB=~/lib ruby foo.rb</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#lib-path-cmd-line-note">library path command line option</a></td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td>$ ruby -I ~/lib foo.rb</td>
-            </tr>
-            <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#simple-global-identifiers-note">simple global identifiers</a></td>
               <td></td>
               <td><span style="color: gray"><em>built-in functions</em></span></td>
@@ -5467,18 +5647,6 @@
               <td>Fu = Foo.dup<br>
                 <br>
                 include Fu
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#pkg-management-note">list installed packages, install a package</a><br>
-                <span>&nbsp;</span>
-              </td>
-              <td></td>
-              <td>$ pip freeze<br>
-                $ pip install jinja2
-              </td>
-              <td>$ gem list<br>
-                $ gem install rails
               </td>
             </tr>
             <tr>
@@ -6310,8 +6478,8 @@
               <td><a href="https://hyperpolyglot.org/scripting2#test-class-note">test class</a></td>
               <td>
                 <span style="color: gray"><em>
-                  not a standard feature<br>
-                  can use packages nodeunit, jasmine, mocha, qunit, etc.
+                  non-standard feature<br>
+                  can be used packages nodeunit, jasmine, mocha, qunit, etc.
                 </em></span>
               </td>
               <td>import unittest<br>
@@ -6423,11 +6591,7 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#test-setup-note">setup</a></td>
-              <td>exports.setUp = function(callback) {<br>
-                <span>&nbsp;&nbsp;</span>console.log('setting up<span>...</span>');<br>
-                <span>&nbsp;&nbsp;</span>callback();<br>
-                }
-              </td>
+              <td></td>
               <td><span style="color: gray"># in class TestFoo:</span><br>
                 def setUp(self):<br>
                 <span>&nbsp;&nbsp;</span>print('setting up')
@@ -6440,11 +6604,7 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#test-teardown-note">teardown</a></td>
-              <td>exports.tearDown = function(callback) {<br>
-                <span>&nbsp;&nbsp;</span>console.log('tearing down<span>...</span>');<br>
-                <span>&nbsp;&nbsp;</span>callback();<br>
-                }
-              </td>
+              <td></td>
               <td><span style="color: gray"># in class TestFoo:</span><br>
                 def tearDown(self):<br>
                 <span>&nbsp;&nbsp;</span>print('tearing down')
@@ -6453,65 +6613,6 @@
                 def teardown<br>
                 <span>&nbsp;&nbsp;</span>puts "tearing down"<br>
                 end
-              </td>
-            </tr>
-          </tbody>
-
-          <!-- Debugging -->
-          <tbody>
-            <tr>
-              <th colspan="4">
-                <a id="debugging" href="https://hyperpolyglot.org/scripting2#debugging-note">debugging</a>
-              </th>
-            </tr>
-            <tr>
-              <th></th>
-              <th>javascript</th>
-              <th>python</th>
-              <th>ruby</th>
-            </tr>
-            <tr>
-              <td>
-                <a href="https://hyperpolyglot.org/scripting2#check-syntax-note">check syntax</a>
-              </td>
-              <td>$ node -c foo.js</td>
-              <td>import py_compile<br>
-                <br>
-                <span style="color: gray"># precompile to bytecode:</span><br>
-                py_compile.compile('foo.py')
-              </td>
-              <td>$ ruby -c foo.rb</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#check-for-errors-note">check for errors</a></td>
-              <td>$ npm install -g semistandard<br>
-                $ semistandard foo.js
-              </td>
-              <td>$ sudo pip install pylint<br>
-                $ pylint foo.py
-              </td>
-              <td>$ sudo gem install rubocop<br>
-                $ rubocop -D foo.rb
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#check-style-note">check style</a></td>
-              <td>$ npm install -g semistandard<br>
-                $ semistandard foo.js
-              </td>
-              <td>$ sudo pip install pep8<br>
-                $ pep8 foo.py
-              </td>
-              <td>$ sudo gem install rubocop<br>
-                $ rubocop -D foo.rb
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#debugger-note">run debugger</a></td>
-              <td>$ node debug foo.js</td>
-              <td>$ python -m pdb foo.py</td>
-              <td>$ sudo gem install ruby-debug<br>
-                $ rdebug foo.rb
               </td>
             </tr>
             <tr>
@@ -6536,16 +6637,6 @@
                 puts Benchmark.measure do<br>
                 <span>&nbsp;&nbsp;</span>n.times { i += 1 }<br>
                 end
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#profile-note">profile code</a></td>
-              <td>$ node <span>--</span>prof foo.js<br>
-                $ node <span>--</span>prof-process *v8.log
-              </td>
-              <td>$ python -m cProfile foo.py</td>
-              <td>$ sudo gem install ruby-prof<br>
-                $ ruby-prof foo.rb
               </td>
             </tr>
           </tbody>
