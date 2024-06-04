@@ -16,7 +16,7 @@
         <strong>Sheet one: Interaction with the OS</strong>:
         <a href="#version">version and execution</a> |
         <a href="#packages">packages</a> |
-        <a href="#debugging">debugging</a> |
+        <a href="#debugging">debugging</a>
       </p>
       <p>
         <strong>Sheet two: Core features</strong>:
@@ -150,32 +150,6 @@
               <th>ruby</th>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#lib-path-note">library path</a></td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td>sys.path<br>
-                <br>
-                sys.path.append('/some/path')
-              </td>
-              <td><span style="color: gray"># $: is synonym for $LOAD_PATH:</span><br>
-                $LOAD_PATH<br>
-                <br>
-                $LOAD_PATH <span>&lt;&lt;</span> "/some/path"
-              </td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#lib-path-env-note">library path environment variable</a></td>
-              <td>$ NODE_PATH=~/lib node foo.js</td>
-              <td>$ PYTHONPATH=~/lib python foo.py</td>
-              <td>$ RUBYLIB=~/lib ruby foo.rb</td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#lib-path-cmd-line-note">library path command line option</a></td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td><span style="color: gray"><em>none</em></span></td>
-              <td>$ ruby -I ~/lib foo.rb</td>
-            </tr>
-
-            <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#pkg-management-note">list installed packages</a><br>
                 <span>&nbsp;</span>
               </td>
@@ -216,6 +190,31 @@
               </td>
               <td>$ pip uninstall jinja2</td>
               <td>$ gem uninstall rails</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#lib-path-note">library path</a></td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td>sys.path<br>
+                <br>
+                sys.path.append('/some/path')
+              </td>
+              <td><span style="color: gray"># $: is synonym for $LOAD_PATH:</span><br>
+                $LOAD_PATH<br>
+                <br>
+                $LOAD_PATH <span>&lt;&lt;</span> "/some/path"
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#lib-path-env-note">library path environment variable</a></td>
+              <td>$ NODE_PATH=~/lib node foo.js</td>
+              <td>$ PYTHONPATH=~/lib python foo.py</td>
+              <td>$ RUBYLIB=~/lib ruby foo.rb</td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#lib-path-cmd-line-note">library path command line option</a></td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td>$ ruby -I ~/lib foo.rb</td>
             </tr>
           </tbody>
 
@@ -3250,6 +3249,44 @@
               <td></td>
             </tr>
             <tr>
+              <td>saving call context</td>
+              <td>
+                <span style="color: gray">// context creates for each new call</span><br>
+                function f(x, arr = []) {<br>
+                &nbsp;&nbsp;arr.push(x);<br>
+                &nbsp;&nbsp;return arr;<br>
+                }<br>
+                console.log(f(1)); <span style="color: gray">// [1]</span><br>
+                console.log(f(2)); <span style="color: gray">// [2]</span><br>
+                console.log(f(3)); <span style="color: gray">// [3]</span><br>
+              </td>
+              <td>
+                <span style="color: gray">
+                  # context is shared between calls and persists between them
+                </span><br>
+                def f(x, arr=[]):<br>
+                &nbsp;&nbsp;arr.append(x)<br>
+                &nbsp;&nbsp;return arr<br>
+                <br>
+                print(f(1)) <span style="color: gray">// [1]</span><br>
+                print(f(2)) <span style="color: gray">// [1, 2]</span><br>
+                print(f(3)) <span style="color: gray">// [1, 2, 3]</span>
+              </td>
+              <td>
+                <span style="color: gray">
+                  # context creates for each new call
+                </span><br>
+                def f(x, arr: [])<br>
+                &nbsp;&nbsp;arr.append(x)<br>
+                &nbsp;&nbsp;arr<br>
+                end<br>
+                <br>
+                puts f(1) <span style="color: gray"># [1]</span><br>
+                puts f(2) <span style="color: gray"># [2]</span><br>
+                puts f(3) <span style="color: gray"># [3]</span>
+              </td>
+            </tr>
+            <tr>
               <td><a href="https://hyperpolyglot.org/scripting#retval-note">return value</a><br>
                 <span>&nbsp;</span>
               </td>
@@ -3695,6 +3732,17 @@
               <th>ruby</th>
             </tr>
             <tr>
+              <td>empty statemen</td>
+              <td>{}</td>
+              <td>
+                <span style="color: gray">
+                  # can be used when a statement is required syntactically but the program requires no action like loops, function and class definitions, etc.
+                </span><br>
+                pass
+              </td>
+              <td></td>
+            </tr>
+            <tr>
               <td>
                 <a href="https://hyperpolyglot.org/scripting#if-note">if</a><br>
                 <span>&nbsp;</span>
@@ -3736,20 +3784,30 @@
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>break; <span style="color: gray">// without break next expression will be executed</span><br>
                 &nbsp;&nbsp;case 1:<br>
                 &nbsp;&nbsp;case 2:<br>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>console.log('one hit\n');<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>console.log('one-two hit\n');<br>
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>break;<br>
                 &nbsp;&nbsp;default:<br>
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>console.log(n + ' hits\n');<br>
                 }
               </td>
-              <td><span style="color: gray"><em>none</em></span></td>
+              <td>
+                match n:<br>
+                <span>&nbsp;&nbsp;</span>case 0:<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>print('no hits')<br>
+                <span>&nbsp;&nbsp;</span>case 1 | 2:<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>print('one-two hit')<br>
+                <span>&nbsp;&nbsp;</span>case _:<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>print(str(n) + ' hits')
+                <br>
+              </td>
               <td>
                 <span style="color: gray">condition in when can be regex, range, proc, etc.</span><br>
                 case n<br>
                 &nbsp;&nbsp;when 0<br>
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>puts "no hits"<br>
                 &nbsp;&nbsp;when 1<br>
-                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>puts "one hit"<br>
+                &nbsp;&nbsp;when 2<br>
+                <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>puts "one-two hit"<br>
                 else<br>
                 <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>puts "#{n} hits"<br>
                 end
@@ -3769,11 +3827,21 @@
               <td>
                 i = 0<br><br>
                 while i &lt; 100:<br>
-                <span>&nbsp;&nbsp;</span>i += 1
+                <span>&nbsp;&nbsp;</span>i += 1<br>
+                <br>
+                <span style="color: gray">
+                  # can include optional block <em>else</em>
+                  which executes after the loop reaches its final iteration (wihtout break)<br>
+                </span>
               </td>
               <td>
                 i = 0<br><br>
                 while i &lt; 100 do<br>
+                <span>&nbsp;&nbsp;</span>i += 1<br>
+                end<br>
+                <br>
+                <span style="color: gray"><em># or until loop with reverted condition</em></span><br>
+                until i >= 100 do<br>
                 <span>&nbsp;&nbsp;</span>i += 1<br>
                 end
               </td>
@@ -3787,8 +3855,14 @@
                 &nbsp;&nbsp;console.log(i);<br>
                 } while (i < 5);
               </td>
-              <td></td>
-              <td></td>
+              <td><span style="color: gray"><em>none</em></span></td>
+              <td>
+                i = 0<br><br>
+                begin<br>
+                <span>&nbsp;&nbsp;</span>i += 1<br>
+                <span>&nbsp;&nbsp;</span>puts i<br>
+                end while i < 5<br>
+              </td>
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#for-note">for</a></td>
@@ -3808,9 +3882,18 @@
               </td>
               <td>
                 for i in range(1, 11):<br>
-                <span>&nbsp;&nbsp;</span>print(i)
+                <span>&nbsp;&nbsp;</span>print(i)<br>
+                <br>
+                <span style="color: gray">
+                  # can include optional block <em>else</em>
+                  which executes after the loop reaches its final iteration (wihtout break)<br>
+                </span>
               </td>
-              <td><span style="color: gray"><em>none</em></span></td>
+              <td>
+                for a in 1..10 do<br>
+                &nbsp;&nbsp;puts a<br>
+                end
+              </td>
             </tr>
             <tr>
               <td>
@@ -3818,7 +3901,7 @@
                 <span>&nbsp;</span>
               </td>
               <td>
-                for (let i = 30; i &lt; 50; ++i) {<br>
+                for (let i = 30; i &lt;= 50; ++i) {<br>
                 &nbsp;&nbsp;if (i % 7 === 0) {<br>
                 &nbsp;&nbsp;&nbsp;&nbsp; console.log(`first multiple: ${i}`);<br>
                 &nbsp;&nbsp;&nbsp;&nbsp; break;<br>
@@ -3830,10 +3913,15 @@
                 &nbsp;&nbsp;if i % 7 == 0:<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;print(f'first multiple: {i}')<br>
                 &nbsp;&nbsp;&nbsp;&nbsp;break<br>
-                <br>
-                <br>
               </td>
-              <td>break</td>
+              <td>
+                for i in 30..50 do<br>
+                &nbsp;&nbsp;if i % 7 == 0<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;puts "first multiple: #{i}"<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;break<br>
+                &nbsp;&nbsp;end<br>
+                end
+              </td>
             </tr>
             <tr>
               <td>
@@ -3841,7 +3929,7 @@
                 <span>&nbsp;</span>
               </td>
               <td>
-                for (let i = 30; i &lt; 50; ++i) {<br>
+                for (let i = 30; i &lt;= 50; ++i) {<br>
                 <span>&nbsp;&nbsp;</span>if (i % 7 === 0) {<br>
                 <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>continue;<br>
                 <span>&nbsp;&nbsp;</span>}<br>
@@ -3854,7 +3942,14 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;continue<br>
                 &nbsp;&nbsp;print(f'not divisible: {i}')
               </td>
-              <td>next</td>
+              <td>
+                for i in 30..50 do<br>
+                &nbsp;&nbsp;if i % 7 == 0<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;next<br>
+                &nbsp;&nbsp;end<br>
+                &nbsp;&nbsp;puts "not divisible: #{i}"<br>
+                end
+              </td>
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#statement-modifiers-note">statement modifiers</a><br>
@@ -3863,6 +3958,21 @@
               <td><span style="color: gray"><em>none</em></span></td>
               <td>puts "positive" if i &gt; 0<br>
               puts "nonzero" unless i == 0</td>
+            </tr>
+            <tr>
+              <td>with</td>
+              <td>
+                <span style="color: gray"><em>
+                  deprecated statement in JavaScript<br>
+                  use of it is not recommended and forbidden in strict mode
+                </em></span>
+              </td>
+              <td>
+                <span style="color: gray"><em># ensures that a file is properly closed</em></span><br>
+                with open('output.txt', 'w') as f:<br>
+                &nbsp;&nbsp;f.write('Hi there!')
+              </td>
+              <td><span style="color: gray"><em>none</em></span></td>
             </tr>
           </tbody>
 
