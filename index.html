@@ -2000,8 +2000,16 @@
             </tr>
             <tr>
               <td>difference</td>
-              <td><span style="color: gray">none</span></td>
-              <td><span style="color: gray">none</span></td>
+              <td>
+                <span style="color: gray">
+                  none <br>
+                  can use convention into sets and calculate difference
+                </span></td>
+              <td>
+                <span style="color: gray">
+                  none <br>
+                  can use convention into sets and calculate difference
+                </span></td>
               <td>
                 a = [1, 2, 3]<br>
                 b = [1, 2]<br>
@@ -2087,7 +2095,8 @@
               </td>
               <td>
                 a = ['a', 'b', 'c']<br>
-                a.clear()
+                a.clear() <span style="color: gray"># or</span>
+                del a[:]
               </td>
               <td>
                 a = ['a', 'b', 'c']<br>
@@ -2438,11 +2447,7 @@
               <td>d['t'] = 2;<br>
                 d.t = 2;
               </td>
-              <td>d['t'] = 2<br>
-                <br>
-                <span style="color: gray"># provide default to avoid KeyError:</span><br>
-                d.get('t', None)
-              </td>
+              <td>d['t'] = 2</td>
               <td>d['t'] = 2</td>
             </tr>
             <tr>
@@ -2456,6 +2461,8 @@
               <td>d = {}<br>
                 <span style="color: gray"># raises KeyError:</span><br>
                 d['lorem']<br>
+                <span style="color: gray"># provide default to avoid KeyError:</span><br>
+                d.get('t', None)<br>
                 <span style="color: gray"># adds key/value pair:</span><br>
                 d['lorem'] = 'ipsum'
               </td>
@@ -2576,19 +2583,25 @@
               </td>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting#dict-key-val-note">keys and values as arrays</a></td>
+              <td><a href="https://hyperpolyglot.org/scripting#dict-key-val-note">keys and values and their pairs as arrays</a></td>
               <td>
                 Object.keys(d)<br>
-                Object.values(d)
+                Object.values(d)<br>
+                Ojbect.entries(d)
               </td>
-              <td>list(d.keys())<br>
+              <td>
+                <span style="color: gray">
+                  # keys() and values() return iterators<br>
+                  # in Python 3 and lists in Python 2
+                </span><br>
+                list(d.keys())<br>
                 list(d.values())<br>
-                <br>
-                <span style="color: gray"># keys() and values return iterators<br>
-                # in Python 3 and lists in Python 2</span>
+                list(d.items())
               </td>
-              <td>d.keys<br>
-                d.values
+              <td>
+                d.keys<br>
+                d.values<br>
+                d.entries <span style="color: gray"># or d.to_a</span>
               </td>
             </tr>
             <tr>
@@ -2914,6 +2927,19 @@
                 a >= b <span style="color: gray"># or proper_superset?</span><br>
               </td>
             </tr>
+            <tr>
+              <td>weak set</td>
+              <td>
+                <span style="color: gray">// collections of objects and symbols only</span><br>
+                const ws = new WeakSet();<br>
+                const foo = {};<br>
+                ws.add(foo);<br>
+                ws.has(foo); // true<br>
+                ws.add('bar'); // TypeError: Invalid value used in weak set<br>
+              </td>
+              <td><span style="color: gray"># none</span></td>
+              <td><span style="color: gray"># none</span></td>
+            </tr>
           </tbody>
 
           <!-- Frozen objects -->
@@ -2976,10 +3002,27 @@
               </td>
             </tr>
             <tr>
-              <td>check if array is frozen</td>
-              <td>Object.isFrozen(a)</td>
-              <td><span style="color: gray">none</span></td>
-              <td>a.frozen?</td>
+              <td>frozen set</td>
+              <td>
+                <span style="color: gray">// create a set and freeze it as an object</span><br>
+                let s = new Set([1, 2, 3]);<br>
+                Object.freeze(s);<br><br>
+                s.add(4) <span style="color: gray">// TypeError if changing methods are called</span><br>
+                s.delete(1) <span style="color: gray">// TypeError if changing methods are called</span><br>
+              </td>
+              <td>
+                <span style="color: gray">build-in class frozenset</span><br>
+                s = frozenset([1, 2, 3])
+                s.add(4) <span style="color: gray"># AttributeError</span><br>
+                s.remove(1) <span style="color: gray"># AttributeError</span>
+              </td>
+              <td>
+                <span style="color: gray"># create a set and freeze it</span><br>
+                s = Set[1, 2, 3].freeze<br><br>
+                <span style="color: gray"># only reading methods are allowed</span><br>
+                s.add(4) <span style="color: gray"># FrozenError</span><br>
+                s.delete(1) <span style="color: gray"># FrozenError</span>
+              </td>
             </tr>
             <tr>
               <td>frozen dictionary</td>
@@ -2997,10 +3040,10 @@
               </td>
             </tr>
             <tr>
-              <td>check if dictionary is frozen</td>
-              <td>Object.isFrozen(d)</td>
+              <td>check if object is frozen</td>
+              <td>Object.isFrozen(o)</td>
               <td><span style="color: gray">none</span></td>
-              <td>d.frozen?</td>
+              <td>o.frozen?</td>
             </tr>
             <tr>
               <td>partly frozen objects</td>
@@ -3138,7 +3181,9 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#variadic-func-note">variadic function</a></td>
-              <td>function firstAndLast() {<br>
+              <td>
+                <span style="color: gray">pseudo-array <em>arguments</em> is available inside a function</span><br>
+                function firstAndLast() {<br>
                 <span>&nbsp;&nbsp;</span>if (arguments.length &gt;= 1) {<br>
                 <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>console.log('first: ' + arguments[0]);<br>
                 <span>&nbsp;&nbsp;</span>}<br>
