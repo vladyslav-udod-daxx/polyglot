@@ -351,7 +351,7 @@
               <td><a href="https://hyperpolyglot.org/scripting#source-code-encoding-note">source code encoding</a></td>
               <td><span style="color: gray"><em>source is always UTF-16</em></span></td>
               <td>
-                <span style="color: gray"><em>Python 3 source is UTF-8 by default; Python 2 source is US-ASCII</em></span><br>
+                <span style="color: gray"><em>Source is UTF-8 by default</em></span><br>
                 <br>
                 <span style="color: gray"># -*- coding: us-ascii -*-</span>
               </td>
@@ -930,8 +930,6 @@
               </td>
               <td>+ - * / <span style="color: gray"><em>none</em></span> %</td>
               <td>+ - * / // %<br>
-                <br>
-                <span style="color: gray"><em>In Python 2, / performs integer division.</em></span>
               </td>
               <td>+ - * x.fdiv(y) / %</td>
             </tr>
@@ -983,11 +981,7 @@
                 <span>&nbsp;</span>
               </td>
               <td>22 / 7</td>
-              <td>22 / 7<br>
-                <br>
-                <span style="color: gray"># Python 2:</span><br>
-                float(22) / 7
-              </td>
+              <td>22 / 7</td>
               <td>
                 22.0 / 7<br>
                 <br>
@@ -1261,7 +1255,7 @@
                 0x2a
               </td>
               <td>0b101010<br>
-                0o52<span>&nbsp;&nbsp;</span><span style="color: gray"><span>#</span> also 052 in Python 2</span><br>
+                0o52<span>&nbsp;&nbsp;</span><span style="color: gray"><br>
                 0x2a
               </td>
               <td>0b101010<br>
@@ -1304,11 +1298,7 @@
                 <span>&nbsp;</span>
               </td>
               <td>String</td>
-              <td>str<br>
-                <br>
-                <span style="color: gray"># Python 2:</span><br>
-                unicode
-              </td>
+              <td>str</td>
               <td>String</td>
             </tr>
             <tr>
@@ -1323,7 +1313,6 @@
                 "don't say \"no\""<br>
                 "don't " 'say "no"'<br>
                 <br>
-                <span style="color: gray"># Python 2 (and Python 3):</span><br>
                 u'lorem'<br>
                 u"ipsum"
               </td>
@@ -1381,8 +1370,6 @@
                 \u<span style="color: gray"><em>hhhh</em></span> \u{<span style="color: gray"><em>hhhhh</em></span>}
               </td>
               <td>\<span style="color: gray"><em>newline</em></span> \\ \' \" \a \b \f \n \r \t \v \<span style="color: gray"><em>ooo</em></span> \x<span style="color: gray"><em>hh</em></span> \u<span style="color: gray"><em>hhhh</em></span> \U<span style="color: gray"><em>hhhhhhhh</em></span><br>
-                <br>
-                <span style="color: gray"><em>In Python 2,</em> \u <em>and</em> \U <em>only available in string literals with</em> u <em>prefix</em></span>
               </td>
               <td><span style="color: gray"><em>double quoted:</em></span><br>
                 \a \b \c<span style="color: gray"><em>x</em></span> \e \f \n \r \s \t \v \x<span style="color: gray"><em>hh</em></span> \<span style="color: gray"><em>ooo</em></span> \u<span style="color: gray"><em>hhhh</em></span> \u{<span style="color: gray"><em>hhhhh</em></span>}<br>
@@ -1769,10 +1756,7 @@
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#bytes-type-note">byte array type</a></td>
               <td>Buffer</td>
-              <td>bytes<br>
-                <br>
-                <span style="color: gray"># In Python 2, str also byte array type</span>
-              </td>
+              <td>bytes</td>
               <td>Array <span style="color: gray"><em>of</em></span> Fixnum</td>
             </tr>
 
@@ -1789,11 +1773,7 @@
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting#str-to-bytes-note">string to byte array</a></td>
               <td>a = Buffer.from('\u03bb')</td>
-              <td>a = '\u03bb'.encode('utf-8')<br>
-                <br>
-                <span style="color: gray"># Python 2:</span><br>
-                a = u'\u03bb'.encode('utf-8')
-              </td>
+              <td>a = '\u03bb'.encode('utf-8')</td>
               <td>a = "\u03bb".bytes</td>
             </tr>
             <tr>
@@ -2573,10 +2553,7 @@
                 }
               </td>
               <td>for k, v in d.items():<br>
-                <span>&nbsp;&nbsp;</span>print('value at {} is {}'.format(k, v)<br>
-                <br>
-                <span style="color: gray"># Python 2: use iteritems()</span>
-              </td>
+                <span>&nbsp;&nbsp;</span>print('value at {} is {}'.format(k, v)</td>
               <td>d.each do |k,v|<br>
                 <span>&nbsp;&nbsp;</span>puts "value at #{k} is #{v}"<br>
                 end
@@ -2592,7 +2569,6 @@
               <td>
                 <span style="color: gray">
                   # keys() and values() return iterators<br>
-                  # in Python 3 and lists in Python 2
                 </span><br>
                 list(d.keys())<br>
                 list(d.values())<br>
@@ -3486,7 +3462,6 @@
                 <span>&nbsp;&nbsp;</span><span>&nbsp;&nbsp;</span>yield i<br>
                 <br>
                 nays = make_counter()<br>
-                <span style="color: gray"># Python 2: nays.next()</span><br>
                 print(next(nays))<br>
                 <br>
                 for cnt in nays:<br>
@@ -4038,10 +4013,7 @@
               <td><a href="https://hyperpolyglot.org/scripting#base-exc-note">base exception</a></td>
               <td><span style="color: gray"><em>Any value can be thrown.</em></span></td>
               <td>BaseException<br>
-                <br>
-                <span style="color: gray"><em>User-defined exceptions should subclass</em> Exception.</span><br>
-                <br>
-                <span style="color: gray"><em>In Python 2 old-style classes can be thrown.</em></span>
+                <span style="color: gray"><em>User-defined exceptions should subclass</em> Exception.</span>
               </td>
               <td>Exception<br>
                 <br>
@@ -4343,8 +4315,6 @@
                 \S<span>&nbsp;&nbsp;</span>[^<span style="color: gray"><em>Z</em></span>\t\n\r\f\v\x1c\x1d\x1e\x1f\x85]<br>
                 \w [<span style="color: gray"><em>LN</em></span>_]<span>&nbsp;&nbsp;</span><span style="color: gray">L: <em>Letter</em>; N: <em>Number</em></span><br>
                 \W [<span style="color: gray">^<em>LN</em></span>_]<br>
-                <br>
-                <span style="color: gray"><em>In Python 2, the above definitions are used when</em> re.U <em>is in effect.</em></span>
               </td>
               <td>.\p{Digit}<br>
                 \p{^Digit}<br>
@@ -5020,8 +4990,6 @@
               <td></td>
               <td>f = open('/etc/hosts',<br>
                 <span>&nbsp;&nbsp;</span>encoding='utf-8')<br>
-                <br>
-                <span style="color: gray"># Python 2: use codecs.open()</span>
               </td>
               <td>f = File.open("/etc/hosts", "r:utf-8")</td>
             </tr>
@@ -5118,9 +5086,7 @@
                 let f = fs.openSync("/tmp/test", "w");
               </td>
               <td>f = open('/tmp/test', 'w'<br>
-                <span>&nbsp;&nbsp;</span>encoding='utf-8')<br>
-                <br>
-                <span style="color: gray"># Python 2: use codecs.open()</span>
+                <span>&nbsp;&nbsp;</span>encoding='utf-8')
               </td>
               <td>f = File.open("/tmp/test", "w:utf-8")</td>
             </tr>
