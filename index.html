@@ -1010,9 +1010,9 @@
                 <a href="https://hyperpolyglot.org/scripting#power-note">power</a><br>
                 <span>&nbsp;</span>
               </td>
-              <td>Math.pow(2, 32)<br>
-                <br>
-                2 ** 32
+              <td>
+                2 ** 32<br><br>
+                Math.pow(2, 32)
               </td>
               <td>2 <span>**</span> 32</td>
               <td>2 <span>**</span> 32</td>
@@ -5315,6 +5315,186 @@
               <td></td>
             </tr>
             <tr>
+              <td>create promise</td>
+              <td>
+                const myPromise = new Promise((resolve, reject) => {
+                &nbsp;&nbsp;setTimeout(() => resolve("foo"), 1000);<br>
+                });<br><br>
+                let resolved = Promise.resolve('success');<br>
+                let rejected = Promise.reject(new Error('fail'));
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>promise chain</td>
+              <td>
+                new Promise((resolve, reject) => {<br>
+                &nbsp;&nbsp;setTimeout(() => resolve("foo"), 500);<br>
+                })<br>
+                &nbsp;&nbsp;.then(<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;result => {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log(result); <span style="color: gray">// "foo"</span><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return result + " bar";<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;err => console.error("Error: " + err); <span style="color: gray">// Error: foo</span><br>
+                &nbsp;&nbsp;)<br>
+                &nbsp;&nbsp;.then(result => console.log(result)) <span style="color: gray">// "foo bar"</span><br>
+                &nbsp;&nbsp;.catch(err => console.error(err))<br>
+                &nbsp;&nbsp;.finally(() => console.log('finally'))<br>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>define async function</td>
+              <td>
+                <span style="color: gray">// return a promise</span><br>
+                async function custom_async() {<br>
+                &nbsp;&nbsp;console.log('async function');<br>
+                }<br><br>
+              </td>
+              <td>
+                async def custom_coro():<br>
+                &nbsp;&nbsp;print('async function')<br><br>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>invoke async function</td>
+              <td>
+                <span style="color: gray">// invoke as a usual finction</span><br>
+                custom_async();
+              </td>
+              <td>
+                <span style="color: gray"># invoke using asyncio methods</span><br>
+                import asyncio<br>
+                asyncio.run(custom_coro())
+              </td>
+              <td></td>
+            <tr>
+              <td>await</td>
+              <td>
+                <span style="color: gray">// can be used only in async functions</span><br>
+                async function f() {<br>
+                &nbsp;&nbsp;let result = await Promise.resolve(1);<br>
+                &nbsp;&nbsp;console.log(result);<br>
+                }
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>async class method</td>
+              <td>
+                class MyClass {<br>
+                &nbsp;&nbsp;async myMethod() {<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;console.log('hello from async method');<br>
+                &nbsp;&nbsp;}<br>
+                }<br>
+              </td>
+              <td>
+                class MyClass:<br>
+                &nbsp;&nbsp;async def my_method(self):<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;print('hello from async method')<br>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                run async tasks in parallel
+              </td>
+              <td>
+                Promise.all([<br>
+                  new Promise(resolve => setTimeout(() => resolve(1), 3000)), // 1<br>
+                  new Promise(resolve => setTimeout(() => resolve(2), 2000)), // 2<br>
+                  new Promise(resolve => setTimeout(() => resolve(3), 1000))  // 3<br>
+                ]).then(values => console.log(values)); // [1, 2, 3]<br><br>
+              </td>
+              <td>await asyncio.gather(coro1(), coro2(), coro3())</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>
+                run async tasks in parallel as soon as one of them is resolved
+              </td>
+              <td>
+                Promise.race([<br>
+                  // return first successed promise<br>
+                  new Promise(resolve => setTimeout(() => resolve('quick'), 100)),<br>
+                  new Promise(resolve => setTimeout(() => resolve('slow'), 2000)),<br>
+                ]).then(value => console.log(value));<br><br>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>async iterator</td>
+              <td></td>
+              <td>
+                async for item in async_iterator:<br>
+                &nbsp;&nbsp;print(item)
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>async with</td>
+              <td></td>
+              <td>async with</td>
+              <td></td>
+            </tr>
+            <!-- <tr>
+              <td></td>
+              <td>
+                <br>
+                (async function () {<br>
+                  for await (const num of foo()) {<br>
+                    console.log(num);<br>
+                    // Expected output: 1<br>
+                    break; // Closes iterator, triggers return<br>
+                  }<br>
+                })();<br>
+              </td>
+              <td></td>
+              <td></td>
+            </tr> -->
+            <tr>
+              <td>ansync generator</td>
+              <td>
+                async function* foo() {<br>
+                &nbsp;&nbsp;yield 1;<br>
+                &nbsp;&nbsp;yield 2;<br>
+                }<br>
+                <br>
+                async function* generateSequence(start, end) {<br>
+                &nbsp;&nbsp;for (let i = start; i <= end; i++) {<br>
+                &nbsp;&nbsp; &nbsp;&nbsp;await new Promise(resolve => setTimeout(resolve, 1000));<br>
+                &nbsp;&nbsp; &nbsp;&nbsp;yield i;<br>
+                &nbsp;&nbsp;}<br>
+                }<br>
+              </td>
+              <td></td>
+              <td></td>
+            </tr>
+            <!-- <tr>
+              <td></td>
+              <td></td>
+              <td> await asyncio.gather(coro1(), coro2(), coro3())</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>await asyncio.wait(tasks)</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td>asyncio.wait_for(aw, timeout)</td>
+              <td></td>
+            </tr> -->
+            <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#read-file-async-note">read file asynchronously</a></td>
               <td></td>
               <td></td>
@@ -5322,12 +5502,6 @@
             </tr>
             <tr>
               <td><a href="https://hyperpolyglot.org/scripting2#write-file-async-note">write file asynchronously</a></td>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#promise-note">promise</a></td>
               <td></td>
               <td></td>
               <td></td>
