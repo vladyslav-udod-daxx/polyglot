@@ -1828,6 +1828,24 @@
               </td>
               <td>"too<span>&nbsp;&nbsp;&nbsp;</span>much<span>&nbsp;&nbsp;&nbsp;</span>space".squeeze(" ")</td>
             </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting#replace-char-note">replace characters</a></td>
+              <td>
+                <span style="color: gray"><em>// replace first element</em></span>
+                'hello'.replace('l', 'r')
+                <span style="color: gray"><em>// replace all elements</em></span>
+                'hello'.replaceAll(/l/g, 'r')
+              </td>
+              <td>
+                <span style="color: gray"># replace first element:</span><br>
+                'hello'.replace('l', 'r', 1)
+                <span style="color: gray"># replace all elements:</span><br>
+                'hello'.replace('l', 'r')
+              </td>
+              <td>
+                <span style="color: gray"># replace all elements:</span><br>
+                "hello".tr("l", "r")
+              </td>
           </tbody>
 
           <!-- Arrays -->
