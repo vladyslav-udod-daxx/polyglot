@@ -6770,13 +6770,27 @@
               <th>ruby</th>
             </tr>
             <tr>
-              <td><a href="https://hyperpolyglot.org/scripting2#test-class-note">test class</a></td>
+              <td>assert expression</td>
               <td>
                 <span style="color: gray"><em>
                   non-standard feature<br>
                   can be used packages nodeunit, jasmine, mocha, qunit, etc.
                 </em></span>
               </td>
+              <td>
+                <span style="color: gray"><em>raises AssertionError if condition is false</em></span><br>
+                def test():<br>
+                <span>&nbsp;&nbsp;</span>assert True, "not true!"
+              </td>
+              <td>
+                def test<br>
+                <span>&nbsp;&nbsp;</span>assert(true, "not true!")<br>
+                end
+              </td>
+            </tr>
+            <tr>
+              <td><a href="https://hyperpolyglot.org/scripting2#test-class-note">test class</a></td>
+              <td></td>
               <td>import unittest<br>
                 <br>
                 class TestFoo(unittest.TestCase):<br>
